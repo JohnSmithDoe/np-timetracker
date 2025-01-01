@@ -21,7 +21,10 @@ export type TUpdateDTO<T extends IBaseItem> = IBaseItem &
   Partial<T> & { id: string };
 
 export type ITrackingItem = IBaseItem & {
-  trackedTime?: TTimestamp;
+  startTime?: TTimestamp;
+  trackedSeconds?: number;
+  breakTime?: number;
+  state: 'running' | 'stopped' | 'paused';
 };
 
 type TItemListSortType = 'name' | string;
@@ -41,6 +44,7 @@ export interface IItemList<T extends ITrackingItem> {
 
 export type TTrackingList = IItemList<ITrackingItem> & {
   title: 'Time tracking';
+  currentTracker?: number;
 };
 
 export type ITrackingState = Readonly<TTrackingList>;

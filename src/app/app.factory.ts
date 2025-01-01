@@ -12,5 +12,5 @@ export function createBaseItem(name: string): IBaseItem {
 
 export function createTrackingItem(name: string): ITrackingItem {
   const base = createBaseItem(name);
-  return { ...base };
+  return { ...base, state: 'stopped' };
 }

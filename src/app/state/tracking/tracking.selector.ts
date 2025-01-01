@@ -26,3 +26,8 @@ export const selectListItemsTracking = createSelector(
   (state: ITrackingState, result): ITrackingItem[] | undefined =>
     filterAndSortItemList(state, result)
 );
+export const selectRunningTrackingItem = createSelector(
+  selectTrackingState,
+  (state: ITrackingState): ITrackingItem | undefined =>
+    state.items.find((item) => item.state === 'running')
+);

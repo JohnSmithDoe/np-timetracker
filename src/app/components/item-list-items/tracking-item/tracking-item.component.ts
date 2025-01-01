@@ -8,9 +8,6 @@ import {
   Output,
 } from '@angular/core';
 import {
-  IonButton,
-  IonButtons,
-  IonIcon,
   IonItem,
   IonItemOption,
   IonItemOptions,
@@ -24,6 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { ITrackingItem, TColor, TIonDragEvent } from '../../../@types/types';
 import { checkItemOptionsOnDrag } from '../../../app.utils';
+import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
 
 @Component({
   selector: 'app-tracking-item',
@@ -34,9 +32,6 @@ import { checkItemOptionsOnDrag } from '../../../app.utils';
   imports: [
     IonItem,
     IonLabel,
-    IonButton,
-    IonButtons,
-    IonIcon,
     IonReorder,
     TranslateModule,
     NgTemplateOutlet,
@@ -45,6 +40,7 @@ import { checkItemOptionsOnDrag } from '../../../app.utils';
     IonItemOptions,
     IonItemSliding,
     IonText,
+    NpTrackingTimePipe,
   ],
 })
 export class TrackingItemComponent implements OnInit {
@@ -56,7 +52,7 @@ export class TrackingItemComponent implements OnInit {
   @Output() decrement = new EventEmitter<void>();
   @Output() selectItem = new EventEmitter<void>();
   @Output() deleteItem = new EventEmitter<void>();
-  @Output() cartItem = new EventEmitter<void>();
+  @Output() editItem = new EventEmitter<void>();
 
   constructor() {}
 
@@ -81,7 +77,7 @@ export class TrackingItemComponent implements OnInit {
       case 'end':
         return this.emitDeleteItem();
       case 'start':
-        return this.emitCartItem();
+        return this.emitEditItem();
     }
   }
 
@@ -90,9 +86,9 @@ export class TrackingItemComponent implements OnInit {
     this.deleteItem.emit();
   }
 
-  async emitCartItem() {
+  async emitEditItem() {
     await this.ionList.closeSlidingItems();
-    this.cartItem.emit();
+    this.editItem.emit();
   }
 
   // getColor(item: ITrackingItem): TColor {

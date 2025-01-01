@@ -31,6 +31,7 @@ import { SettingsEffects } from './app/state/settings/settings.effects';
 import { settingsReducer } from './app/state/settings/settings.reducer';
 import { trackingReducer } from './app/state/tracking/tracking.reducer';
 import { environment } from './environments/environment';
+import { TrackingEffects } from './app/state/tracking/tracking.effects';
 
 if (environment.production) {
   enableProdMode();
@@ -75,7 +76,8 @@ void bootstrapApplication(AppComponent, {
       MessageEffects,
       ItemListEffects,
       SettingsEffects,
-      DialogsEffects
+      DialogsEffects,
+      TrackingEffects
     ),
     {
       provide: LOCALE_ID,

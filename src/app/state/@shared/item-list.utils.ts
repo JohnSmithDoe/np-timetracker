@@ -96,11 +96,8 @@ export const updateListSort = (
   return result;
 };
 
-export const updatedSearchQuery = (
-  item: IBaseItem,
-  searchQuery: string | undefined
-) => {
-  if (!!item.name && !item.name.includes(searchQuery ?? '')) {
+export const updatedSearchQuery = (item?: IBaseItem, searchQuery?: string) => {
+  if (!!item?.name && !item.name.includes(searchQuery ?? '')) {
     searchQuery = undefined;
   }
   return searchQuery;

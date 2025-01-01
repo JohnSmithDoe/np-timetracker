@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { IonButton } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
@@ -23,7 +22,6 @@ import { EditTrackingItemDialogComponent } from '../../dialogs/edit-tracking-ite
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TranslateModule,
-    IonButton,
     ListPageComponent,
     TrackingItemComponent,
     EditTrackingItemDialogComponent,
@@ -52,12 +50,7 @@ export class TrackingPage implements IonViewWillEnter {
     this.#store.dispatch(TrackingActions.updateSort(type, 'toggle'));
   }
 
-  // changeQuantity(item: ITrackingItem, diff: number) {
-  //   this.#store.dispatch(
-  //     StorageActions.updateItem({
-  //       ...item,
-  //       quantity: Math.max(0, item.quantity + diff),
-  //     })
-  //   );
-  // }
+  toggleTracking(item: ITrackingItem) {
+    this.#store.dispatch(TrackingActions.toggleTrackingItem(item));
+  }
 }

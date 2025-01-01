@@ -14,12 +14,14 @@ export const TrackingActions = createActionGroup({
     'Add Item From Search': emptyProps(),
 
     // Operations
+    'Toggle Tracking Item': (item: ITrackingItem) => ({ item }),
+    'Update Tracking': (item: ITrackingItem) => ({ item }),
 
     'Add Item': (item: ITrackingItem) => ({ item }),
     'Add Item Failure': (item: ITrackingItem) => ({ item }),
 
     'Remove Item': (item: ITrackingItem) => ({ item }),
-    'Update Item': (item: TUpdateDTO<ITrackingItem>) => ({ item }),
+    'Update Item': (item?: TUpdateDTO<ITrackingItem>) => ({ item }),
     'Update Search': (searchQuery?: string) => ({ searchQuery }),
     'Update Sort': (
       sortBy?: TItemListSortType,

@@ -11,7 +11,8 @@
   <app-tracking-item
     [item]="item"
     [ionList]="ionList"
-    (selectItem)="showEditDialog(item)"
+    (editItem)="showEditDialog(item)"
+    (selectItem)="toggleTracking(item)"
     (deleteItem)="removeItem(item)"
   ></app-tracking-item>
 </ng-template>
