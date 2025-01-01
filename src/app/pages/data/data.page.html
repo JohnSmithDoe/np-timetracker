@@ -5,6 +5,7 @@
 ></app-page-header>
 
 <ion-content>
+  <ion-textarea [label]="'CSV'" [value]="dataAsCSV$ | async" ></ion-textarea>
   <ion-list>
     @for (item of (data$ | async); track item.id) {
     <app-text-item
