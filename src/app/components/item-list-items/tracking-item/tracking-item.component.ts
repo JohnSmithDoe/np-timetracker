@@ -1,4 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -41,6 +41,7 @@ import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
     IonItemSliding,
     IonText,
     NpTrackingTimePipe,
+    DatePipe,
   ],
 })
 export class TrackingItemComponent implements OnInit {

@@ -12,6 +12,8 @@
     (selectSortMode)="setSortMode($event)"
   >
     <ng-content select="[toolbarActions]"></ng-content>
+
+    <ng-content toolbarActionsEnd select="[toolbarActionsEnd]"></ng-content>
   </app-item-list-toolbar>
 </app-page-header>
 

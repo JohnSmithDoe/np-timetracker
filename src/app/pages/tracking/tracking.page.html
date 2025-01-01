@@ -1,13 +1,19 @@
 <app-list-page
   class="ion-page"
   color="tracking"
-  pageHeader="{{ 'page-title.tracking' | translate }}"
-  listHeader="{{ 'list-header.tracking' | translate }}"
+  pageHeader="{{ 'page-title.tracking' | translate }} "
+  listHeader="{{ 'list-header.tracking' | translate }}  "
   [itemTemplate]="trackingItem"
 >
-  <ion-button (click)="resetAll()" toolbarActions
-  >Reset All</ion-button
-  >
+  <ng-container listActions>
+    <span slot="end" style="margin-right: 1rem">
+      {{ total$ | async }}
+    </span>
+  </ng-container>
+  <ng-container toolbarActionsEnd>
+    <ion-button (click)="resetAll()" ><ion-icon [icon]="'trash'" slot="start"></ion-icon> Reset All</ion-button>
+    <ion-button (click)="saveAndResetAll()" ><ion-icon [icon]="'save'" slot="start"></ion-icon> Save & Reset</ion-button>
+  </ng-container>
 </app-list-page>
 
 <ng-template #trackingItem let-item let-ionList="ionList">

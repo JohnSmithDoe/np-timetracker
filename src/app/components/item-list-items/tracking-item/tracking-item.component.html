@@ -6,7 +6,11 @@
     <ion-reorder slot="start"></ion-reorder>
     <ion-label class="ion-text-wrap">
       <h2>{{ item.name }}</h2>
-      <ion-note>{{ item.state }} </ion-note>
+      <ion-note>{{ item.state }}
+        @if (item.startTime) {
+          (started: {{ item.startTime | date:'HH:mm'}})
+        }
+      </ion-note>
     </ion-label>
     <ion-label slot="end">
       {{ item | npTrackingTime }}

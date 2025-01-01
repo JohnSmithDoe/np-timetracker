@@ -13,6 +13,7 @@ import * as dayjs from 'dayjs';
 export const initialState: ITrackingState = {
   title: 'Time tracking',
   items: [],
+  data: [],
 };
 
 const startTracking = (state: ITrackingState, item: ITrackingItem) => {
@@ -28,10 +29,11 @@ const startTracking = (state: ITrackingState, item: ITrackingItem) => {
       return {
         ...listItem,
         state: 'running',
+        startTime: listItem.startTime ?? dayjs().format(),
         breakTime: dayjs(item.startTime)
           .add(listItem.trackedSeconds ?? 0, 'seconds')
           .diff(dayjs(), 'seconds'),
-        trackedTime: dayjs().format(),
+        trackedSeconds: listItem.trackedSeconds ?? 0,
       };
     }),
   } as ITrackingState;
@@ -87,6 +89,13 @@ export const trackingReducer = createReducer(
   }),
   on(TrackingActions.resetAllTracking, (state) => {
     return resetTracking(state);
+  }),
+  on(TrackingActions.saveAndResetTracking, (state) => {
+    let data = [...state.data, ...state.items];
+    return {
+      ...resetTracking(state),
+      data,
+    };
   }),
   on(TrackingActions.updateTracking, (state, { item }) => {
     const original = state.items.find((aItem) => aItem.id === item.id);

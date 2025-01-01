@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { add, remove } from 'ionicons/icons';
+import { add, remove, save, trash } from 'ionicons/icons';
 import {
   IonViewWillEnter,
   ITrackingItem,
@@ -14,7 +14,9 @@ import { TrackingActions } from '../../state/tracking/tracking.actions';
 import { TrackingItemComponent } from '../../components/item-list-items/tracking-item/tracking-item.component';
 import { EditTrackingItemDialogComponent } from '../../dialogs/edit-tracking-item-dialog/edit-tracking-item-dialog.component';
 
-import { IonButton } from '@ionic/angular/standalone';
+import { IonButton, IonIcon } from '@ionic/angular/standalone';
+import { AsyncPipe } from '@angular/common';
+import { selectTrackingTime } from '../../state/tracking/tracking.selector';
 
 @Component({
   selector: 'app-page-tracking',
@@ -28,13 +30,16 @@ import { IonButton } from '@ionic/angular/standalone';
     TrackingItemComponent,
     EditTrackingItemDialogComponent,
     IonButton,
+    AsyncPipe,
+    IonIcon,
   ],
 })
 export class TrackingPage implements IonViewWillEnter {
   readonly #store = inject(Store);
 
+  total$ = this.#store.select(selectTrackingTime);
   constructor() {
-    addIcons({ add, remove });
+    addIcons({ add, remove, save, trash });
   }
 
   ionViewWillEnter(): void {
@@ -62,5 +67,9 @@ export class TrackingPage implements IonViewWillEnter {
   }
   resetItem(item: ITrackingItem) {
     this.#store.dispatch(TrackingActions.resetTracking(item));
+  }
+
+  saveAndResetAll() {
+    this.#store.dispatch(TrackingActions.saveAndResetTracking());
   }
 }

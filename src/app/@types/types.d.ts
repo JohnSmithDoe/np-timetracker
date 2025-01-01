@@ -44,7 +44,7 @@ export interface IItemList<T extends ITrackingItem> {
 
 export type TTrackingList = IItemList<ITrackingItem> & {
   title: 'Time tracking';
-  currentTracker?: number;
+  data: ITrackingItem[];
 };
 
 export type ITrackingState = Readonly<TTrackingList>;

@@ -9,6 +9,7 @@ import {
   filterAndSortItemList,
   filterBySearchQuery,
 } from '../@shared/item-list.selector';
+import * as dayjs from 'dayjs';
 
 export const selectTrackingState =
   createFeatureSelector<ITrackingState>('tracking');
@@ -30,4 +31,18 @@ export const selectRunningTrackingItem = createSelector(
   selectTrackingState,
   (state: ITrackingState): ITrackingItem | undefined =>
     state.items.find((item) => item.state === 'running')
+);
+
+export const selectTrackingTime = createSelector(
+  selectTrackingState,
+  (state: ITrackingState) => {
+    const timeInSeconds = state.items.reduce(
+      (cur, prev) => cur + (prev.trackedSeconds ?? 0),
+      0
+    );
+    return dayjs()
+      .startOf('date')
+      .add(timeInSeconds, 'seconds')
+      .format('HH:mm:ss');
+  }
 );

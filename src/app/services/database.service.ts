@@ -22,6 +22,9 @@ export class DatabaseService {
       initialData.settings?.version !== VERSION
     ) {
       if (VERSION === '1') {
+        if (!initialData.settings) {
+          initialData.settings = { showTotalTime: true, version: VERSION };
+        }
         initialData.settings.version = VERSION;
         await this.save('settings', initialData.settings);
       }
@@ -34,7 +37,6 @@ export class DatabaseService {
   }
 
   async save<T extends keyof IDatastore>(key: T, value: IDatastore[T]) {
-    console.log('44:save-', key, value);
     return await this.#storageService.set('npkh-' + key, value);
   }
 }
