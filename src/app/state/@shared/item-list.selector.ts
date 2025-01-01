@@ -45,10 +45,6 @@ export const filterBySearchQuery = <
 export const sortItemListFn = <T extends ITrackingItem>(
   sort?: TItemListSort
 ) => {
-  const MAXPRIO = Number.MAX_SAFE_INTEGER;
-  const MINPRIO = Number.MIN_SAFE_INTEGER;
-  const MAXDATE = '5000-1-1';
-  const MINDATE = '1970-1-1';
   return (a: T, b: T): number => {
     switch (sort?.sortBy) {
       case 'name':
@@ -67,28 +63,14 @@ export const filterAndSortItemList = <
   state: T,
   result?: ISearchResult<R>
 ): R[] => {
-  return (result?.listItems ?? [...state.items])
-    .filter((item) => !state.filterBy)
-    .sort(sortItemListFn<R>(state.sort));
+  return (result?.listItems ?? [...state.items]).sort(
+    sortItemListFn<R>(state.sort)
+  );
 };
-
-export const selectListStateFilter = createSelector(
-  selectListState,
-  (
-    state
-  ): {
-    hasFilter: boolean;
-  } => {
-    return {
-      hasFilter: !!state?.filterBy,
-    };
-  }
-);
 
 export const selectListSearchResult = createSelector(
   selectListState,
-  (state: IAppState) => state,
-  (state, appState): ISearchResult<ITrackingItem> | undefined => {
+  (state): ISearchResult<ITrackingItem> | undefined => {
     return filterBySearchQuery(state);
   }
 );

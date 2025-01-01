@@ -16,7 +16,6 @@ import {
   selectListItems,
   selectListSearchResult,
   selectListState,
-  selectListStateFilter,
 } from '../../../state/@shared/item-list.selector';
 import { DialogsActions } from '../../../state/dialogs/dialogs.actions';
 import { ItemListEmptyComponent } from '../../item-list/item-list-empty/item-list-empty.component';
@@ -52,7 +51,6 @@ export class ListPageComponent {
   @Input({ required: true }) pageHeader!: string;
 
   rxState$ = this.#store.select(selectListState);
-  rxFilter$ = this.#store.select(selectListStateFilter);
   rxItems$ = this.#store.select(selectListItems);
   rxSearchResult$ = this.#store.select(selectListSearchResult);
 

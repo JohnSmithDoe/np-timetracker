@@ -28,10 +28,6 @@ export const trackingReducer = createReducer(
     (state, { searchQuery }): ITrackingState =>
       searchQuery === state.searchQuery ? state : { ...state, searchQuery }
   ),
-  on(
-    TrackingActions.updateFilter,
-    (state, { filterBy }): ITrackingState => ({ ...state, filterBy })
-  ),
   on(TrackingActions.updateSort, (state, { sortBy, sortDir }) => ({
     ...state,
     sort: updateListSort(sortBy, sortDir, state.sort?.sortDir),
@@ -43,7 +39,6 @@ export const trackingReducer = createReducer(
       return {
         ...(datastore.tracking ?? _state),
         searchQuery: undefined,
-        filterBy: undefined,
       };
     }
   )

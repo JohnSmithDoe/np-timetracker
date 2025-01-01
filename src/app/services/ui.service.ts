@@ -34,13 +34,6 @@ export class UiService {
     return this.showToast(msg);
   }
 
-  showAddCategoryToast(name: string) {
-    const msg = this.translate.instant('toast.add.category', {
-      name,
-    });
-    return this.showToast(msg);
-  }
-
   showUpdateItemToast(item: TUpdateDTO<ITrackingItem>) {
     const msg = this.translate.instant('toast.update.item', {
       name: item.name,
@@ -53,14 +46,6 @@ export class UiService {
       name,
     });
     return this.showToast(msg, 'warning');
-  }
-
-  showCopyToShoppingListToast(name: string, quantity: number) {
-    const msg = this.translate.instant('toast.moved.item.shopping', {
-      name,
-      quantity,
-    });
-    return this.showToast(msg);
   }
 
   showItemContainedToast(name: string) {

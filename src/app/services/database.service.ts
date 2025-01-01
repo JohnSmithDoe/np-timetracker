@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { Store } from '@ngrx/store';
-import { IDatastore, IItemList } from '../@types/types';
+import { IDatastore } from '../@types/types';
 import { VERSION } from '../state/settings/settings.reducer';
 
 @Injectable({
@@ -36,10 +36,5 @@ export class DatabaseService {
   async save<T extends keyof IDatastore>(key: T, value: IDatastore[T]) {
     console.log('44:save-', key, value);
     return await this.#storageService.set('npkh-' + key, value);
-  }
-
-  reorder(list: IItemList<any>, from: number, to: number) {
-    const item = list.items.splice(from, 1);
-    list.items.splice(to, 0, ...item);
   }
 }

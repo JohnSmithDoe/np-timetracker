@@ -21,7 +21,6 @@ export const TrackingActions = createActionGroup({
     'Remove Item': (item: ITrackingItem) => ({ item }),
     'Update Item': (item: TUpdateDTO<ITrackingItem>) => ({ item }),
     'Update Search': (searchQuery?: string) => ({ searchQuery }),
-    'Update Filter': (filterBy?: string) => ({ filterBy }),
     'Update Sort': (
       sortBy?: TItemListSortType,
       sortDir?: 'asc' | 'desc' | 'keep' | 'toggle'

@@ -1,5 +1,4 @@
 import {
-  IAppState,
   IBaseItem,
   IListState,
   ITrackingItem,
@@ -97,24 +96,6 @@ export const updateListSort = (
   return result;
 };
 
-export const updateListMode = <
-  T extends IListState<R>,
-  R extends ITrackingItem,
->(
-  state: T
-): T => {
-  const sort: TItemListSort | undefined = updateListSort(
-    'name',
-    'toggle',
-    state.sort?.sortDir
-  );
-  return {
-    ...state,
-    sort: sort,
-    filterBy: state.filterBy,
-  };
-};
-
 export const updatedSearchQuery = (
   item: IBaseItem,
   searchQuery: string | undefined
@@ -124,7 +105,3 @@ export const updatedSearchQuery = (
   }
   return searchQuery;
 };
-
-export const searchQuery = (state: IAppState) =>
-  state.tracking.searchQuery?.trim();
-export const filterBy = (state: IAppState) => state.tracking.filterBy?.trim();

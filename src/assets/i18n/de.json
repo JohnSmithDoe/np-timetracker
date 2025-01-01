@@ -13,17 +13,13 @@
 	"item-list.empty.isempty.note": "Klicke hier um etwas hinzuzufügen oder gib etwas in die Suchleiste ein",
 	"item-list.empty.notfound": "Keine Einträge in der Liste gefunden",
 	"item-list.empty.notfound.note": "Klicke hier um den Eintrag hinzuzufügen",
-	"item-list.quickadd.add": "Zur {{list}} hinzufügen",
-	"list-header.base": "Liste",
 	"list-header.tracking": "Zeiterfassung",
 	"list-header.tracking.search": "Search??????",
 	"page-title.settings": "Einstellungen",
 	"page-title.tracking": "Zeiterfassung",
 	"searchbar.placeholder": "Suchen oder neu anlegen",
-	"toast.add.category": "Kategorie {{name}} wurde hinzugefügt",
 	"toast.add.item": "{{name}} wurde der Liste hinzugefügt",
 	"toast.add.item.failure": "{{name}} ist schon in der Liste enthalten",
-	"toast.moved.item.shopping": "{{name}} wurde der Einkaufsliste hinzugefügt ({{quantity}})",
 	"toast.remove.item": "{{name}} wurde entfernt",
 	"toast.update.item": "{{name}} wurde aktualisiert"
 }

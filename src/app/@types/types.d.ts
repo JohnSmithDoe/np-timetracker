@@ -36,7 +36,6 @@ export interface IItemList<T extends ITrackingItem> {
   title: string;
   items: T[];
   searchQuery?: string;
-  filterBy?: string;
   sort?: TItemListSort;
 }
 

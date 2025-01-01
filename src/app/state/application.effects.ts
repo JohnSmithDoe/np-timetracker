@@ -59,7 +59,7 @@ export class ApplicationEffects {
 
   clearSearch$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(TrackingActions.addItem, TrackingActions.updateFilter),
+      ofType(TrackingActions.addItem),
       map(({ type }) => {
         return TrackingActions.updateSearch('');
       })

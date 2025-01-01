@@ -29,12 +29,6 @@ export const checkItemOptionsOnDrag = (
 export const matchingTxt = (item: IBaseItem | string) =>
   (typeof item === 'string' ? item : item.name).trim().toLowerCase();
 
-export const matchingTxtIsNotEmpty = (item?: IBaseItem | string) =>
-  !!matchingTxt(item ?? '').length;
-
-export const matchingTxtIsEmpty = (item?: IBaseItem | string) =>
-  !matchingTxt(item ?? '').length;
-
 export const matchesNameExactly = (item: IBaseItem, other: IBaseItem) =>
   matchingTxt(item) === matchingTxt(other);
 
@@ -51,9 +45,6 @@ export const matchesItemExactlyIdx = (item: IBaseItem, others: IBaseItem[]) => {
   const found = matchesItemExactly(item, others);
   return others.findIndex((other) => other === found);
 };
-
-export const matchesSearchString = (value: string, searchQuery?: string) =>
-  matchingTxt(value).includes(matchingTxt(searchQuery ?? ''));
 
 export const matchesSearch = (item: IBaseItem | string, searchQuery: string) =>
   matchingTxt(item).includes(matchingTxt(searchQuery));

@@ -95,15 +95,15 @@ export class TrackingItemComponent implements OnInit {
     this.cartItem.emit();
   }
 
-  getColor(item: ITrackingItem): TColor {
-    let result: TColor = 'success';
-    // if (item.minAmount) {
-    //   if (item.quantity === item.minAmount) {
-    //     result = 'warning';
-    //   } else if (item.quantity < item.minAmount) {
-    //     result = 'danger';
-    //   }
-    // }
-    return result;
-  }
+  // getColor(item: ITrackingItem): TColor {
+  //   let result: TColor = 'success';
+  //   // if (item.minAmount) {
+  //   //   if (item.quantity === item.minAmount) {
+  //   //     result = 'warning';
+  //   //   } else if (item.quantity < item.minAmount) {
+  //   //     result = 'danger';
+  //   //   }
+  //   // }
+  //   return result;
+  // }
 }

@@ -26,14 +26,6 @@ export class ItemListEffects {
     );
   });
 
-  // 'Update Filter': (listId:TItemListId, filterBy?: string) => ({ filterBy, listId }),
-  updateFilter = createEffect(() => {
-    return this.#actions$.pipe(
-      ofType(ItemListActions.updateFilter),
-      map(({ filterBy }) => TrackingActions.updateFilter(filterBy))
-    );
-  });
-
   // 'Update Sort': (listId:TItemListId, sortBy?:
   updateSort = createEffect(() => {
     return this.#actions$.pipe(
