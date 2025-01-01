@@ -1,9 +1,13 @@
 <ion-header>
+  <ng-content></ng-content>
   <ion-toolbar [color]="color">
     <ion-buttons slot="start">
       <ion-menu-button> </ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ label | translate }}</ion-title>
+    @if (label) {
+      <ion-title>{{ label | translate }}</ion-title>
+    }
+    <ng-content select="[toolbar]"></ng-content>
     @if (!hideButtons) {
       <ion-buttons slot="end">
         <ion-button (click)="addItem.emit()" [disabled]="disabled">

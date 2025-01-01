@@ -1,10 +1,9 @@
 <app-page-header
   [color]="color"
-  [label]="pageHeader"
   [disabled]="!!(rxSearchResult$ | async)?.exactMatch"
   (addItem)="showCreateDialog()"
 >
-  <app-item-list-searchbar
+  <app-item-list-searchbar toolbar
     [query]="(rxState$ | async)?.searchQuery"
     (queryChange)="searchFor($event)"
     (hitEnter)="addItemFromSearch()"

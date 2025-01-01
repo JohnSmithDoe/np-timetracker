@@ -1,7 +1,11 @@
 :host {
   display: flex;
   flex-direction: column;
-  //height: 100%;
+
+  ion-toolbar {
+    --min-height: 40px;
+  }
+
   ion-list-header {
     background: var(--ion-color-tint);
   }
