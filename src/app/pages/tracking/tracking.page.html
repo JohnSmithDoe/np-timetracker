@@ -5,6 +5,9 @@
   listHeader="{{ 'list-header.tracking' | translate }}"
   [itemTemplate]="trackingItem"
 >
+  <ion-button (click)="resetAll()" toolbarActions
+  >Reset All</ion-button
+  >
 </app-list-page>
 
 <ng-template #trackingItem let-item let-ionList="ionList">
@@ -12,6 +15,7 @@
     [item]="item"
     [ionList]="ionList"
     (editItem)="showEditDialog(item)"
+    (resetItem)="resetItem(item)"
     (selectItem)="toggleTracking(item)"
     (deleteItem)="removeItem(item)"
   ></app-tracking-item>

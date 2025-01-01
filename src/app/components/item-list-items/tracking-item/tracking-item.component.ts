@@ -46,30 +46,16 @@ import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
 export class TrackingItemComponent implements OnInit {
   @Input({ required: true }) item!: ITrackingItem;
   @Input({ required: true }) ionList!: IonList;
-  @Input() color?: TColor;
 
-  @Output() increment = new EventEmitter<void>();
-  @Output() decrement = new EventEmitter<void>();
   @Output() selectItem = new EventEmitter<void>();
   @Output() deleteItem = new EventEmitter<void>();
   @Output() editItem = new EventEmitter<void>();
+  @Output() resetItem = new EventEmitter<void>();
 
   constructor() {}
 
   ngOnInit() {
     if (!this.item) throw new Error('Item must be set');
-  }
-
-  // inner button click
-  incrementQuantity(ev: MouseEvent) {
-    this.increment.emit();
-    ev.stopPropagation();
-  }
-
-  // inner button click
-  decrementQuantity(ev: MouseEvent) {
-    this.decrement.emit();
-    ev.stopPropagation();
   }
 
   async handleItemOptionsOnDrag(ev: TIonDragEvent) {
@@ -91,15 +77,18 @@ export class TrackingItemComponent implements OnInit {
     this.editItem.emit();
   }
 
-  // getColor(item: ITrackingItem): TColor {
-  //   let result: TColor = 'success';
-  //   // if (item.minAmount) {
-  //   //   if (item.quantity === item.minAmount) {
-  //   //     result = 'warning';
-  //   //   } else if (item.quantity < item.minAmount) {
-  //   //     result = 'danger';
-  //   //   }
-  //   // }
-  //   return result;
-  // }
+  getColor(item: ITrackingItem): TColor {
+    switch (item.state) {
+      case 'running':
+        return 'success';
+      case 'stopped':
+        return 'tracking';
+      case 'paused':
+        return 'warning';
+    }
+  }
+  async emitResetItem() {
+    await this.ionList.closeSlidingItems();
+    this.resetItem.emit();
+  }
 }

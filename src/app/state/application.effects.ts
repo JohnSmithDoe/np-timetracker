@@ -87,7 +87,10 @@ export class ApplicationEffects {
         ofType(
           TrackingActions.addItem,
           TrackingActions.removeItem,
-          TrackingActions.updateItem
+          TrackingActions.updateItem,
+          TrackingActions.updateTracking,
+          TrackingActions.toggleTrackingItem,
+          TrackingActions.resetTracking
         ),
         withLatestFrom(this.#store, (action, state: IAppState) => ({
           action,

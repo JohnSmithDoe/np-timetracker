@@ -1,7 +1,7 @@
 <ng-template #itemTemplate>
-  <ion-item button (click)="selectItem.emit()" lines="full">
+  <ion-item button (click)="selectItem.emit()" lines="full" [class]="'tracking-item-'+item.state">
     <div class="status-bar">
-      <ion-text></ion-text>
+      <ion-text [color]="getColor(item)"></ion-text>
     </div>
     <ion-reorder slot="start"></ion-reorder>
     <ion-label class="ion-text-wrap">
@@ -11,14 +11,6 @@
     <ion-label slot="end">
       {{ item | npTrackingTime }}
     </ion-label>
-<!--    <ion-buttons slot="end">-->
-<!--      <ion-button (click)="incrementQuantity($event)">-->
-<!--        <ion-icon name="add"></ion-icon>-->
-<!--      </ion-button>-->
-<!--      <ion-button (click)="decrementQuantity($event)">-->
-<!--        <ion-icon name="remove"></ion-icon>-->
-<!--      </ion-button>-->
-<!--    </ion-buttons>-->
   </ion-item>
 </ng-template>
 
@@ -26,6 +18,9 @@
   <ion-item-options side="start">
     <ion-item-option color="success" expandable (click)="emitEditItem()">
       Edit
+    </ion-item-option>
+    <ion-item-option color="warning" (click)="emitResetItem()">
+      Reset
     </ion-item-option>
   </ion-item-options>
 

@@ -15,7 +15,12 @@ export const TrackingActions = createActionGroup({
 
     // Operations
     'Toggle Tracking Item': (item: ITrackingItem) => ({ item }),
+    'Pause Tracking': (item: ITrackingItem) => ({ item }),
+    'Start Tracking': (item: ITrackingItem) => ({ item }),
     'Update Tracking': (item: ITrackingItem) => ({ item }),
+    'Reset Tracking': (item: ITrackingItem) => ({ item }),
+    'Reset All Tracking': emptyProps(),
+    'End Tracking': emptyProps(),
 
     'Add Item': (item: ITrackingItem) => ({ item }),
     'Add Item Failure': (item: ITrackingItem) => ({ item }),

@@ -14,6 +14,8 @@ import { TrackingActions } from '../../state/tracking/tracking.actions';
 import { TrackingItemComponent } from '../../components/item-list-items/tracking-item/tracking-item.component';
 import { EditTrackingItemDialogComponent } from '../../dialogs/edit-tracking-item-dialog/edit-tracking-item-dialog.component';
 
+import { IonButton } from '@ionic/angular/standalone';
+
 @Component({
   selector: 'app-page-tracking',
   templateUrl: 'tracking.page.html',
@@ -25,6 +27,7 @@ import { EditTrackingItemDialogComponent } from '../../dialogs/edit-tracking-ite
     ListPageComponent,
     TrackingItemComponent,
     EditTrackingItemDialogComponent,
+    IonButton,
   ],
 })
 export class TrackingPage implements IonViewWillEnter {
@@ -52,5 +55,12 @@ export class TrackingPage implements IonViewWillEnter {
 
   toggleTracking(item: ITrackingItem) {
     this.#store.dispatch(TrackingActions.toggleTrackingItem(item));
+  }
+
+  resetAll() {
+    this.#store.dispatch(TrackingActions.resetAllTracking());
+  }
+  resetItem(item: ITrackingItem) {
+    this.#store.dispatch(TrackingActions.resetTracking(item));
   }
 }

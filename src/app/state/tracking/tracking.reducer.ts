@@ -28,31 +28,27 @@ const startTracking = (state: ITrackingState, item: ITrackingItem) => {
       return {
         ...listItem,
         state: 'running',
-        breakTime: undefined,
-        startTime: dayjs().format(),
-        trackedSeconds: 0,
-      };
-    }),
-  } as ITrackingState;
-};
-
-const continueTracking = (state: ITrackingState, item: ITrackingItem) => {
-  return {
-    ...state,
-    items: state.items.map((listItem) => {
-      if (listItem.id !== item.id) {
-        return {
-          ...listItem,
-          state: 'stopped',
-        };
-      }
-      return {
-        ...listItem,
-        state: 'running',
         breakTime: dayjs(item.startTime)
           .add(listItem.trackedSeconds ?? 0, 'seconds')
           .diff(dayjs(), 'seconds'),
         trackedTime: dayjs().format(),
+      };
+    }),
+  } as ITrackingState;
+};
+const resetTracking = (state: ITrackingState, item?: ITrackingItem) => {
+  return {
+    ...state,
+    items: state.items.map((listItem) => {
+      if (item && listItem.id !== item.id) {
+        return { ...listItem };
+      }
+      return {
+        ...listItem,
+        state: 'stopped',
+        breakTime: undefined,
+        startTime: undefined,
+        trackedSeconds: undefined,
       };
     }),
   } as ITrackingState;
@@ -80,21 +76,24 @@ export const trackingReducer = createReducer(
       searchQuery === state.searchQuery ? state : { ...state, searchQuery }
   ),
   on(TrackingActions.toggleTrackingItem, (state, { item }) => {
-    if (item.state === 'stopped') {
+    if (item.state !== 'running') {
       return startTracking(state, item);
-    } else if (item.state === 'paused') {
-      return continueTracking(state, item);
     } else {
       return stopTracking(state, item);
     }
   }),
+  on(TrackingActions.resetTracking, (state, { item }) => {
+    return resetTracking(state, item);
+  }),
+  on(TrackingActions.resetAllTracking, (state) => {
+    return resetTracking(state);
+  }),
   on(TrackingActions.updateTracking, (state, { item }) => {
-    const original = state.items.find((item) => item.id === item.id);
+    const original = state.items.find((aItem) => aItem.id === item.id);
 
     return updateListItem(state, {
-      ...item,
-      state: 'running',
-      trackedSeconds: original?.trackedSeconds ?? 0,
+      ...original,
+      trackedSeconds: (original?.trackedSeconds ?? 0) + 1,
     } as ITrackingItem);
   }),
   on(TrackingActions.updateSort, (state, { sortBy, sortDir }) => ({

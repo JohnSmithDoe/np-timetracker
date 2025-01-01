@@ -1,6 +1,12 @@
 :host {
   ion-item {
     --padding-start: 0;
+    &.tracking-item-running {
+      --ion-background-color: #2d7c3e59;
+    }
+    &.tracking-item-paused {
+      --ion-background-color: #ffc4092e;
+    }
   }
 }
 
