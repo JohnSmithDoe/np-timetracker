@@ -7,7 +7,7 @@ import * as dayjs from 'dayjs';
   standalone: true,
 })
 export class NpTrackingTimePipe implements PipeTransform {
-  transform(value: ITrackingItem, ...args: unknown[]): unknown {
+  transform(value: ITrackingItem, ...args: unknown[]): string {
     return dayjs(value.startTime)
       .startOf('date')
       .add(value ? value.trackedSeconds ?? 0 : 0, 'seconds')

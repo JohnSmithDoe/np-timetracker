@@ -2,7 +2,7 @@
   [button]="true"
   (click)="selectCurrent()"
   [color]="color"
-  detail="true"
+  detail="false"
   lines="full"
 >
   <ion-label class="ion-text-wrap">
@@ -13,5 +13,8 @@
   </ion-label>
   @if (helper) {
     <ion-note slot="end" class="text-item-helper">{{ helper }} </ion-note>
+  }
+  @if (time) {
+    <ion-label slot="end" class="text-item-helper">{{ time }} </ion-label>
   }
 </ion-item>

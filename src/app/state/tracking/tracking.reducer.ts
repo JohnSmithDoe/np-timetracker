@@ -91,7 +91,12 @@ export const trackingReducer = createReducer(
     return resetTracking(state);
   }),
   on(TrackingActions.saveAndResetTracking, (state) => {
-    let data = [...state.data, ...state.items];
+    const data: ITrackingItem[] = [
+      ...state.data,
+      ...state.items
+        .filter((item) => !!item.startTime)
+        .map((item) => ({ ...item, state: 'stopped' }) as ITrackingItem),
+    ].sort((a, b) => dayjs(a.startTime).diff(b.startTime));
     return {
       ...resetTracking(state),
       data,

@@ -5,12 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {
-  IonItem,
-  IonLabel,
-  IonListHeader,
-  IonNote,
-} from '@ionic/angular/standalone';
+import { IonItem, IonLabel, IonNote } from '@ionic/angular/standalone';
 import { TColor } from '../../../@types/types';
 
 @Component({
@@ -19,13 +14,14 @@ import { TColor } from '../../../@types/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './text-item.component.html',
   styleUrls: ['./text-item.component.scss'],
-  imports: [IonItem, IonLabel, IonListHeader, IonNote],
+  imports: [IonItem, IonLabel, IonNote],
 })
 export class TextItemComponent {
   @Input() label?: string | null;
   @Input() color?: TColor;
   @Input() helper?: string;
-  @Input() note?: string;
+  @Input() time?: string;
+  @Input() note?: string | null;
 
   @Output() selectItem = new EventEmitter<void>();
 

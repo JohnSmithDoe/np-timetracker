@@ -1,0 +1,18 @@
+<app-page-header
+  color="tracking"
+  [label]="'page-title.data' | translate"
+  hideButtons="true"
+></app-page-header>
+
+<ion-content>
+  <ion-list>
+    @for (item of (data$ | async); track item.id) {
+    <app-text-item
+      [label]="item.name"
+      [note]="(item?.startTime ?? '') | date:'dd-MM HH:mm:ss'"
+      [time]="item | npTrackingTime"
+    ></app-text-item>
+    }
+  </ion-list>
+</ion-content>
+

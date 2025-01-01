@@ -14,6 +14,11 @@ import * as dayjs from 'dayjs';
 export const selectTrackingState =
   createFeatureSelector<ITrackingState>('tracking');
 
+export const selectTrackingData = createSelector(
+  selectTrackingState,
+  (state: ITrackingState): ITrackingItem[] => state?.data ?? []
+);
+
 export const selectTrackingListSearchResult = createSelector(
   selectTrackingState,
   (state: IAppState) => state,
