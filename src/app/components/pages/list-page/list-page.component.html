@@ -34,8 +34,4 @@
       (emptySearch)="addItemFromSearch()"
     ></app-item-list-empty>
 
-  <app-item-list-search-result
-    [results]="rxSearchResult$ | async"
-    (selectTrackingItem)="addTrackingItem($event)"
-  ></app-item-list-search-result>
 </ion-content>
