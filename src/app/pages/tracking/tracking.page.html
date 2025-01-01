@@ -1,0 +1,22 @@
+<app-list-page
+  class="ion-page"
+  color="tracking"
+  pageHeader="{{ 'page-title.tracking' | translate }}"
+  listHeader="{{ 'list-header.tracking' | translate }}"
+  [itemTemplate]="trackingItem"
+>
+  <ion-button (click)="setSortMode('bestBefore')" toolbarActions
+    >Mhd</ion-button
+  >
+</app-list-page>
+
+<ng-template #trackingItem let-item let-ionList="ionList">
+  <app-tracking-item
+    [item]="item"
+    [ionList]="ionList"
+    (selectItem)="showEditDialog(item)"
+    (deleteItem)="removeItem(item)"
+  ></app-tracking-item>
+</ng-template>
+
+<app-edit-tracking-item-dialog></app-edit-tracking-item-dialog>

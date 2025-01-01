@@ -1,0 +1,7 @@
+{
+  "name": "np-time-tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
