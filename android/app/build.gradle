@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    signingConfigs {
+      release {
+      }
+    }
+  buildToolsVersion '35.0.0'
     namespace "np.afterwork.timetracker"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
