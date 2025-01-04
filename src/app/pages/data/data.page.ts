@@ -1,18 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { IonViewWillEnter } from '../../@types/types';
+import { IonViewWillEnter, ITrackingItem } from '../../@types/types';
 import { TrackingActions } from '../../state/tracking/tracking.actions';
 
 import { IonButton, IonContent, IonList } from '@ionic/angular/standalone';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   selectTrackingData,
   selectTrackingTime,
 } from '../../state/tracking/tracking.selector';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
-import { TextItemComponent } from '../../components/item-list-items/text-item/text-item.component';
-import { NpTrackingTimePipe } from '../../pipes/np-tracking-time.pipe';
+import { DataItemComponent } from '../../components/item-list-items/data-item/data-item.component';
 
 @Component({
   selector: 'app-page-tracking',
@@ -26,10 +25,8 @@ import { NpTrackingTimePipe } from '../../pipes/np-tracking-time.pipe';
     IonContent,
     IonList,
     PageHeaderComponent,
-    TextItemComponent,
-    DatePipe,
-    NpTrackingTimePipe,
     IonButton,
+    DataItemComponent,
   ],
 })
 export class DataPage implements IonViewWillEnter {
@@ -46,5 +43,9 @@ export class DataPage implements IonViewWillEnter {
 
   shareCSV() {
     this.#store.dispatch(TrackingActions.shareData());
+  }
+
+  deleteItem(item: ITrackingItem) {
+    this.#store.dispatch(TrackingActions.removeDataItem(item));
   }
 }

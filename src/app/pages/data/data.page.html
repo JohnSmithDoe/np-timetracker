@@ -6,13 +6,13 @@
 
 <ion-content>
   <ion-button (click)="shareCSV()">Share CSV</ion-button>
-  <ion-list>
+  <ion-list #ionList>
     @for (item of (data$ | async); track item.id) {
-    <app-text-item
-      [label]="item.name"
-      [note]="(item?.startTime ?? '') | date:'dd-MM HH:mm:ss'"
-      [time]="item | npTrackingTime"
-    ></app-text-item>
+    <app-data-item
+      [item]="item"
+      [ionList]="ionList"
+      (deleteItem)="deleteItem(item)"
+    ></app-data-item>
     }
   </ion-list>
 </ion-content>

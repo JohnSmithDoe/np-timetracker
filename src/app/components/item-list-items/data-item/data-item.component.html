@@ -1,0 +1,21 @@
+<ng-template #itemTemplate>
+  <ion-item lines="full">
+    <ion-label class="ion-text-wrap">
+      <h2>{{ item.name }}</h2>
+      <ion-note> (started: {{ item.startTime | date:'HH:mm:ss'}}) </ion-note>
+    </ion-label>
+    <ion-label slot="end">
+      {{ item | npTrackingTime }}
+    </ion-label>
+  </ion-item>
+</ng-template>
+
+<ion-item-sliding (ionDrag)="handleItemOptionsOnDrag($event)">
+   <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
+
+  <ion-item-options side="end">
+    <ion-item-option color="danger" expandable (click)="emitDeleteItem()">
+      Delete
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>

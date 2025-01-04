@@ -126,6 +126,14 @@ export const trackingReducer = createReducer(
   on(TrackingActions.updateTracking, (state, { item }): ITrackingState => {
     return updateTracking(state, item);
   }),
+
+  on(TrackingActions.removeDataItem, (state, { item }): ITrackingState => {
+    return {
+      ...state,
+      data: state.data.filter((aitem) => aitem.id !== item.id),
+    };
+  }),
+
   on(TrackingActions.updateSort, (state, { sortBy, sortDir }) => ({
     ...state,
     sort: updateListSort(sortBy, sortDir, state.sort?.sortDir),
