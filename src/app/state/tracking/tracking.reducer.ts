@@ -24,16 +24,24 @@ const startTracking = (state: ITrackingState, item: ITrackingItem) => {
         return {
           ...listItem,
           state: 'stopped',
+          breakTime:
+            listItem.state === 'running'
+              ? dayjs().format()
+              : listItem.breakTime,
         };
       }
+      let breakInSeconds = listItem.breakInSeconds ?? 0;
+      if (listItem.breakTime) {
+        breakInSeconds += dayjs().diff(dayjs(listItem.breakTime), 'seconds');
+      }
+
       return {
         ...listItem,
         state: 'running',
         startTime: listItem.startTime ?? dayjs().format(),
-        breakTime: dayjs(item.startTime)
-          .add(listItem.trackedSeconds ?? 0, 'seconds')
-          .diff(dayjs(), 'seconds'),
-        trackedSeconds: listItem.trackedSeconds ?? 0,
+        breakTime: undefined,
+        breakInSeconds,
+        trackedTimeInSeconds: listItem.trackedTimeInSeconds ?? 0,
       };
     }),
   } as ITrackingState;
@@ -49,6 +57,7 @@ const resetTracking = (state: ITrackingState, item?: ITrackingItem) => {
         ...listItem,
         state: 'stopped',
         breakTime: undefined,
+        breakInSeconds: undefined,
         startTime: undefined,
         trackedSeconds: undefined,
       };
@@ -60,9 +69,21 @@ const stopTracking = (state: ITrackingState, item: ITrackingItem) => {
   return updateListItem(state, {
     ...item,
     state: 'paused',
+    breakTime: dayjs().format(),
   } as ITrackingItem);
 };
 
+const updateTracking = (state: ITrackingState, item: ITrackingItem) => {
+  const original = state.items.find((aItem) => aItem.id === item.id);
+  if (!original) return state;
+  const runningSince = dayjs().diff(dayjs(original.startTime), 'seconds');
+  const time = runningSince - (original.breakInSeconds ?? 0);
+
+  return updateListItem(state, {
+    ...original,
+    trackedTimeInSeconds: time,
+  } as ITrackingItem);
+};
 export const trackingReducer = createReducer(
   initialState,
   on(TrackingActions.addItem, (state, { item }) => addListItem(state, item)),
@@ -102,13 +123,8 @@ export const trackingReducer = createReducer(
       data,
     };
   }),
-  on(TrackingActions.updateTracking, (state, { item }) => {
-    const original = state.items.find((aItem) => aItem.id === item.id);
-
-    return updateListItem(state, {
-      ...original,
-      trackedSeconds: (original?.trackedSeconds ?? 0) + 1,
-    } as ITrackingItem);
+  on(TrackingActions.updateTracking, (state, { item }): ITrackingState => {
+    return updateTracking(state, item);
   }),
   on(TrackingActions.updateSort, (state, { sortBy, sortDir }) => ({
     ...state,
@@ -121,7 +137,7 @@ export const trackingReducer = createReducer(
       return {
         ...(datastore.tracking ?? _state),
         items: (datastore.tracking?.items ?? _state.items).map(
-          (trackingItem) => ({ ...trackingItem, state: 'stopped' })
+          (trackingItem) => ({ ...trackingItem })
         ),
         searchQuery: undefined,
       };

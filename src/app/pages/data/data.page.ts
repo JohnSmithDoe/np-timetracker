@@ -43,7 +43,8 @@ export class DataPage implements IonViewWillEnter {
       [
         'Name,Start Time,Tracked Seconds',
         ...data.map(
-          (item) => item.name + ',' + item.startTime + ',' + item.trackedSeconds
+          (item) =>
+            item.name + ',' + item.startTime + ',' + item.trackedTimeInSeconds
         ),
       ].join('\n')
     )

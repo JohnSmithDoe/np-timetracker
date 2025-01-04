@@ -42,7 +42,7 @@ export const selectTrackingTime = createSelector(
   selectTrackingState,
   (state: ITrackingState) => {
     const timeInSeconds = state.items.reduce(
-      (cur, prev) => cur + (prev.trackedSeconds ?? 0),
+      (cur, prev) => cur + (prev.trackedTimeInSeconds ?? 0),
       0
     );
     return dayjs()

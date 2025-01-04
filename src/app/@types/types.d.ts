@@ -22,8 +22,9 @@ export type TUpdateDTO<T extends IBaseItem> = IBaseItem &
 
 export type ITrackingItem = IBaseItem & {
   startTime?: TTimestamp;
-  trackedSeconds?: number;
-  breakTime?: number;
+  breakTime?: TTimestamp;
+  trackedTimeInSeconds?: number;
+  breakInSeconds?: number;
   state: 'running' | 'stopped' | 'paused';
 };
 

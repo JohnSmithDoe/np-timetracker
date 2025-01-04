@@ -7,6 +7,7 @@ import { selectRunningTrackingItem } from './tracking.selector';
 import { IAppState } from '../../@types/types';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { DatabaseService } from '../../services/database.service';
+import { ApplicationActions } from '../application.actions';
 
 @Injectable({ providedIn: 'root' })
 export class TrackingEffects {
@@ -16,7 +17,10 @@ export class TrackingEffects {
 
   trackTime$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(TrackingActions.toggleTrackingItem),
+      ofType(
+        TrackingActions.toggleTrackingItem,
+        ApplicationActions.loadedSuccessfully
+      ),
       switchMap(() => {
         return interval(1000).pipe(
           withLatestFrom(this.#store.select(selectRunningTrackingItem)),

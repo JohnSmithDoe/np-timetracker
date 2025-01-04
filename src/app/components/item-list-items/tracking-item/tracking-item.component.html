@@ -8,7 +8,10 @@
       <h2>{{ item.name }}</h2>
       <ion-note>{{ item.state }}
         @if (item.startTime) {
-          (started: {{ item.startTime | date:'HH:mm'}})
+          (started: {{ item.startTime | date:'HH:mm:ss'}})
+          (paused: {{ item.breakTime | date:'HH:mm:ss'}})
+          (break s: {{ item.breakInSeconds }})
+          (time s: {{ item.trackedTimeInSeconds }})
         }
       </ion-note>
     </ion-label>
