@@ -19,7 +19,6 @@ import {
 } from '../../../state/@shared/item-list.selector';
 import { DialogsActions } from '../../../state/dialogs/dialogs.actions';
 import { ItemListEmptyComponent } from '../../item-list/item-list-empty/item-list-empty.component';
-import { ItemListSearchResultComponent } from '../../item-list/item-list-search-result/item-list-search-result.component';
 import { ItemListSearchbarComponent } from '../../item-list/item-list-searchbar/item-list-searchbar.component';
 import { ItemListToolbarComponent } from '../../item-list/item-list-toolbar/item-list-toolbar.component';
 import { ItemListComponent } from '../../item-list/item-list.component';
@@ -35,7 +34,6 @@ import { PageHeaderComponent } from '../page-header/page-header.component';
     IonContent,
     ItemListComponent,
     ItemListEmptyComponent,
-    ItemListSearchResultComponent,
     ItemListSearchbarComponent,
     ItemListToolbarComponent,
     PageHeaderComponent,

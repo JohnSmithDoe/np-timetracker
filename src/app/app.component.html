@@ -2,7 +2,7 @@
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu</ion-title>
+        <ion-title>np-time-tracker</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -13,17 +13,18 @@
               button
               routerLink="/home/tracking/_tracking"
               color="tracking"
+              lines="none"
             >
               <ion-label>{{ 'page-title.tracking' | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+<!--          <ion-menu-toggle>-->
+<!--            <ion-item button routerLink="/settings" color="settings">-->
+<!--              <ion-label>{{ 'page-title.settings' | translate }}</ion-label>-->
+<!--            </ion-item>-->
+<!--          </ion-menu-toggle>-->
           <ion-menu-toggle>
-            <ion-item button routerLink="/settings" color="settings">
-              <ion-label>{{ 'page-title.settings' | translate }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle>
-            <ion-item button routerLink="/data" color="data">
+            <ion-item button routerLink="/data" color="data" lines="none">
               <ion-label>{{ 'page-title.data' | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>

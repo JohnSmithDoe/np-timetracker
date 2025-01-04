@@ -22,7 +22,6 @@ export const selectTrackingData = createSelector(
 export const selectTrackingDataAsCSV = createSelector(
   selectTrackingData,
   (data) => {
-    console.log('kajsdklfjaskldjfa###########');
     return [
       'Name,Start Time,Tracked Seconds',
       ...data.map(

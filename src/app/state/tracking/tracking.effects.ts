@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { interval, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { interval, map, switchMap, withLatestFrom } from 'rxjs';
 import { TrackingActions } from './tracking.actions';
 import {
   selectRunningTrackingItem,
@@ -57,13 +57,8 @@ export class TrackingEffects {
     () => {
       return this.#actions$.pipe(
         ofType(TrackingActions.shareData),
-        tap(() => {
-          console.log('kasdjfklasjdlkföjaslkfjaslkdfj');
-        }),
         withLatestFrom(this.#store.select(selectTrackingDataAsCSV)),
         switchMap(([action, csv]) => {
-          debugger;
-          console.log(csv);
           return fromPromise(
             Share.share({
               title: 'Zeiterfassung als CSV',
