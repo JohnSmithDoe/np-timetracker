@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonViewWillEnter } from '../../@types/types';
 import { TrackingActions } from '../../state/tracking/tracking.actions';
 
-import { IonContent, IonList, IonTextarea } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonList } from '@ionic/angular/standalone';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import {
   selectTrackingData,
@@ -13,7 +13,6 @@ import {
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
 import { TextItemComponent } from '../../components/item-list-items/text-item/text-item.component';
 import { NpTrackingTimePipe } from '../../pipes/np-tracking-time.pipe';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-page-tracking',
@@ -30,7 +29,7 @@ import { map } from 'rxjs';
     TextItemComponent,
     DatePipe,
     NpTrackingTimePipe,
-    IonTextarea,
+    IonButton,
   ],
 })
 export class DataPage implements IonViewWillEnter {
@@ -38,20 +37,14 @@ export class DataPage implements IonViewWillEnter {
 
   total$ = this.#store.select(selectTrackingTime);
   data$ = this.#store.select(selectTrackingData);
-  dataAsCSV$ = this.data$.pipe(
-    map((data) =>
-      [
-        'Name,Start Time,Tracked Seconds',
-        ...data.map(
-          (item) =>
-            item.name + ',' + item.startTime + ',' + item.trackedTimeInSeconds
-        ),
-      ].join('\n')
-    )
-  );
+
   constructor() {}
 
   ionViewWillEnter(): void {
     this.#store.dispatch(TrackingActions.enterPage());
+  }
+
+  shareCSV() {
+    this.#store.dispatch(TrackingActions.shareData());
   }
 }

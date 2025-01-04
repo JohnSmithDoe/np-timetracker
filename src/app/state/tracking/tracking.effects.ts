@@ -1,13 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { interval, map, switchMap, withLatestFrom } from 'rxjs';
+import { interval, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { TrackingActions } from './tracking.actions';
-import { selectRunningTrackingItem } from './tracking.selector';
+import {
+  selectRunningTrackingItem,
+  selectTrackingDataAsCSV,
+} from './tracking.selector';
 import { IAppState } from '../../@types/types';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { DatabaseService } from '../../services/database.service';
 import { ApplicationActions } from '../application.actions';
+import { Share } from '@capacitor/share';
 
 @Injectable({ providedIn: 'root' })
 export class TrackingEffects {
@@ -43,6 +47,30 @@ export class TrackingEffects {
         })),
         map(({ action, state }) => {
           return fromPromise(this.#database.save('tracking', state.tracking));
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  shareData$ = createEffect(
+    () => {
+      return this.#actions$.pipe(
+        ofType(TrackingActions.shareData),
+        tap(() => {
+          console.log('kasdjfklasjdlkföjaslkfjaslkdfj');
+        }),
+        withLatestFrom(this.#store.select(selectTrackingDataAsCSV)),
+        switchMap(([action, csv]) => {
+          debugger;
+          console.log(csv);
+          return fromPromise(
+            Share.share({
+              title: 'Zeiterfassung als CSV',
+              text: csv,
+              dialogTitle: 'Sharing is caring',
+            })
+          );
         })
       );
     },

@@ -22,6 +22,7 @@ export const TrackingActions = createActionGroup({
     'Reset All Tracking': emptyProps(),
     'Save And Reset Tracking': emptyProps(),
     'End Tracking': emptyProps(),
+    'Share Data': emptyProps(),
 
     'Add Item': (item: ITrackingItem) => ({ item }),
     'Add Item Failure': (item: ITrackingItem) => ({ item }),

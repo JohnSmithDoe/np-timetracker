@@ -19,6 +19,20 @@ export const selectTrackingData = createSelector(
   (state: ITrackingState): ITrackingItem[] => state?.data ?? []
 );
 
+export const selectTrackingDataAsCSV = createSelector(
+  selectTrackingData,
+  (data) => {
+    console.log('kajsdklfjaskldjfa###########');
+    return [
+      'Name,Start Time,Tracked Seconds',
+      ...data.map(
+        (item) =>
+          item.name + ',' + item.startTime + ',' + item.trackedTimeInSeconds
+      ),
+    ].join('\n');
+  }
+);
+
 export const selectTrackingListSearchResult = createSelector(
   selectTrackingState,
   (state: IAppState) => state,
