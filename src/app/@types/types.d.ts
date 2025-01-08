@@ -36,20 +36,20 @@ export type TItemListSort = {
   sortBy: TItemListSortType;
 };
 
-export interface IItemList<T extends ITrackingItem> {
+export interface IItemList<T extends IBaseItem> {
   title: string;
   items: T[];
   searchQuery?: string;
   sort?: TItemListSort;
 }
 
-export type TTrackingList = IItemList<ITrackingItem> & {
+export type IListState<T extends IBaseItem> = IItemList<T>;
+
+export type TTrackingList = IListState<ITrackingItem> & {
   title: 'Time tracking';
   data: ITrackingItem[];
 };
-
-export type ITrackingState = Readonly<TTrackingList>;
-export type IListState<T extends ITrackingItem> = IItemList<T>;
+export type ITrackingState = TTrackingList;
 
 export interface ISettings {
   showTotalTime: boolean;

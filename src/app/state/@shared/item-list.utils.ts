@@ -1,5 +1,6 @@
 import {
   IBaseItem,
+  IItemList,
   IListState,
   ITrackingItem,
   TItemListSort,
@@ -49,10 +50,7 @@ export const removeListItems = <
   };
 };
 
-export const updateListItem = <
-  T extends IListState<R>,
-  R extends ITrackingItem,
->(
+export const updateListItem = <T extends IItemList<R>, R extends IBaseItem>(
   state: T,
   item: TUpdateDTO<R> | undefined
 ): T => {

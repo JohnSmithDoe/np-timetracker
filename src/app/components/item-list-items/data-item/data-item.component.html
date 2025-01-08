@@ -2,7 +2,9 @@
   <ion-item lines="full">
     <ion-label class="ion-text-wrap">
       <h2>{{ item.name }}</h2>
-      <ion-note> (started: {{ item.startTime | date:'HH:mm:ss'}}) </ion-note>
+      <ion-note>
+        {{'tracking.item.start' | translate: {time: item.startTime | date:'HH:mm'} }}
+      </ion-note>
     </ion-label>
     <ion-label slot="end">
       {{ item | npTrackingTime }}

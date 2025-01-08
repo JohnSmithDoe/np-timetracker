@@ -90,19 +90,17 @@ export class ApplicationEffects {
           TrackingActions.updateItem,
           TrackingActions.updateTracking,
           TrackingActions.toggleTrackingItem,
-          TrackingActions.resetTracking
+          TrackingActions.resetTracking,
+          TrackingActions.saveAndResetTracking,
+          TrackingActions.resetAllTracking,
+          TrackingActions.removeDataItem
         ),
         withLatestFrom(this.#store, (action, state: IAppState) => ({
           action,
           state,
         })),
         map(({ action, state }) => {
-          const type = action.type;
-          if (type.startsWith('[Tracking]')) {
-            return fromPromise(this.#database.save('tracking', state.tracking));
-          } else {
-            throw Error('should not happen');
-          }
+          return fromPromise(this.#database.save('tracking', state.tracking));
         })
       );
     },

@@ -9,6 +9,7 @@ import {
 import { ApplicationActions } from '../application.actions';
 import { TrackingActions } from './tracking.actions';
 import * as dayjs from 'dayjs';
+import { uuidv4 } from '../../app.utils';
 
 export const initialState: ITrackingState = {
   title: 'Time tracking',
@@ -16,7 +17,10 @@ export const initialState: ITrackingState = {
   data: [],
 };
 
-const startTracking = (state: ITrackingState, item: ITrackingItem) => {
+const startTracking = (
+  state: ITrackingState,
+  item: ITrackingItem
+): ITrackingState => {
   return {
     ...state,
     items: state.items.map((listItem) => {
@@ -44,12 +48,15 @@ const startTracking = (state: ITrackingState, item: ITrackingItem) => {
         trackedTimeInSeconds: listItem.trackedTimeInSeconds ?? 0,
       };
     }),
-  } as ITrackingState;
+  };
 };
-const resetTracking = (state: ITrackingState, item?: ITrackingItem) => {
+const resetTracking = (
+  state: ITrackingState,
+  item?: ITrackingItem
+): ITrackingState => {
   return {
     ...state,
-    items: state.items.map((listItem) => {
+    items: state.items.map((listItem): ITrackingItem => {
       if (item && listItem.id !== item.id) {
         return { ...listItem };
       }
@@ -59,30 +66,51 @@ const resetTracking = (state: ITrackingState, item?: ITrackingItem) => {
         breakTime: undefined,
         breakInSeconds: undefined,
         startTime: undefined,
-        trackedSeconds: undefined,
+        trackedTimeInSeconds: undefined,
       };
     }),
-  } as ITrackingState;
+  };
 };
 
-const stopTracking = (state: ITrackingState, item: ITrackingItem) => {
-  return updateListItem(state, {
+const stopTracking = (
+  state: ITrackingState,
+  item: ITrackingItem
+): ITrackingState => {
+  return updateListItem<ITrackingState, ITrackingItem>(state, {
     ...item,
     state: 'paused',
     breakTime: dayjs().format(),
-  } as ITrackingItem);
+  });
 };
 
-const updateTracking = (state: ITrackingState, item: ITrackingItem) => {
+const updateTracking = (
+  state: ITrackingState,
+  item: ITrackingItem
+): ITrackingState => {
   const original = state.items.find((aItem) => aItem.id === item.id);
   if (!original) return state;
   const runningSince = dayjs().diff(dayjs(original.startTime), 'seconds');
   const time = runningSince - (original.breakInSeconds ?? 0);
 
-  return updateListItem(state, {
+  return updateListItem<ITrackingState, ITrackingItem>(state, {
     ...original,
     trackedTimeInSeconds: time,
-  } as ITrackingItem);
+  });
+};
+
+const saveAndReset = (state: ITrackingState): ITrackingState => {
+  const data: ITrackingItem[] = [
+    ...state.data,
+    ...state.items
+      .filter((item) => !!item.startTime)
+      .map(
+        (item): ITrackingItem => ({ ...item, state: 'stopped', id: uuidv4() }) // save with new id
+      ),
+  ].sort((a, b) => dayjs(a.startTime).diff(b.startTime));
+  return {
+    ...resetTracking(state),
+    data,
+  };
 };
 export const trackingReducer = createReducer(
   initialState,
@@ -112,16 +140,7 @@ export const trackingReducer = createReducer(
     return resetTracking(state);
   }),
   on(TrackingActions.saveAndResetTracking, (state) => {
-    const data: ITrackingItem[] = [
-      ...state.data,
-      ...state.items
-        .filter((item) => !!item.startTime)
-        .map((item) => ({ ...item, state: 'stopped' }) as ITrackingItem),
-    ].sort((a, b) => dayjs(a.startTime).diff(b.startTime));
-    return {
-      ...resetTracking(state),
-      data,
-    };
+    return saveAndReset(state);
   }),
   on(TrackingActions.updateTracking, (state, { item }): ITrackingState => {
     return updateTracking(state, item);

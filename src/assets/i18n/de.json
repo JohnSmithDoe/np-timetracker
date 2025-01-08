@@ -22,5 +22,12 @@
 	"toast.add.item": "{{name}} wurde der Liste hinzugefügt",
 	"toast.add.item.failure": "{{name}} ist schon in der Liste enthalten",
 	"toast.remove.item": "{{name}} wurde entfernt",
-	"toast.update.item": "{{name}} wurde aktualisiert"
+	"toast.update.item": "{{name}} wurde aktualisiert",
+	"tracking.item.break": " - {{time}}",
+	"tracking.item.breaktime": "({{time}}min Pause)",
+	"tracking.item.nobreak": " - jetzt",
+	"tracking.item.start": "{{time}}",
+	"tracking.item.state.running": "läuft",
+	"tracking.item.state.stopped": "angehalten",
+	"tracking.item.state.paused": "pausiert"
 }

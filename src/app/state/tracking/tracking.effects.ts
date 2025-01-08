@@ -7,7 +7,6 @@ import {
   selectRunningTrackingItem,
   selectTrackingDataAsCSV,
 } from './tracking.selector';
-import { IAppState } from '../../@types/types';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { DatabaseService } from '../../services/database.service';
 import { ApplicationActions } from '../application.actions';
@@ -36,22 +35,6 @@ export class TrackingEffects {
       })
     );
   });
-
-  saveAndReset$ = createEffect(
-    () => {
-      return this.#actions$.pipe(
-        ofType(TrackingActions.saveAndResetTracking),
-        withLatestFrom(this.#store, (action, state: IAppState) => ({
-          action,
-          state,
-        })),
-        map(({ action, state }) => {
-          return fromPromise(this.#database.save('tracking', state.tracking));
-        })
-      );
-    },
-    { dispatch: false }
-  );
 
   shareData$ = createEffect(
     () => {
