@@ -2,12 +2,12 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
-    loadChildren: () =>
-      import('./pages/home/home.routes').then((m) => m.routes),
+    path: 'tracking/_tracking',
+    loadComponent: () =>
+      import('./pages/tracking/tracking.page').then((m) => m.TrackingPage),
   },
   {
-    path: 'data',
+    path: 'data/:listId',
     loadComponent: () =>
       import('./pages/data/data.page').then((m) => m.DataPage),
   },
@@ -17,8 +17,8 @@ export const routes: Routes = [
       import('./pages/settings/settings.page').then((m) => m.SettingsPage),
   },
   {
-    path: '',
-    redirectTo: 'home',
+    path: '**',
+    redirectTo: 'tracking/_tracking',
     pathMatch: 'full',
   },
 ];

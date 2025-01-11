@@ -8,7 +8,6 @@ import {
   selectTrackingDataAsCSV,
 } from './tracking.selector';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { DatabaseService } from '../../services/database.service';
 import { ApplicationActions } from '../application.actions';
 import { Share } from '@capacitor/share';
 
@@ -16,7 +15,6 @@ import { Share } from '@capacitor/share';
 export class TrackingEffects {
   #actions$ = inject(Actions);
   #store = inject(Store);
-  #database = inject(DatabaseService);
 
   trackTime$ = createEffect(() => {
     return this.#actions$.pipe(
@@ -27,7 +25,7 @@ export class TrackingEffects {
       switchMap(() => {
         return interval(1000).pipe(
           withLatestFrom(this.#store.select(selectRunningTrackingItem)),
-          map(([interval, item]) => {
+          map(([, item]) => {
             if (!item) return TrackingActions.endTracking();
             return TrackingActions.updateTracking(item);
           })
@@ -41,7 +39,7 @@ export class TrackingEffects {
       return this.#actions$.pipe(
         ofType(TrackingActions.shareData),
         withLatestFrom(this.#store.select(selectTrackingDataAsCSV)),
-        switchMap(([action, csv]) => {
+        switchMap(([, csv]) => {
           return fromPromise(
             Share.share({
               title: 'Zeiterfassung als CSV',

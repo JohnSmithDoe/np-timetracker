@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   IAppState,
+  IDataItem,
   ISearchResult,
   ITrackingItem,
   ITrackingState,
@@ -10,24 +11,78 @@ import {
   filterBySearchQuery,
 } from '../@shared/item-list.selector';
 import * as dayjs from 'dayjs';
+import { NpTimeFromDataItemPipe } from '../../pipes/np-time-from-data-item.pipe';
 
 export const selectTrackingState =
   createFeatureSelector<ITrackingState>('tracking');
 
+const getKey = (trackingItem: ITrackingItem, listId: string) => {
+  if (listId === '_daily' || listId === '_today') {
+    return dayjs(trackingItem.startTime).format('YYYYMMDD');
+  } else if (listId === '_monthly') {
+    return dayjs(trackingItem.startTime).format('YYYYMM');
+  } else if (listId === '_all') {
+    return '';
+  } else {
+    return dayjs(trackingItem.startTime).format('YYYYMMDDHHmm');
+  }
+};
+const groupBy = (data: ITrackingItem[], listId: string) => {
+  const map: Record<string, IDataItem> = {};
+  if (listId === '_today') {
+    data = data.filter((item) => dayjs(item.startTime).isSame(dayjs(), 'day'));
+  }
+  data.forEach((trackingItem) => {
+    let key = getKey(trackingItem, listId);
+    key += trackingItem.name;
+    const current = map[key]?.trackedTimeInSeconds ?? 0;
+    map[key] = {
+      ...trackingItem,
+      trackedTimeInSeconds: current + (trackingItem.trackedTimeInSeconds ?? 0),
+    };
+  });
+
+  return Object.values(map);
+};
+
+export const selectTrackingDataViewId = createSelector(
+  selectTrackingState,
+  (state: ITrackingState) => {
+    let listId = state?.dataViewId;
+    return listId ?? '_today';
+  }
+);
 export const selectTrackingData = createSelector(
   selectTrackingState,
-  (state: ITrackingState): ITrackingItem[] => state?.data ?? []
+  selectTrackingDataViewId,
+  (state: ITrackingState, listId): IDataItem[] => {
+    let data = state?.data ?? [];
+    return groupBy(data, listId);
+  }
 );
 
+const timePipe = new NpTimeFromDataItemPipe();
 export const selectTrackingDataAsCSV = createSelector(
   selectTrackingData,
-  (data) => {
+  selectTrackingDataViewId,
+  (data, viewId) => {
     return [
-      'Name,Start Time,Tracked Seconds',
-      ...data.map(
-        (item) =>
-          item.name + ',' + item.startTime + ',' + item.trackedTimeInSeconds
-      ),
+      'Name,Start Time,Tracked (s), Tracked Time (HH:mm:ss)',
+      ...data.map((item) => {
+        const rounded = dayjs()
+          .startOf('date')
+          .add(item.trackedTimeInSeconds ?? 0, 'seconds')
+          .format('HH:mm:ss');
+        return (
+          item.name +
+          ',' +
+          timePipe.transform(item, viewId) +
+          ',' +
+          item.trackedTimeInSeconds +
+          ',' +
+          rounded
+        );
+      }),
     ].join('\n');
   }
 );

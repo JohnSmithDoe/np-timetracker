@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, withLatestFrom } from 'rxjs';
 import { IAppState } from '../../@types/types';
@@ -21,7 +21,7 @@ export class DialogsEffects {
   confirmItemChanges$ = createEffect(() => {
     return this.#actions$.pipe(
       ofType(DialogsActions.confirmChanges),
-      concatLatestFrom(() => this.#store.select(selectEditState)),
+      withLatestFrom(this.#store.select(selectEditState)),
       map(([_, state]) => {
         return TrackingActions.addOrUpdateItem(<any>state.item);
       })

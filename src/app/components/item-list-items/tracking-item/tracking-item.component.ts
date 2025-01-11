@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ITrackingItem, TColor, TIonDragEvent } from '../../../@types/types';
 import { checkItemOptionsOnDrag } from '../../../app.utils';
 import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
-import { NpTimeFromSecondsPipe } from '../../../pipes/np-time-from-seconds.pipe';
+import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-seconds.pipe';
 
 @Component({
   selector: 'app-tracking-item',
@@ -43,7 +43,8 @@ import { NpTimeFromSecondsPipe } from '../../../pipes/np-time-from-seconds.pipe'
     IonText,
     NpTrackingTimePipe,
     DatePipe,
-    NpTimeFromSecondsPipe,
+    NpTimeFromDataItemPipe,
+    NpTimeFromDataItemPipe,
   ],
 })
 export class TrackingItemComponent implements OnInit {

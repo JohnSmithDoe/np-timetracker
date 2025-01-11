@@ -17,9 +17,10 @@ import {
   IonNote,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
-import { ITrackingItem, TIonDragEvent } from '../../../@types/types';
+import { IDataItem, TIonDragEvent } from '../../../@types/types';
 import { checkItemOptionsOnDrag } from '../../../app.utils';
 import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
+import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-data-item.pipe';
 
 @Component({
   selector: 'app-data-item',
@@ -38,10 +39,12 @@ import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
     IonItemSliding,
     NpTrackingTimePipe,
     DatePipe,
+    NpTimeFromDataItemPipe,
   ],
 })
 export class DataItemComponent implements OnInit {
-  @Input({ required: true }) item!: ITrackingItem;
+  @Input({ required: true }) item!: IDataItem;
+  @Input({ required: true }) view!: string;
   @Input({ required: true }) ionList!: IonList;
 
   @Output() deleteItem = new EventEmitter<void>();

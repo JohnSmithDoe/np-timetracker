@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { map, withLatestFrom } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { DatabaseService } from '../../services/database.service';
 import { SettingsActions } from './settings.actions';
@@ -15,7 +15,7 @@ export class SettingsEffects {
   toggleFlag$ = createEffect(() => {
     return this.#actions$.pipe(
       ofType(SettingsActions.toggleFlag),
-      concatLatestFrom(() => this.#store.select(selectSettingsState)),
+      withLatestFrom(this.#store.select(selectSettingsState)),
       map(([{ flag }, settings]) =>
         SettingsActions.updateSettings({
           ...settings,

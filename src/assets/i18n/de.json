@@ -1,4 +1,9 @@
 {
+	"data.page.title.today": "Heute",
+	"data.page.title.all": "Gesamt",
+	"data.page.title.daily": "Pro Tag",
+	"data.page.title.monthly": "Pro Monat",
+	"data.page.title.raw": "Einzeln",
 	"edit-item.dialog.button.close": "Abbrechen",
 	"edit.item.dialog.button.create": "Anlegen",
 	"edit.item.dialog.button.update": "Übernehmen",

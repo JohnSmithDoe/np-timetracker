@@ -3,7 +3,7 @@
     <ion-label class="ion-text-wrap">
       <h2>{{ item.name }}</h2>
       <ion-note>
-        {{'tracking.item.start' | translate: {time: item.startTime | date:'HH:mm'} }}
+        {{'tracking.item.start' | translate: {time: item | npTimeFromDataItem : view} }}
       </ion-note>
     </ion-label>
     <ion-label slot="end">
@@ -15,9 +15,11 @@
 <ion-item-sliding (ionDrag)="handleItemOptionsOnDrag($event)">
    <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
 
-  <ion-item-options side="end">
-    <ion-item-option color="danger" expandable (click)="emitDeleteItem()">
-      Delete
-    </ion-item-option>
-  </ion-item-options>
+  @if (view === '_raw') {
+    <ion-item-options side="end">
+      <ion-item-option color="danger" expandable (click)="emitDeleteItem()">
+        Delete
+      </ion-item-option>
+    </ion-item-options>
+  }
 </ion-item-sliding>

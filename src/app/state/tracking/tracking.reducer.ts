@@ -15,6 +15,7 @@ export const initialState: ITrackingState = {
   title: 'Time tracking',
   items: [],
   data: [],
+  dataViewId: '_all',
 };
 
 const startTracking = (
@@ -112,6 +113,7 @@ const saveAndReset = (state: ITrackingState): ITrackingState => {
     data,
   };
 };
+
 export const trackingReducer = createReducer(
   initialState,
   on(TrackingActions.addItem, (state, { item }) => addListItem(state, item)),
@@ -146,6 +148,10 @@ export const trackingReducer = createReducer(
     return updateTracking(state, item);
   }),
 
+  on(TrackingActions.changeDataView, (state, { viewId }): ITrackingState => {
+    return { ...state, dataViewId: viewId };
+  }),
+
   on(TrackingActions.removeDataItem, (state, { item }): ITrackingState => {
     return {
       ...state,
@@ -167,6 +173,7 @@ export const trackingReducer = createReducer(
           (trackingItem) => ({ ...trackingItem })
         ),
         searchQuery: undefined,
+        dataViewId: '_today',
       };
     }
   )

@@ -41,18 +41,17 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+const storageConfig = {
+  name: 'np-time-tracker',
+  dbKey: 'npTimeTracker',
+  description: 'np-time-tracker task to time spent management',
+  storeName: 'npTimeTracker',
+};
 void bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({ animated: true, mode: 'md' }),
-    importProvidersFrom(
-      IonicStorageModule.forRoot({
-        name: 'np-time-tracker',
-        dbKey: 'npTimeTracker',
-        description: 'np-time-tracker task to time spent management',
-        storeName: 'npTimeTracker',
-      })
-    ),
+    importProvidersFrom(IonicStorageModule.forRoot(storageConfig)),
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
     importProvidersFrom(
@@ -71,6 +70,7 @@ void bootstrapApplication(AppComponent, {
       tracking: trackingReducer,
       dialogs: dialogsReducer,
     }),
+    provideRouterStore(),
     provideEffects(
       ApplicationEffects,
       MessageEffects,
@@ -90,6 +90,5 @@ void bootstrapApplication(AppComponent, {
       multi: true,
       deps: [Store],
     },
-    provideRouterStore(),
   ],
 });

@@ -5,7 +5,7 @@ import * as dayjs from 'dayjs';
   name: 'npTimeFromSeconds',
   standalone: true,
 })
-export class NpTimeFromSecondsPipe implements PipeTransform {
+export class NpTimeFromDataItemPipe implements PipeTransform {
   transform(value?: number): string {
     value = value || 0;
     const time = dayjs().startOf('date').add(value, 'seconds');

@@ -1,12 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {
-  IonContent,
-  IonItem,
-  IonList,
-  IonListHeader,
-  IonToggle,
-} from '@ionic/angular/standalone';
+import { IonContent, IonList } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
@@ -22,16 +15,7 @@ import { selectSettingsState } from '../../state/settings/settings.selector';
   styleUrls: ['settings.page.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    PageHeaderComponent,
-    IonContent,
-    TranslateModule,
-    IonList,
-    IonItem,
-    IonToggle,
-    IonListHeader,
-    AsyncPipe,
-  ],
+  imports: [PageHeaderComponent, IonContent, TranslateModule, IonList],
 })
 export class SettingsPage {
   readonly #store = inject(Store);

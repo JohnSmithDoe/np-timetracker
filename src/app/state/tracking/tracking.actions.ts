@@ -1,5 +1,6 @@
 import { createActionGroup, emptyProps } from '@ngrx/store';
 import {
+  IDataItem,
   ITrackingItem,
   TItemListSortType,
   TUpdateDTO,
@@ -24,7 +25,8 @@ export const TrackingActions = createActionGroup({
     'End Tracking': emptyProps(),
 
     'Share Data': emptyProps(),
-    'Remove Data Item': (item: ITrackingItem) => ({ item }),
+    'Remove Data Item': (item: IDataItem) => ({ item }),
+    'Change Data View': (viewId: string) => ({ viewId }),
 
     'Add Item': (item: ITrackingItem) => ({ item }),
     'Add Item Failure': (item: ITrackingItem) => ({ item }),

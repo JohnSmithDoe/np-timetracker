@@ -16,7 +16,6 @@ export const selectListState = createSelector(
   selectRouteParams,
   (state: IAppState) => state,
   ({ listId }, state) => {
-    if (!listId) return undefined;
     return state.tracking;
   }
 );

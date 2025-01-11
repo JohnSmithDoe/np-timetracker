@@ -38,6 +38,7 @@ export class TrackingPage implements IonViewWillEnter {
   readonly #store = inject(Store);
 
   total$ = this.#store.select(selectTrackingTime);
+
   constructor() {
     addIcons({ add, remove, save, trash });
   }

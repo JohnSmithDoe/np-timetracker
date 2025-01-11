@@ -28,6 +28,11 @@ export type ITrackingItem = IBaseItem & {
   state: 'running' | 'stopped' | 'paused';
 };
 
+export type IDataItem = Pick<
+  ITrackingItem,
+  'trackedTimeInSeconds' | 'name' | 'id' | 'startTime'
+>;
+
 type TItemListSortType = 'name' | string;
 type TItemListSortDir = 'asc' | 'desc';
 
@@ -48,6 +53,7 @@ export type IListState<T extends IBaseItem> = IItemList<T>;
 export type TTrackingList = IListState<ITrackingItem> & {
   title: 'Time tracking';
   data: ITrackingItem[];
+  dataViewId: string;
 };
 export type ITrackingState = TTrackingList;
 

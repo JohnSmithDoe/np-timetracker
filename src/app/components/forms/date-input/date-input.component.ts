@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   booleanAttribute,
   Component,
@@ -21,7 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './date-input.component.html',
   styleUrls: ['./date-input.component.scss'],
   imports: [
-    AsyncPipe,
     DatePipe,
     IonDatetime,
     IonInput,

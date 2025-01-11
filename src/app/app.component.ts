@@ -17,7 +17,6 @@ import {
   Platform,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
-import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-root',
@@ -47,28 +46,28 @@ export class AppComponent {
     registerLocaleData(de.default);
   }
 
-  shareShoppingList() {
-    let csv = 'data';
-    this.platform.ready().then(() => {
-      if (this.platform.is('android')) {
-        // const fileTransfer: TransferObject = this.transfer.create();
-        // var blob = new Blob([csv]);
-        // const csvLocation = `${cordova.file.dataDirectory}${blob}`;
-        // fileTransfer
-        //   .download(csvLocation, this.storageDirectory + 'dallmannCSV')
-        //   .then(
-        //     (entry) => {},
-        //     (error) => {}
-        //   );
-      } else {
-        var blob = new Blob([csv]);
-        var a = window.document.createElement('a');
-        a.href = window.URL.createObjectURL(blob);
-        a.download = dayjs().format('LLL') + '.csv';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-    });
-  }
+  // downloadWIP() {
+  //   let csv = 'data';
+  //   this.platform.ready().then(() => {
+  //     if (this.platform.is('android')) {
+  //       // const fileTransfer: TransferObject = this.transfer.create();
+  //       // var blob = new Blob([csv]);
+  //       // const csvLocation = `${cordova.file.dataDirectory}${blob}`;
+  //       // fileTransfer
+  //       //   .download(csvLocation, this.storageDirectory + 'dallmannCSV')
+  //       //   .then(
+  //       //     (entry) => {},
+  //       //     (error) => {}
+  //       //   );
+  //     } else {
+  //       const blob = new Blob([csv]);
+  //       const a = window.document.createElement('a');
+  //       a.href = window.URL.createObjectURL(blob);
+  //       a.download = dayjs().format('LLL') + '.csv';
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //     }
+  //   });
+  // }
 }
