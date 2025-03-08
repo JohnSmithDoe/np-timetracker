@@ -8,7 +8,7 @@ import { IDataItem } from '../@types/types';
 })
 export class NpTimeFromDataItemPipe implements PipeTransform {
   transform(item?: IDataItem, viewId?: string): string {
-    viewId = viewId || '';
+    viewId = viewId ?? '';
     const time = dayjs(item?.startTime);
     let format = 'DD.MM.YYYY HH:mm';
     switch (viewId) {
