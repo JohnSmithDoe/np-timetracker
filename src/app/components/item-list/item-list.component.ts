@@ -24,21 +24,20 @@ import { add, cart, list, remove } from 'ionicons/icons';
 import { IBaseItem, TColor } from '../../@types/types';
 
 @Component({
-  selector: 'app-item-list',
-  templateUrl: 'item-list.component.html',
-  styleUrls: ['item-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonToolbar,
-    IonList,
-    IonReorderGroup,
-    IonLabel,
-    IonListHeader,
-    NgTemplateOutlet,
-    FormsModule,
-    TranslateModule,
-  ],
+    selector: 'app-item-list',
+    templateUrl: 'item-list.component.html',
+    styleUrls: ['item-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonToolbar,
+        IonList,
+        IonReorderGroup,
+        IonLabel,
+        IonListHeader,
+        NgTemplateOutlet,
+        FormsModule,
+        TranslateModule,
+    ]
 })
 export class ItemListComponent {
   @ViewChild('ionList', { static: true }) ionList?: IonList;

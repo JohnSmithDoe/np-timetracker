@@ -25,27 +25,26 @@ import { NpTrackingTimePipe } from '../../../pipes/np-tracking-time.pipe';
 import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-seconds.pipe';
 
 @Component({
-  selector: 'app-tracking-item',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './tracking-item.component.html',
-  styleUrls: ['./tracking-item.component.scss'],
-  imports: [
-    IonItem,
-    IonLabel,
-    IonReorder,
-    TranslateModule,
-    NgTemplateOutlet,
-    IonNote,
-    IonItemOption,
-    IonItemOptions,
-    IonItemSliding,
-    IonText,
-    NpTrackingTimePipe,
-    DatePipe,
-    NpTimeFromDataItemPipe,
-    NpTimeFromDataItemPipe,
-  ],
+    selector: 'app-tracking-item',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './tracking-item.component.html',
+    styleUrls: ['./tracking-item.component.scss'],
+    imports: [
+        IonItem,
+        IonLabel,
+        IonReorder,
+        TranslateModule,
+        NgTemplateOutlet,
+        IonNote,
+        IonItemOption,
+        IonItemOptions,
+        IonItemSliding,
+        IonText,
+        NpTrackingTimePipe,
+        DatePipe,
+        NpTimeFromDataItemPipe,
+        NpTimeFromDataItemPipe,
+    ]
 })
 export class TrackingItemComponent implements OnInit {
   @Input({ required: true }) item!: ITrackingItem;

@@ -1,9 +1,14 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
-  APP_INITIALIZER,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   enableProdMode,
   importProvidersFrom,
+  inject,
   LOCALE_ID,
+  provideAppInitializer,
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, RouteReuseStrategy } from '@angular/router';
@@ -50,10 +55,10 @@ const storageConfig = {
 void bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideHttpClient(withInterceptorsFromDi()),
+    provideRouter(routes),
     provideIonicAngular({ animated: true, mode: 'md' }),
     importProvidersFrom(IonicStorageModule.forRoot(storageConfig)),
-    provideRouter(routes),
-    importProvidersFrom(HttpClientModule),
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'de',
@@ -83,12 +88,12 @@ void bootstrapApplication(AppComponent, {
       provide: LOCALE_ID,
       useValue: 'de-DE',
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (store: Store) => () =>
-        store.dispatch(ApplicationActions.load()),
-      multi: true,
-      deps: [Store],
-    },
+    provideAppInitializer(() => {
+      const initializerFn = (
+        (store: Store) => () =>
+          store.dispatch(ApplicationActions.load())
+      )(inject(Store));
+      return initializerFn();
+    }),
   ],
 });

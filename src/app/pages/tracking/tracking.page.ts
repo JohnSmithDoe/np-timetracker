@@ -19,20 +19,19 @@ import { AsyncPipe } from '@angular/common';
 import { selectTrackingTime } from '../../state/tracking/tracking.selector';
 
 @Component({
-  selector: 'app-page-tracking',
-  templateUrl: 'tracking.page.html',
-  styleUrls: ['tracking.page.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslateModule,
-    ListPageComponent,
-    TrackingItemComponent,
-    EditTrackingItemDialogComponent,
-    IonButton,
-    AsyncPipe,
-    IonIcon,
-  ],
+    selector: 'app-page-tracking',
+    templateUrl: 'tracking.page.html',
+    styleUrls: ['tracking.page.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        TranslateModule,
+        ListPageComponent,
+        TrackingItemComponent,
+        EditTrackingItemDialogComponent,
+        IonButton,
+        AsyncPipe,
+        IonIcon,
+    ]
 })
 export class TrackingPage implements IonViewWillEnter {
   readonly #store = inject(Store);

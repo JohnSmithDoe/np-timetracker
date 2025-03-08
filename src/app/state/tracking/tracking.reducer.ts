@@ -8,7 +8,7 @@ import {
 } from '../@shared/item-list.utils';
 import { ApplicationActions } from '../application.actions';
 import { TrackingActions } from './tracking.actions';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { uuidv4 } from '../../app.utils';
 
 export const initialState: ITrackingState = {

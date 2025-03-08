@@ -10,11 +10,10 @@ import { IonInput, IonItem } from '@ionic/angular/standalone';
 import { parseNumberInput } from '../../../app.utils';
 
 @Component({
-  selector: 'app-number-input',
-  standalone: true,
-  templateUrl: './number-input.component.html',
-  styleUrls: ['./number-input.component.scss'],
-  imports: [IonItem, IonInput],
+    selector: 'app-number-input',
+    templateUrl: './number-input.component.html',
+    styleUrls: ['./number-input.component.scss'],
+    imports: [IonItem, IonInput]
 })
 export class NumberInputComponent {
   @Input() label?: string;

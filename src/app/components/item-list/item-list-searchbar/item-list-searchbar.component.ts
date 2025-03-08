@@ -12,12 +12,11 @@ import { addIcons } from 'ionicons';
 import { add, cart, list, remove } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-item-list-searchbar',
-  templateUrl: 'item-list-searchbar.component.html',
-  styleUrls: ['item-list-searchbar.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonSearchbar, TranslateModule],
+    selector: 'app-item-list-searchbar',
+    templateUrl: 'item-list-searchbar.component.html',
+    styleUrls: ['item-list-searchbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IonSearchbar, TranslateModule]
 })
 export class ItemListSearchbarComponent {
   @Input() query?: string;

@@ -20,22 +20,21 @@ import {
 import { ItemNameInputComponent } from '../item-name-input/item-name-input.component';
 
 @Component({
-  selector: 'app-item-edit-modal',
-  standalone: true,
-  templateUrl: './item-edit-modal.component.html',
-  styleUrls: ['./item-edit-modal.component.scss'],
-  imports: [
-    IonModal,
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
-    IonContent,
-    IonList,
-    ItemNameInputComponent,
-    AsyncPipe,
-    TranslateModule,
-  ],
+    selector: 'app-item-edit-modal',
+    templateUrl: './item-edit-modal.component.html',
+    styleUrls: ['./item-edit-modal.component.scss'],
+    imports: [
+        IonModal,
+        IonHeader,
+        IonToolbar,
+        IonButtons,
+        IonButton,
+        IonContent,
+        IonList,
+        ItemNameInputComponent,
+        AsyncPipe,
+        TranslateModule,
+    ]
 })
 export class ItemEditModalComponent {
   readonly #store = inject(Store);

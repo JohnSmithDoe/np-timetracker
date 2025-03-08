@@ -10,12 +10,11 @@ import { SettingsActions } from '../../state/settings/settings.actions';
 import { selectSettingsState } from '../../state/settings/settings.selector';
 
 @Component({
-  selector: 'app-page-settings',
-  templateUrl: 'settings.page.html',
-  styleUrls: ['settings.page.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PageHeaderComponent, IonContent, TranslateModule, IonList],
+    selector: 'app-page-settings',
+    templateUrl: 'settings.page.html',
+    styleUrls: ['settings.page.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [PageHeaderComponent, IonContent, TranslateModule, IonList]
 })
 export class SettingsPage {
   readonly #store = inject(Store);

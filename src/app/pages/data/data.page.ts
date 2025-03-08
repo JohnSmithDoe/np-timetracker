@@ -23,23 +23,22 @@ import { TrackingActions } from '../../state/tracking/tracking.actions';
 import { IDataItem, IonViewWillEnter } from '../../@types/types';
 
 @Component({
-  selector: 'app-page-data',
-  templateUrl: 'data.page.html',
-  styleUrls: ['data.page.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslateModule,
-    AsyncPipe,
-    DataItemComponent,
-    IonButton,
-    IonContent,
-    IonList,
-    PageHeaderComponent,
-    IonSelect,
-    IonSelectOption,
-    IonItem,
-  ],
+    selector: 'app-page-data',
+    templateUrl: 'data.page.html',
+    styleUrls: ['data.page.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        TranslateModule,
+        AsyncPipe,
+        DataItemComponent,
+        IonButton,
+        IonContent,
+        IonList,
+        PageHeaderComponent,
+        IonSelect,
+        IonSelectOption,
+        IonItem,
+    ]
 })
 export class DataPage implements IonViewWillEnter {
   readonly #store = inject(Store);

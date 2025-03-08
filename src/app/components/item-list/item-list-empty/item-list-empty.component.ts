@@ -12,12 +12,11 @@ import { add, cart, list, remove } from 'ionicons/icons';
 import { TextItemComponent } from '../../item-list-items/text-item/text-item.component';
 
 @Component({
-  selector: 'app-item-list-empty',
-  templateUrl: 'item-list-empty.component.html',
-  styleUrls: ['item-list-empty.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TextItemComponent, TranslateModule],
+    selector: 'app-item-list-empty',
+    templateUrl: 'item-list-empty.component.html',
+    styleUrls: ['item-list-empty.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [TextItemComponent, TranslateModule]
 })
 export class ItemListEmptyComponent {
   @Input({ transform: booleanAttribute }) isEmptyList = true;

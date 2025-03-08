@@ -1,4 +1,4 @@
-import { DatePipe, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,7 +24,6 @@ import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-data-item.pi
 
 @Component({
   selector: 'app-data-item',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './data-item.component.html',
   styleUrls: ['./data-item.component.scss'],
@@ -38,7 +37,6 @@ import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-data-item.pi
     IonItemOptions,
     IonItemSliding,
     NpTrackingTimePipe,
-    DatePipe,
     NpTimeFromDataItemPipe,
   ],
 })

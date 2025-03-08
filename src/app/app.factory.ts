@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { IBaseItem, ITrackingItem } from './@types/types';
 import { uuidv4 } from './app.utils';
 

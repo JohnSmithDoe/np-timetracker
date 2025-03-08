@@ -21,21 +21,20 @@ import { add } from 'ionicons/icons';
 import { TColor } from '../../../@types/types';
 
 @Component({
-  selector: 'app-page-header',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './page-header.component.html',
-  styleUrls: ['./page-header.component.scss'],
-  imports: [
-    IonToolbar,
-    IonHeader,
-    IonButtons,
-    IonMenuButton,
-    IonTitle,
-    IonButton,
-    IonIcon,
-    TranslateModule,
-  ],
+    selector: 'app-page-header',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './page-header.component.html',
+    styleUrls: ['./page-header.component.scss'],
+    imports: [
+        IonToolbar,
+        IonHeader,
+        IonButtons,
+        IonMenuButton,
+        IonTitle,
+        IonButton,
+        IonIcon,
+        TranslateModule,
+    ]
 })
 export class PageHeaderComponent {
   @Input() label = '';

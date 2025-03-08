@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { IDataItem } from '../@types/types';
-import * as dayjs from 'dayjs';
-
-const ONE_DAY_IN_SECONDS = 86400;
+import dayjs from 'dayjs';
 
 const pad = (value: number) => {
   if (value < 10) return `0${value}`;

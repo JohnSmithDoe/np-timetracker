@@ -10,7 +10,7 @@ import {
   filterAndSortItemList,
   filterBySearchQuery,
 } from '../@shared/item-list.selector';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { NpTimeFromDataItemPipe } from '../../pipes/np-time-from-data-item.pipe';
 
 export const selectTrackingState =

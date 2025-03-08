@@ -17,11 +17,10 @@ import { IBaseItem, TMarker } from '../../../@types/types';
 import { matchesSearchExactly, validateNameInput } from '../../../app.utils';
 
 @Component({
-  selector: 'app-item-name-input',
-  standalone: true,
-  templateUrl: './item-name-input.component.html',
-  styleUrls: ['./item-name-input.component.scss'],
-  imports: [IonInput, IonItem, ReactiveFormsModule, TranslateModule],
+    selector: 'app-item-name-input',
+    templateUrl: './item-name-input.component.html',
+    styleUrls: ['./item-name-input.component.scss'],
+    imports: [IonInput, IonItem, ReactiveFormsModule, TranslateModule]
 })
 export class ItemNameInputComponent implements OnInit, OnDestroy, OnChanges {
   @Input() item?: IBaseItem | null;

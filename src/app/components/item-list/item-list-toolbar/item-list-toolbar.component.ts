@@ -17,12 +17,11 @@ import { add, cart, list, remove } from 'ionicons/icons';
 import { TItemListSortType } from '../../../@types/types';
 
 @Component({
-  selector: 'app-item-list-toolbar',
-  templateUrl: 'item-list-toolbar.component.html',
-  styleUrls: ['item-list-toolbar.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonToolbar, IonButtons, IonButton, IonIcon],
+    selector: 'app-item-list-toolbar',
+    templateUrl: 'item-list-toolbar.component.html',
+    styleUrls: ['item-list-toolbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IonToolbar, IonButtons, IonButton, IonIcon]
 })
 export class ItemListToolbarComponent {
   @Input({ transform: booleanAttribute }) showReorder = false;
