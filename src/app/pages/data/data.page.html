@@ -3,39 +3,45 @@
   [label]="'page-title.data' | translate"
   hideButtons="true"
 >
-<ion-list>
-  <ion-item lines="none" class="">
-    <ion-button slot="end" color="data" size="default" (click)="shareCSV()">Share Data</ion-button>
-    <ion-select  [value]="viewMode$ | async" (ionChange)="selectViewMode($event)" label="Ansicht">
-      <ion-select-option value="_raw">
-        {{ 'data.page.title.raw' | translate }}
-      </ion-select-option>
-      <ion-select-option value="_today">
-        {{ 'data.page.title.today' | translate }}
-      </ion-select-option>
-      <ion-select-option value="_daily">
-        {{ 'data.page.title.daily' | translate }}
-      </ion-select-option>
-      <ion-select-option value="_monthly">
-        {{ 'data.page.title.monthly' | translate }}
-      </ion-select-option>
-      <ion-select-option value="_all">
-        {{ 'data.page.title.all' | translate }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
-</ion-list>
+  <ion-list>
+    <ion-item lines="none" class="">
+      <ion-button slot="end" color="data" size="default" (click)="shareCSV()"
+        >Share Data</ion-button
+      >
+      <ion-select
+        [value]="viewMode$ | async"
+        (ionChange)="selectViewMode($event)"
+        label="Ansicht"
+      >
+        <ion-select-option value="raw">
+          {{ 'data.page.title.raw' | translate }}
+        </ion-select-option>
+        <ion-select-option value="today">
+          {{ 'data.page.title.today' | translate }}
+        </ion-select-option>
+        <ion-select-option value="daily">
+          {{ 'data.page.title.daily' | translate }}
+        </ion-select-option>
+        <ion-select-option value="monthly">
+          {{ 'data.page.title.monthly' | translate }}
+        </ion-select-option>
+        <ion-select-option value="all">
+          {{ 'data.page.title.all' | translate }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 </app-page-header>
 
 <ion-content>
   <ion-list #ionList>
     @for (item of (data$ | async); track item.id) {
-      <app-data-item [item]="item"
-        [view]="(viewMode$ | async) ?? ''"
-        [ionList]="ionList"
-        (deleteItem)="deleteItem(item)"
-       />
+    <app-data-item
+      [item]="item"
+      [view]="(viewMode$ | async) ?? ''"
+      [ionList]="ionList"
+      (deleteItem)="deleteItem(item)"
+    />
     }
   </ion-list>
 </ion-content>
-

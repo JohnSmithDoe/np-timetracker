@@ -12,14 +12,14 @@ export class NpTimeFromDataItemPipe implements PipeTransform {
     const time = dayjs(item?.startTime);
     let format = 'DD.MM.YYYY HH:mm';
     switch (viewId) {
-      case '_daily':
-      case '_today':
+      case 'daily':
+      case 'today':
         format = 'DD.MM.YYYY';
         break;
-      case '_monthly':
+      case 'monthly':
         format = 'MM.YYYY';
         break;
-      case '_all':
+      case 'all':
         return '';
     }
     return time.format(format);

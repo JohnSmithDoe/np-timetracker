@@ -17,11 +17,11 @@ export const selectTrackingState =
   createFeatureSelector<ITrackingState>('tracking');
 
 const getKey = (trackingItem: ITrackingItem, listId: string) => {
-  if (listId === '_daily' || listId === '_today') {
+  if (listId === 'daily' || listId === 'today') {
     return dayjs(trackingItem.startTime).format('YYYYMMDD');
-  } else if (listId === '_monthly') {
+  } else if (listId === 'monthly') {
     return dayjs(trackingItem.startTime).format('YYYYMM');
-  } else if (listId === '_all') {
+  } else if (listId === 'all') {
     return '';
   } else {
     return dayjs(trackingItem.startTime).format('YYYYMMDDHHmm');
@@ -29,7 +29,7 @@ const getKey = (trackingItem: ITrackingItem, listId: string) => {
 };
 const groupBy = (data: ITrackingItem[], listId: string) => {
   const map: Record<string, IDataItem> = {};
-  if (listId === '_today') {
+  if (listId === 'today') {
     data = data.filter((item) => dayjs(item.startTime).isSame(dayjs(), 'day'));
   }
   data.forEach((trackingItem) => {
@@ -49,7 +49,7 @@ export const selectTrackingDataViewId = createSelector(
   selectTrackingState,
   (state: ITrackingState) => {
     let listId = state?.dataViewId;
-    return listId ?? '_today';
+    return listId ?? 'today';
   }
 );
 export const selectTrackingData = createSelector(

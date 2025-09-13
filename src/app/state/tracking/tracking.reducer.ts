@@ -1,11 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { ITrackingItem, ITrackingState } from '../../@types/types';
-import {
-  addListItem,
-  removeListItem,
-  updateListItem,
-  updateListSort,
-} from '../@shared/item-list.utils';
+import { addListItem, removeListItem, updateListItem, updateListSort, } from '../@shared/item-list.utils';
 import { ApplicationActions } from '../application.actions';
 import { TrackingActions } from './tracking.actions';
 import dayjs from 'dayjs';
@@ -15,7 +10,7 @@ export const initialState: ITrackingState = {
   title: 'Time tracking',
   items: [],
   data: [],
-  dataViewId: '_all',
+  dataViewId: 'all',
 };
 
 const startTracking = (
@@ -173,7 +168,7 @@ export const trackingReducer = createReducer(
           (trackingItem) => ({ ...trackingItem })
         ),
         searchQuery: undefined,
-        dataViewId: '_today',
+        dataViewId: 'today',
       };
     }
   )

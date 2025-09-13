@@ -1,9 +1,9 @@
 {
-	"data.page.title.today": "Heute",
 	"data.page.title.all": "Gesamt",
 	"data.page.title.daily": "Pro Tag",
 	"data.page.title.monthly": "Pro Monat",
 	"data.page.title.raw": "Einzeln",
+	"data.page.title.today": "Heute",
 	"edit-item.dialog.button.close": "Abbrechen",
 	"edit.item.dialog.button.create": "Anlegen",
 	"edit.item.dialog.button.update": "Übernehmen",
@@ -21,6 +21,7 @@
 	"list-header.tracking": "Zeiterfassung",
 	"list-header.tracking.search": "Zeiterfassung",
 	"page-title.data": "Gespeicherte Einträge",
+	"page-title.office-time": "Bürozeiten",
 	"page-title.settings": "Einstellungen",
 	"page-title.tracking": "Zeiterfassung",
 	"searchbar.placeholder": "Suchen oder neu anlegen",
@@ -31,8 +32,5 @@
 	"tracking.item.break": " - {{time}}",
 	"tracking.item.breaktime": "({{time}}min Pause)",
 	"tracking.item.nobreak": " - jetzt",
-	"tracking.item.start": "{{time}}",
-	"tracking.item.state.running": "läuft",
-	"tracking.item.state.stopped": "angehalten",
-	"tracking.item.state.paused": "pausiert"
+	"tracking.item.start": "{{time}}"
 }

@@ -10,7 +10,7 @@
         <ion-list>
           <ion-menu-toggle>
             <ion-item
-              button
+              [button]="true"
               routerLink="/tracking"
               color="tracking"
               lines="none"
@@ -18,14 +18,29 @@
               <ion-label>{{ 'page-title.tracking' | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-<!--          <ion-menu-toggle>-->
-<!--            <ion-item button routerLink="/settings" color="settings">-->
-<!--              <ion-label>{{ 'page-title.settings' | translate }}</ion-label>-->
-<!--            </ion-item>-->
-<!--          </ion-menu-toggle>-->
+          <!--          <ion-menu-toggle>-->
+          <!--            <ion-item button routerLink="/settings" color="settings">-->
+          <!--              <ion-label>{{ 'page-title.settings' | translate }}</ion-label>-->
+          <!--            </ion-item>-->
+          <!--          </ion-menu-toggle>-->
           <ion-menu-toggle>
-            <ion-item button routerLink="/data/_daily" color="data" lines="none">
+            <ion-item
+              [button]="true"
+              routerLink="/data/daily"
+              color="data"
+              lines="none"
+            >
               <ion-label>{{ 'page-title.data' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item
+              [button]="true"
+              routerLink="/office-time"
+              color="office-time"
+              lines="none"
+            >
+              <ion-label>{{ 'page-title.office-time' | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
