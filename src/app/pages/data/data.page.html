@@ -30,12 +30,11 @@
 <ion-content>
   <ion-list #ionList>
     @for (item of (data$ | async); track item.id) {
-      <app-data-item
-        [item]="item"
+      <app-data-item [item]="item"
         [view]="(viewMode$ | async) ?? ''"
         [ionList]="ionList"
         (deleteItem)="deleteItem(item)"
-      ></app-data-item>
+       />
     }
   </ion-list>
 </ion-content>

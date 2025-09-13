@@ -3,7 +3,7 @@
     <div class="status-bar">
       <ion-text [color]="getColor(item)"></ion-text>
     </div>
-    <ion-reorder slot="start"></ion-reorder>
+    <ion-reorder slot="start" />
     <ion-label class="ion-text-wrap">
       <h2>{{ item.name }} <ion-note>@if (item.startTime) { - {{ 'tracking.item.state.' + item.state | translate }} }</ion-note></h2>
       <ion-note>
@@ -36,7 +36,7 @@
     </ion-item-option>
   </ion-item-options>
 
-  <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
+  <ng-container *ngTemplateOutlet="itemTemplate" />
 
   <ion-item-options side="end">
     <ion-item-option color="danger" expandable (click)="emitDeleteItem()">

@@ -13,7 +13,7 @@
 </ng-template>
 
 <ion-item-sliding (ionDrag)="handleItemOptionsOnDrag($event)">
-   <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
+   <ng-container *ngTemplateOutlet="itemTemplate" />
 
   @if (view === '_raw') {
     <ion-item-options side="end">

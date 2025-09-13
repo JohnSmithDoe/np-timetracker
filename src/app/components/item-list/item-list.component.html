@@ -9,11 +9,11 @@
         <ion-label class="ion-padding-start">
           {{ header }}
         </ion-label>
-        <ng-content></ng-content>
+        <ng-content />
       </ion-toolbar>
     }
   }
-    <ng-container *ngTemplateOutlet="listMode"></ng-container>
+    <ng-container *ngTemplateOutlet="listMode" />
 </ion-list>
 
 <ng-template #listMode>
@@ -23,12 +23,11 @@
     (ionItemReorder)="handleReorder($any($event))"
   >
     @for (item of items; track item.id) {
-      <ng-container
-        *ngTemplateOutlet="
+      <ng-container *ngTemplateOutlet="
           itemTemplate;
           context: { $implicit: item, ionList: ionList }
         "
-      ></ng-container>
+       />
     }
   </ion-reorder-group>
 </ng-template>

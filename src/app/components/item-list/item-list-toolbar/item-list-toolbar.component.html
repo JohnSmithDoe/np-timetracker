@@ -1,12 +1,12 @@
 <ion-toolbar>
   <ion-buttons slot="start">
     <ion-button (click)="toggleReorder.emit()" [hidden]="true">
-      <ion-icon slot="icon-only" name="list"></ion-icon>
+      <ion-icon slot="icon-only" name="list" />
     </ion-button>
     <ion-button (click)="selectSortMode.emit('name')">A-Z</ion-button>
-    <ng-content></ng-content>
+    <ng-content />
   </ion-buttons>
   <ion-buttons slot="end">
-    <ng-content select="[toolbarActionsEnd]"></ng-content>
+    <ng-content select="[toolbarActionsEnd]" />
   </ion-buttons>
 </ion-toolbar>

@@ -29,13 +29,12 @@
         {{ (rxState$ | async)?.dialogTitle ?? '' | translate }}
       </h3>
       <ion-list>
-        <app-item-name-input
-          #nameInput
+        <app-item-name-input #nameInput
           [item]="rxItem$ | async"
           [listItems]="listItems"
           (updateValue)="updateName($event)"
-        ></app-item-name-input>
-        <ng-content></ng-content>
+         />
+        <ng-content />
       </ion-list>
     </ion-content>
   </ng-template>
