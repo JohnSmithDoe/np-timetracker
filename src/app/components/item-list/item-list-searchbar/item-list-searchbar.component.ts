@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  input,
   output,
-  input
 } from '@angular/core';
 import { SearchbarCustomEvent } from '@ionic/angular';
 import { IonSearchbar } from '@ionic/angular/standalone';
@@ -11,16 +11,16 @@ import { addIcons } from 'ionicons';
 import { add, cart, list, remove } from 'ionicons/icons';
 
 @Component({
-    selector: 'app-item-list-searchbar',
-    templateUrl: 'item-list-searchbar.component.html',
-    styleUrls: ['item-list-searchbar.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [IonSearchbar, TranslateModule]
+  selector: 'app-item-list-searchbar',
+  templateUrl: 'item-list-searchbar.component.html',
+  styleUrls: ['item-list-searchbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [IonSearchbar, TranslateModule],
 })
 export class ItemListSearchbarComponent {
   readonly query = input<string>();
 
-  readonly queryChange = output<string>();
+  readonly queryChange = output<string | undefined>();
   readonly hitEnter = output<void>();
 
   constructor() {

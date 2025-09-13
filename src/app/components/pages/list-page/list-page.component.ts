@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, TemplateRef, input } from '@angular/core';
+import { Component, inject, input, TemplateRef } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,19 +25,19 @@ import { ItemListComponent } from '../../item-list/item-list.component';
 import { PageHeaderComponent } from '../page-header/page-header.component';
 
 @Component({
-    selector: 'app-list-page',
-    templateUrl: './list-page.component.html',
-    styleUrls: ['./list-page.component.scss'],
-    imports: [
-        AsyncPipe,
-        IonContent,
-        ItemListComponent,
-        ItemListEmptyComponent,
-        ItemListSearchbarComponent,
-        ItemListToolbarComponent,
-        PageHeaderComponent,
-        TranslateModule,
-    ]
+  selector: 'app-list-page',
+  templateUrl: './list-page.component.html',
+  styleUrls: ['./list-page.component.scss'],
+  imports: [
+    AsyncPipe,
+    IonContent,
+    ItemListComponent,
+    ItemListEmptyComponent,
+    ItemListSearchbarComponent,
+    ItemListToolbarComponent,
+    PageHeaderComponent,
+    TranslateModule,
+  ],
 })
 export class ListPageComponent {
   readonly #store = inject(Store<IAppState>);
@@ -59,7 +59,7 @@ export class ListPageComponent {
     this.#store.dispatch(ItemListActions.addItemFromSearch());
   }
 
-  searchFor(searchTerm: string) {
+  searchFor(searchTerm?: string) {
     this.#store.dispatch(ItemListActions.updateSearch(searchTerm));
   }
 
