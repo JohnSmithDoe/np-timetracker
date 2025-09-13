@@ -3,7 +3,6 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  Input,
   TemplateRef,
   ViewChild,
   output,
@@ -47,7 +46,7 @@ export class ItemListComponent {
 
   readonly reorder = output<ItemReorderEventDetail>();
 
-  @Input() header?: string;
+  readonly header = input<string>();
   readonly listHeader = input<boolean, unknown>(false, { transform: booleanAttribute });
   readonly headerColor = input<TColor>();
 

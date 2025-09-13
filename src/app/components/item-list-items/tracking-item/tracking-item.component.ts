@@ -2,7 +2,6 @@ import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   output,
   input
@@ -47,7 +46,7 @@ import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-seconds.pipe
     ]
 })
 export class TrackingItemComponent implements OnInit {
-  @Input({ required: true }) item!: ITrackingItem;
+  readonly item = input.required<ITrackingItem>();
   readonly ionList = input.required<IonList>();
 
   readonly selectItem = output<void>();
@@ -58,7 +57,7 @@ export class TrackingItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    if (!this.item) throw new Error('Item must be set');
+    if (!this.item()) throw new Error('Item must be set');
   }
 
   async handleItemOptionsOnDrag(ev: TIonDragEvent) {

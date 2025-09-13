@@ -1,13 +1,13 @@
 <ion-list #ionList>
-  @if (header) {
+  @if (header()) {
     @if (listHeader()) {
       <ion-list-header [color]="headerColor()">
-        <ion-label>{{ header }}</ion-label>
+        <ion-label>{{ header() }}</ion-label>
       </ion-list-header>
     } @else {
       <ion-toolbar [color]="headerColor()">
         <ion-label class="ion-padding-start">
-          {{ header }}
+          {{ header() }}
         </ion-label>
         <ng-content />
       </ion-toolbar>

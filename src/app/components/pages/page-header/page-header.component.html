@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button />
     </ion-buttons>
-    @if (label) {
-      <ion-title>{{ label | translate }}</ion-title>
+    @if (label()) {
+      <ion-title>{{ label() | translate }}</ion-title>
     }
     <ng-content select="[toolbar]" />
     @if (!hideButtons()) {

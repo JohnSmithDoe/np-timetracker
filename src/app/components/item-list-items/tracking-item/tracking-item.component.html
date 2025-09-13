@@ -1,34 +1,59 @@
 <ng-template #itemTemplate>
-  <ion-item button (click)="selectItem.emit()" lines="full" [class]="'tracking-item-'+item.state">
+  <ion-item
+    [button]="true"
+    (click)="selectItem.emit()"
+    lines="full"
+    [class]="'tracking-item-' + item().state"
+  >
     <div class="status-bar">
-      <ion-text [color]="getColor(item)"></ion-text>
+      <ion-text [color]="getColor(item())"></ion-text>
     </div>
     <ion-reorder slot="start" />
     <ion-label class="ion-text-wrap">
-      <h2>{{ item.name }} <ion-note>@if (item.startTime) { - {{ 'tracking.item.state.' + item.state | translate }} }</ion-note></h2>
+      <h2>
+        {{ item().name }}
+        <ion-note>
+          @if (item().startTime) {
+            - {{ 'tracking.item.state.' + item().state | translate }}
+          }
+        </ion-note>
+      </h2>
       <ion-note>
-        @if (item.startTime) {
-          {{'tracking.item.start' | translate: {time: item.startTime | date:'HH:mm'} }}
-          @if (item.breakTime) {
-            {{'tracking.item.break' | translate: {time: item.breakTime | date:'HH:mm'} }}
+        @if (item().startTime) {
+          {{
+            'tracking.item.start'
+              | translate: { time: item().startTime | date: 'HH:mm' }
+          }}
+          @if (item().breakTime) {
+            {{
+              'tracking.item.break'
+                | translate: { time: item().breakTime | date: 'HH:mm' }
+            }}
           } @else {
-            {{'tracking.item.nobreak' | translate }}
+            {{ 'tracking.item.nobreak' | translate }}
           }
         }
-        @if ((item.breakInSeconds ?? 0) >= 60) {
-          {{'tracking.item.breaktime' | translate: {time: item.breakInSeconds | npTimeFromSeconds} }}
+        @if ((item().breakInSeconds ?? 0) >= 60) {
+          {{
+            'tracking.item.breaktime'
+              | translate: { time: item().breakInSeconds | npTimeFromSeconds }
+          }}
         }
       </ion-note>
     </ion-label>
     <ion-label slot="end">
-      {{ item | npTrackingTime }}
+      {{ item() | npTrackingTime }}
     </ion-label>
   </ion-item>
 </ng-template>
 
 <ion-item-sliding (ionDrag)="handleItemOptionsOnDrag($event)">
   <ion-item-options side="start">
-    <ion-item-option color="success" expandable (click)="emitEditItem()">
+    <ion-item-option
+      color="success"
+      [expandable]="true"
+      (click)="emitEditItem()"
+    >
       Edit
     </ion-item-option>
     <ion-item-option color="warning" (click)="emitResetItem()">
@@ -39,7 +64,11 @@
   <ng-container *ngTemplateOutlet="itemTemplate" />
 
   <ion-item-options side="end">
-    <ion-item-option color="danger" expandable (click)="emitDeleteItem()">
+    <ion-item-option
+      color="danger"
+      [expandable]="true"
+      (click)="emitDeleteItem()"
+    >
       Delete
     </ion-item-option>
   </ion-item-options>

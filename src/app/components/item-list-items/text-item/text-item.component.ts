@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   output,
   input
 } from '@angular/core';
@@ -18,9 +17,9 @@ import { TColor } from '../../../@types/types';
 export class TextItemComponent {
   readonly label = input<string | null>();
   readonly color = input<TColor>();
-  @Input() helper?: string;
-  @Input() time?: string;
-  @Input() note?: string | null;
+  readonly helper = input<string>();
+  readonly time = input<string>();
+  readonly note = input<string | null>();
 
   readonly selectItem = output<void>();
 

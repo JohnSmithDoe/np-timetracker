@@ -2,7 +2,6 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  Input,
   output,
   input
 } from '@angular/core';
@@ -37,7 +36,7 @@ import { TColor } from '../../../@types/types';
     ]
 })
 export class PageHeaderComponent {
-  @Input() label = '';
+  readonly label = input('');
   readonly color = input<TColor>();
   readonly hideButtons = input(false, { transform: booleanAttribute });
   readonly disabled = input(false, { transform: booleanAttribute });
