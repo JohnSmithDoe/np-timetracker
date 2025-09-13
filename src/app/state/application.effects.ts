@@ -10,7 +10,7 @@ import { addTrackingItemFromSearch } from './@shared/item-list.effects';
 
 import { updatedSearchQuery } from './@shared/item-list.utils';
 import { ApplicationActions } from './application.actions';
-import { TrackingActions } from './tracking/tracking.actions';
+import { trackingActions } from './tracking/trackingActions';
 
 @Injectable({ providedIn: 'root' })
 export class ApplicationEffects {
@@ -28,7 +28,7 @@ export class ApplicationEffects {
 
   addItemFromSearch$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(TrackingActions.addItemFromSearch),
+      ofType(trackingActions.addItemFromSearch),
       withLatestFrom(this.#store, (action, state: IAppState) => ({
         action,
         state,
@@ -43,7 +43,7 @@ export class ApplicationEffects {
   });
   addOrUpdateItem$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(TrackingActions.addOrUpdateItem),
+      ofType(trackingActions.addOrUpdateItem),
       withLatestFrom(this.#store, (action, state: IAppState) => ({
         action,
         state,
@@ -51,30 +51,30 @@ export class ApplicationEffects {
       map(({ action, state }) => {
         const localState = state.tracking;
         return matchesItemExactly(action.item, localState.items)
-          ? TrackingActions.updateItem(action.item)
-          : TrackingActions.addItem(<any>action.item);
+          ? trackingActions.updateItem(action.item)
+          : trackingActions.addItem(<any>action.item);
       })
     );
   });
 
   clearSearch$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(TrackingActions.addItem),
+      ofType(trackingActions.addItem),
       map(({ type }) => {
-        return TrackingActions.updateSearch('');
+        return trackingActions.updateSearch('');
       })
     );
   });
   updateSearch$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(TrackingActions.updateItem),
+      ofType(trackingActions.updateItem),
       withLatestFrom(this.#store, (action, state: IAppState) => ({
         action,
         state,
       })),
       map(({ action, state }) => {
         const searchQuery = state.tracking.searchQuery;
-        return TrackingActions.updateSearch(
+        return trackingActions.updateSearch(
           updatedSearchQuery(action.item, searchQuery)
         );
       })
@@ -85,15 +85,15 @@ export class ApplicationEffects {
     () => {
       return this.#actions$.pipe(
         ofType(
-          TrackingActions.addItem,
-          TrackingActions.removeItem,
-          TrackingActions.updateItem,
-          TrackingActions.updateTracking,
-          TrackingActions.toggleTrackingItem,
-          TrackingActions.resetTracking,
-          TrackingActions.saveAndResetTracking,
-          TrackingActions.resetAllTracking,
-          TrackingActions.removeDataItem
+          trackingActions.addItem,
+          trackingActions.removeItem,
+          trackingActions.updateItem,
+          trackingActions.updateTracking,
+          trackingActions.toggleTrackingItem,
+          trackingActions.resetTracking,
+          trackingActions.saveAndResetTracking,
+          trackingActions.resetAllTracking,
+          trackingActions.removeDataItem
         ),
         withLatestFrom(this.#store, (action, state: IAppState) => ({
           action,

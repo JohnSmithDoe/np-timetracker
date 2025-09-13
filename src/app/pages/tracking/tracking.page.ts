@@ -9,8 +9,8 @@ import {
   TItemListSortType,
 } from '../../@types/types';
 import { ListPageComponent } from '../../components/pages/list-page/list-page.component';
-import { DialogsActions } from '../../state/dialogs/dialogs.actions';
-import { TrackingActions } from '../../state/tracking/tracking.actions';
+import { dialogsActions } from '../../state/dialogs/dialogsActions';
+import { trackingActions } from '../../state/tracking/trackingActions';
 import { TrackingItemComponent } from '../../components/item-list-items/tracking-item/tracking-item.component';
 import { EditTrackingItemDialogComponent } from '../../dialogs/edit-tracking-item-dialog/edit-tracking-item-dialog.component';
 
@@ -19,19 +19,19 @@ import { AsyncPipe } from '@angular/common';
 import { selectTrackingTime } from '../../state/tracking/tracking.selector';
 
 @Component({
-    selector: 'app-page-tracking',
-    templateUrl: 'tracking.page.html',
-    styleUrls: ['tracking.page.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        TranslateModule,
-        ListPageComponent,
-        TrackingItemComponent,
-        EditTrackingItemDialogComponent,
-        IonButton,
-        AsyncPipe,
-        IonIcon,
-    ]
+  selector: 'app-page-tracking',
+  templateUrl: 'tracking.page.html',
+  styleUrls: ['tracking.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    TranslateModule,
+    ListPageComponent,
+    TrackingItemComponent,
+    EditTrackingItemDialogComponent,
+    IonButton,
+    AsyncPipe,
+    IonIcon,
+  ],
 })
 export class TrackingPage implements IonViewWillEnter {
   readonly #store = inject(Store);
@@ -43,33 +43,33 @@ export class TrackingPage implements IonViewWillEnter {
   }
 
   ionViewWillEnter(): void {
-    this.#store.dispatch(TrackingActions.enterPage());
+    this.#store.dispatch(trackingActions.enterPage());
   }
 
   removeItem(item: ITrackingItem) {
-    this.#store.dispatch(TrackingActions.removeItem(item));
+    this.#store.dispatch(trackingActions.removeItem(item));
   }
 
   showEditDialog(item: ITrackingItem) {
-    this.#store.dispatch(DialogsActions.showEditDialog(item));
+    this.#store.dispatch(dialogsActions.showEditDialog(item));
   }
 
   setSortMode(type: TItemListSortType) {
-    this.#store.dispatch(TrackingActions.updateSort(type, 'toggle'));
+    this.#store.dispatch(trackingActions.updateSort(type, 'toggle'));
   }
 
   toggleTracking(item: ITrackingItem) {
-    this.#store.dispatch(TrackingActions.toggleTrackingItem(item));
+    this.#store.dispatch(trackingActions.toggleTrackingItem(item));
   }
 
   resetAll() {
-    this.#store.dispatch(TrackingActions.resetAllTracking());
+    this.#store.dispatch(trackingActions.resetAllTracking());
   }
   resetItem(item: ITrackingItem) {
-    this.#store.dispatch(TrackingActions.resetTracking(item));
+    this.#store.dispatch(trackingActions.resetTracking(item));
   }
 
   saveAndResetAll() {
-    this.#store.dispatch(TrackingActions.saveAndResetTracking());
+    this.#store.dispatch(trackingActions.saveAndResetTracking());
   }
 }

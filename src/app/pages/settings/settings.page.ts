@@ -6,15 +6,15 @@ import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
 import { BooleanKeys, ISettings } from '../../@types/types';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
-import { SettingsActions } from '../../state/settings/settings.actions';
+import { settingsActions } from '../../state/settings/settingsActions';
 import { selectSettingsState } from '../../state/settings/settings.selector';
 
 @Component({
-    selector: 'app-page-settings',
-    templateUrl: 'settings.page.html',
-    styleUrls: ['settings.page.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [PageHeaderComponent, IonContent, TranslateModule, IonList]
+  selector: 'app-page-settings',
+  templateUrl: 'settings.page.html',
+  styleUrls: ['settings.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [PageHeaderComponent, IonContent, TranslateModule, IonList],
 })
 export class SettingsPage {
   readonly #store = inject(Store);
@@ -25,6 +25,6 @@ export class SettingsPage {
   }
 
   toggleFlag(flag: BooleanKeys<ISettings>) {
-    this.#store.dispatch(SettingsActions.toggleFlag(flag));
+    this.#store.dispatch(settingsActions.toggleFlag(flag));
   }
 }

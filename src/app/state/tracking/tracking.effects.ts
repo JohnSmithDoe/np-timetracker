@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { interval, map, switchMap, withLatestFrom } from 'rxjs';
-import { TrackingActions } from './tracking.actions';
+import { trackingActions } from './trackingActions';
 import {
   selectRunningTrackingItem,
   selectTrackingDataAsCSV,
@@ -19,15 +19,15 @@ export class TrackingEffects {
   trackTime$ = createEffect(() => {
     return this.#actions$.pipe(
       ofType(
-        TrackingActions.toggleTrackingItem,
+        trackingActions.toggleTrackingItem,
         ApplicationActions.loadedSuccessfully
       ),
       switchMap(() => {
         return interval(1000).pipe(
           withLatestFrom(this.#store.select(selectRunningTrackingItem)),
           map(([, item]) => {
-            if (!item) return TrackingActions.endTracking();
-            return TrackingActions.updateTracking(item);
+            if (!item) return trackingActions.endTracking();
+            return trackingActions.updateTracking(item);
           })
         );
       })
@@ -37,7 +37,7 @@ export class TrackingEffects {
   shareData$ = createEffect(
     () => {
       return this.#actions$.pipe(
-        ofType(TrackingActions.shareData),
+        ofType(trackingActions.shareData),
         withLatestFrom(this.#store.select(selectTrackingDataAsCSV)),
         switchMap(([, csv]) => {
           return fromPromise(

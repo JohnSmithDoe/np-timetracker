@@ -12,7 +12,7 @@ import {
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { IBaseItem } from '../../../@types/types';
-import { DialogsActions } from '../../../state/dialogs/dialogs.actions';
+import { dialogsActions } from '../../../state/dialogs/dialogsActions';
 import {
   selectEditItem,
   selectEditState,
@@ -20,21 +20,21 @@ import {
 import { ItemNameInputComponent } from '../item-name-input/item-name-input.component';
 
 @Component({
-    selector: 'app-item-edit-modal',
-    templateUrl: './item-edit-modal.component.html',
-    styleUrls: ['./item-edit-modal.component.scss'],
-    imports: [
-        IonModal,
-        IonHeader,
-        IonToolbar,
-        IonButtons,
-        IonButton,
-        IonContent,
-        IonList,
-        ItemNameInputComponent,
-        AsyncPipe,
-        TranslateModule,
-    ]
+  selector: 'app-item-edit-modal',
+  templateUrl: './item-edit-modal.component.html',
+  styleUrls: ['./item-edit-modal.component.scss'],
+  imports: [
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonContent,
+    IonList,
+    ItemNameInputComponent,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class ItemEditModalComponent {
   readonly #store = inject(Store);
@@ -47,20 +47,20 @@ export class ItemEditModalComponent {
   constructor() {}
 
   cancelChanges() {
-    this.#store.dispatch(DialogsActions.abortChanges());
+    this.#store.dispatch(dialogsActions.abortChanges());
   }
 
   closedDialog() {
-    this.#store.dispatch(DialogsActions.hideDialog());
+    this.#store.dispatch(dialogsActions.hideDialog());
   }
 
   submitChanges() {
-    this.#store.dispatch(DialogsActions.confirmChanges());
+    this.#store.dispatch(dialogsActions.confirmChanges());
   }
 
   updateName(value: string) {
     this.#store.dispatch(
-      DialogsActions.updateItem({
+      dialogsActions.updateItem({
         name: value,
       })
     );

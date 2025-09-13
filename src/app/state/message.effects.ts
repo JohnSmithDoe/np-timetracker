@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, exhaustMap, map, tap, withLatestFrom } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { UiService } from '../services/ui.service';
-import { TrackingActions } from './tracking/tracking.actions';
+import { trackingActions } from './tracking/trackingActions';
 import { IAppState } from '../@types/types';
 import { Store } from '@ngrx/store';
 
@@ -16,7 +16,7 @@ export class MessageEffects {
   savedSuccess$ = createEffect(
     () => {
       return this.#actions$.pipe(
-        ofType(TrackingActions.saveAndResetTracking),
+        ofType(trackingActions.saveAndResetTracking),
         withLatestFrom(this.#store, (_action, state: IAppState) => ({
           state,
         })),
@@ -37,7 +37,7 @@ export class MessageEffects {
   addItemSuccess$ = createEffect(
     () => {
       return this.#actions$.pipe(
-        ofType(TrackingActions.addItem),
+        ofType(trackingActions.addItem),
         map(({ item }) => {
           if (!item.name.length) return;
           return fromPromise(this.#uiService.showAddItemToast(item.name));
@@ -50,7 +50,7 @@ export class MessageEffects {
   addItemFailure$ = createEffect(
     () => {
       return this.#actions$.pipe(
-        ofType(TrackingActions.addItemFailure),
+        ofType(trackingActions.addItemFailure),
         exhaustMap(({ item }) => {
           return fromPromise(this.#uiService.showItemContainedToast(item.name));
         })
@@ -62,7 +62,7 @@ export class MessageEffects {
   updateItemSussess$ = createEffect(
     () => {
       return this.#actions$.pipe(
-        ofType(TrackingActions.updateItem),
+        ofType(trackingActions.updateItem),
         exhaustMap(({ item }) => {
           if (!item) return EMPTY;
           return fromPromise(this.#uiService.showUpdateItemToast(item));
@@ -75,7 +75,7 @@ export class MessageEffects {
   removeItemSussess$ = createEffect(
     () => {
       return this.#actions$.pipe(
-        ofType(TrackingActions.removeItem),
+        ofType(trackingActions.removeItem),
         tap(({ item }) => {
           return this.#uiService.showRemoveItemToast(item.name);
         })

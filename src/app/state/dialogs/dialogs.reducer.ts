@@ -8,7 +8,7 @@ import {
 } from '../../@types/types';
 import { createTrackingItem } from '../../app.factory';
 import { ApplicationActions } from '../application.actions';
-import { DialogsActions } from './dialogs.actions';
+import { dialogsActions } from './dialogsActions';
 
 export const initialSettings: TDialogsState = {
   isEditing: false,
@@ -17,19 +17,19 @@ export const initialSettings: TDialogsState = {
 
 export const dialogsReducer = createReducer(
   initialSettings,
-  on(DialogsActions.showEditDialog, (state, { item }): TDialogsState => {
+  on(dialogsActions.showEditDialog, (state, { item }): TDialogsState => {
     return showEditDialog(state, { ...item }, item ? 'update' : 'create');
   }),
-  on(DialogsActions.updateItem, (state, { data }): TDialogsState => {
+  on(dialogsActions.updateItem, (state, { data }): TDialogsState => {
     return { ...state, item: { ...state.item, ...data } };
   }),
-  on(DialogsActions.hideDialog, (state): TDialogsState => {
+  on(dialogsActions.hideDialog, (state): TDialogsState => {
     return { ...state, isEditing: false };
   }),
-  on(DialogsActions.confirmChanges, (state): TDialogsState => {
+  on(dialogsActions.confirmChanges, (state): TDialogsState => {
     return { ...state, isEditing: false };
   }),
-  on(DialogsActions.abortChanges, (state): TDialogsState => {
+  on(dialogsActions.abortChanges, (state): TDialogsState => {
     return { ...state, isEditing: false };
   }),
 

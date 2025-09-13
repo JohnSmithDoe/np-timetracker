@@ -1,8 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { ITrackingItem, ITrackingState } from '../../@types/types';
-import { addListItem, removeListItem, updateListItem, updateListSort, } from '../@shared/item-list.utils';
+import {
+  addListItem,
+  removeListItem,
+  updateListItem,
+  updateListSort,
+} from '../@shared/item-list.utils';
 import { ApplicationActions } from '../application.actions';
-import { TrackingActions } from './tracking.actions';
+import { trackingActions } from './trackingActions';
 import dayjs from 'dayjs';
 import { uuidv4 } from '../../app.utils';
 
@@ -111,50 +116,50 @@ const saveAndReset = (state: ITrackingState): ITrackingState => {
 
 export const trackingReducer = createReducer(
   initialState,
-  on(TrackingActions.addItem, (state, { item }) => addListItem(state, item)),
-  on(TrackingActions.removeItem, (state, { item }) =>
+  on(trackingActions.addItem, (state, { item }) => addListItem(state, item)),
+  on(trackingActions.removeItem, (state, { item }) =>
     removeListItem(state, item)
   ),
-  on(TrackingActions.updateItem, (state, { item }) =>
+  on(trackingActions.updateItem, (state, { item }) =>
     updateListItem(state, item)
   ),
   on(
-    TrackingActions.updateSearch,
+    trackingActions.updateSearch,
     (state, { searchQuery }): ITrackingState =>
       searchQuery === state.searchQuery ? state : { ...state, searchQuery }
   ),
-  on(TrackingActions.toggleTrackingItem, (state, { item }) => {
+  on(trackingActions.toggleTrackingItem, (state, { item }) => {
     if (item.state !== 'running') {
       return startTracking(state, item);
     } else {
       return stopTracking(state, item);
     }
   }),
-  on(TrackingActions.resetTracking, (state, { item }) => {
+  on(trackingActions.resetTracking, (state, { item }) => {
     return resetTracking(state, item);
   }),
-  on(TrackingActions.resetAllTracking, (state) => {
+  on(trackingActions.resetAllTracking, (state) => {
     return resetTracking(state);
   }),
-  on(TrackingActions.saveAndResetTracking, (state) => {
+  on(trackingActions.saveAndResetTracking, (state) => {
     return saveAndReset(state);
   }),
-  on(TrackingActions.updateTracking, (state, { item }): ITrackingState => {
+  on(trackingActions.updateTracking, (state, { item }): ITrackingState => {
     return updateTracking(state, item);
   }),
 
-  on(TrackingActions.changeDataView, (state, { viewId }): ITrackingState => {
+  on(trackingActions.changeDataView, (state, { viewId }): ITrackingState => {
     return { ...state, dataViewId: viewId };
   }),
 
-  on(TrackingActions.removeDataItem, (state, { item }): ITrackingState => {
+  on(trackingActions.removeDataItem, (state, { item }): ITrackingState => {
     return {
       ...state,
       data: state.data.filter((aitem) => aitem.id !== item.id),
     };
   }),
 
-  on(TrackingActions.updateSort, (state, { sortBy, sortDir }) => ({
+  on(trackingActions.updateSort, (state, { sortBy, sortDir }) => ({
     ...state,
     sort: updateListSort(sortBy, sortDir, state.sort?.sortDir),
   })),

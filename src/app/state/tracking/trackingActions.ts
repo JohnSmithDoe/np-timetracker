@@ -6,7 +6,7 @@ import {
   TUpdateDTO,
 } from '../../@types/types';
 
-export const TrackingActions = createActionGroup({
+export const trackingActions = createActionGroup({
   source: 'Tracking',
   events: {
     // Effects only

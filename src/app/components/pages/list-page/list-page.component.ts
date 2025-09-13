@@ -11,13 +11,13 @@ import {
   TColor,
   TItemListSortType,
 } from '../../../@types/types';
-import { ItemListActions } from '../../../state/@shared/item-list.actions';
+import { itemListActions } from '../../../state/@shared/item-list.actions';
 import {
   selectListItems,
   selectListSearchResult,
   selectListState,
 } from '../../../state/@shared/item-list.selector';
-import { DialogsActions } from '../../../state/dialogs/dialogs.actions';
+import { dialogsActions } from '../../../state/dialogs/dialogsActions';
 import { ItemListEmptyComponent } from '../../item-list/item-list-empty/item-list-empty.component';
 import { ItemListSearchbarComponent } from '../../item-list/item-list-searchbar/item-list-searchbar.component';
 import { ItemListToolbarComponent } from '../../item-list/item-list-toolbar/item-list-toolbar.component';
@@ -56,26 +56,26 @@ export class ListPageComponent {
   }
 
   addItemFromSearch() {
-    this.#store.dispatch(ItemListActions.addItemFromSearch());
+    this.#store.dispatch(itemListActions.addItemFromSearch());
   }
 
   searchFor(searchTerm?: string) {
-    this.#store.dispatch(ItemListActions.updateSearch(searchTerm));
+    this.#store.dispatch(itemListActions.updateSearch(searchTerm));
   }
 
   setSortMode(type: TItemListSortType) {
-    this.#store.dispatch(ItemListActions.updateSort(type, 'toggle'));
+    this.#store.dispatch(itemListActions.updateSort(type, 'toggle'));
   }
 
   addTrackingItem(item: ITrackingItem) {
-    this.#store.dispatch(ItemListActions.addTrackingItem(item));
+    this.#store.dispatch(itemListActions.addTrackingItem(item));
   }
 
   showCreateDialog() {
-    this.#store.dispatch(DialogsActions.showCreateDialogWithSearch());
+    this.#store.dispatch(dialogsActions.showCreateDialogWithSearch());
   }
 
   showEditDialog(item: ITrackingItem) {
-    this.#store.dispatch(DialogsActions.showEditDialog(item));
+    this.#store.dispatch(dialogsActions.showEditDialog(item));
   }
 }

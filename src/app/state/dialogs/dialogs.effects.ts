@@ -5,9 +5,9 @@ import { map, withLatestFrom } from 'rxjs';
 import { IAppState } from '../../@types/types';
 import { createTrackingItem } from '../../app.factory';
 
-import { DialogsActions } from './dialogs.actions';
+import { dialogsActions } from './dialogsActions';
 import { selectEditState } from './dialogs.selector';
-import { TrackingActions } from '../tracking/tracking.actions';
+import { trackingActions } from '../tracking/trackingActions';
 
 function createItemByListId(name: string) {
   return createTrackingItem(name);
@@ -20,17 +20,17 @@ export class DialogsEffects {
 
   confirmItemChanges$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(DialogsActions.confirmChanges),
+      ofType(dialogsActions.confirmChanges),
       withLatestFrom(this.#store.select(selectEditState)),
       map(([_, state]) => {
-        return TrackingActions.addOrUpdateItem(<any>state.item);
+        return trackingActions.addOrUpdateItem(<any>state.item);
       })
     );
   });
 
   showCreateDialogWithSearch$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(DialogsActions.showCreateDialogWithSearch),
+      ofType(dialogsActions.showCreateDialogWithSearch),
       withLatestFrom(this.#store, (action, state: IAppState) => ({
         action,
         state,
@@ -38,7 +38,7 @@ export class DialogsEffects {
       map(({ action, state }) => {
         const name = state.tracking.searchQuery ?? '';
         const item = createItemByListId(name);
-        return DialogsActions.showEditDialog(item);
+        return dialogsActions.showEditDialog(item);
       })
     );
   });

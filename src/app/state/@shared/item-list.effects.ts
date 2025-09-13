@@ -5,8 +5,8 @@ import { map, withLatestFrom } from 'rxjs';
 import { IAppState } from '../../@types/types';
 import { createTrackingItem } from '../../app.factory';
 import { matchesItemExactly } from '../../app.utils';
-import { TrackingActions } from '../tracking/tracking.actions';
-import { ItemListActions } from './item-list.actions';
+import { trackingActions } from '../tracking/trackingActions';
+import { itemListActions } from './item-list.actions';
 
 @Injectable({ providedIn: 'root' })
 export class ItemListEffects {
@@ -15,13 +15,13 @@ export class ItemListEffects {
   // 'Add Item From Search': (listId:TItemListId) => ({ listId }),
   addItemFromSearch = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(ItemListActions.addItemFromSearch),
+      ofType(itemListActions.addItemFromSearch),
       withLatestFrom(this.#store, (action, state: IAppState) => ({
         action,
         state,
       })),
       map(({ action, state }) => {
-        return TrackingActions.addItemFromSearch();
+        return trackingActions.addItemFromSearch();
       })
     );
   });
@@ -29,15 +29,15 @@ export class ItemListEffects {
   // 'Update Sort': (listId:TItemListId, sortBy?:
   updateSort = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(ItemListActions.updateSort),
-      map(({ sortBy, sortDir }) => TrackingActions.updateSort(sortBy, sortDir))
+      ofType(itemListActions.updateSort),
+      map(({ sortBy, sortDir }) => trackingActions.updateSort(sortBy, sortDir))
     );
   });
   // 'Update Search': (listId:TItemListId, searchQuery?: string) => ({ searchQuery, listId }),
   updateSearch$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(ItemListActions.updateSearch),
-      map(({ searchQuery }) => TrackingActions.updateSearch(searchQuery))
+      ofType(itemListActions.updateSearch),
+      map(({ searchQuery }) => trackingActions.updateSearch(searchQuery))
     );
   });
 }
@@ -46,6 +46,6 @@ export const addTrackingItemFromSearch = (state: IAppState) => {
   const trackingItem = createTrackingItem(state.tracking.searchQuery ?? '');
   const foundItem = matchesItemExactly(trackingItem, state.tracking.items);
   return foundItem
-    ? TrackingActions.addItemFailure(foundItem)
-    : TrackingActions.addItem(trackingItem);
+    ? trackingActions.addItemFailure(foundItem)
+    : trackingActions.addItem(trackingItem);
 };

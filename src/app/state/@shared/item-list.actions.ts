@@ -1,7 +1,7 @@
 import { createActionGroup, emptyProps } from '@ngrx/store';
 import { ITrackingItem, TItemListSortType } from '../../@types/types';
 
-export const ItemListActions = createActionGroup({
+export const itemListActions = createActionGroup({
   source: 'ItemList',
   events: {
     // Effects only

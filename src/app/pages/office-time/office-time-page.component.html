@@ -3,9 +3,10 @@
   [label]="'page-title.office-time' | translate"
   hideButtons="true"
 />
-
+@let workDays = workDays$ | async;
+@let workDaysForMonth = workDaysForMonth$ | async;
 <ion-content>
   <ion-list>
-    <ion-item>Hello</ion-item>
+    <ion-item>Hello {{workDays}} / {{workDaysForMonth}}</ion-item>
   </ion-list>
 </ion-content>
