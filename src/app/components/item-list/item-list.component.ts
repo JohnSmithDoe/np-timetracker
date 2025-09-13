@@ -3,10 +3,10 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  TemplateRef,
-  ViewChild,
+  input,
   output,
-  input
+  TemplateRef,
+  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ItemReorderEventDetail } from '@ionic/angular';
@@ -23,41 +23,43 @@ import { add, cart, list, remove } from 'ionicons/icons';
 import { IBaseItem, TColor } from '../../@types/types';
 
 @Component({
-    selector: 'app-item-list',
-    templateUrl: 'item-list.component.html',
-    styleUrls: ['item-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        IonToolbar,
-        IonList,
-        IonReorderGroup,
-        IonLabel,
-        IonListHeader,
-        NgTemplateOutlet,
-        FormsModule,
-        TranslateModule,
-    ]
+  selector: 'app-item-list',
+  templateUrl: 'item-list.component.html',
+  styleUrls: ['item-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    IonToolbar,
+    IonList,
+    IonReorderGroup,
+    IonLabel,
+    IonListHeader,
+    NgTemplateOutlet,
+    FormsModule,
+    TranslateModule,
+  ],
 })
 export class ItemListComponent {
-  @ViewChild('ionList', { static: true }) ionList?: IonList;
+  readonly ionList = viewChild<IonList>('ionList');
 
   readonly itemTemplate = input.required<TemplateRef<any>>();
-  readonly items = input.required<(ReadonlyArray<IBaseItem> | null) | undefined>();
+  readonly items = input.required<
+    (ReadonlyArray<IBaseItem> | null) | undefined
+  >();
+  readonly header = input<string>();
+  readonly listHeader = input<boolean, unknown>(false, {
+    transform: booleanAttribute,
+  });
+  readonly headerColor = input<TColor>();
+  readonly reorderDisabled = input(true);
 
   readonly reorder = output<ItemReorderEventDetail>();
-
-  readonly header = input<string>();
-  readonly listHeader = input<boolean, unknown>(false, { transform: booleanAttribute });
-  readonly headerColor = input<TColor>();
-
-  readonly reorderDisabled = input(true);
 
   constructor() {
     addIcons({ add, remove, cart, list });
   }
 
   async closeSlidingItems() {
-    await this.ionList?.closeSlidingItems();
+    await this.ionList()?.closeSlidingItems();
   }
 
   async handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
