@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {
   IonButton,
   IonButtons,
@@ -42,7 +42,7 @@ export class ItemEditModalComponent {
   readonly rxState$ = this.#store.select(selectEditState);
   readonly rxItem$ = this.#store.select(selectEditItem);
 
-  @Input() listItems?: IBaseItem[] | null;
+  readonly listItems = input<IBaseItem[] | null>();
 
   constructor() {}
 

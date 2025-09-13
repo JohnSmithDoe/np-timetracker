@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import { SearchbarCustomEvent } from '@ionic/angular';
 import { IonSearchbar } from '@ionic/angular/standalone';
@@ -19,10 +18,10 @@ import { add, cart, list, remove } from 'ionicons/icons';
     imports: [IonSearchbar, TranslateModule]
 })
 export class ItemListSearchbarComponent {
-  @Input() query?: string;
+  readonly query = input<string>();
 
-  @Output() queryChange = new EventEmitter<string>();
-  @Output() hitEnter = new EventEmitter<void>();
+  readonly queryChange = output<string>();
+  readonly hitEnter = output<void>();
 
   constructor() {
     addIcons({ add, remove, cart, list });

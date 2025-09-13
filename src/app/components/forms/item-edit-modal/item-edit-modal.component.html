@@ -31,7 +31,7 @@
       <ion-list>
         <app-item-name-input #nameInput
           [item]="rxItem$ | async"
-          [listItems]="listItems"
+          [listItems]="listItems()"
           (updateValue)="updateName($event)"
          />
         <ng-content />

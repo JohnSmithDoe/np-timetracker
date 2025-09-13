@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, TemplateRef } from '@angular/core';
+import { Component, inject, TemplateRef, input } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -42,10 +42,10 @@ import { PageHeaderComponent } from '../page-header/page-header.component';
 export class ListPageComponent {
   readonly #store = inject(Store<IAppState>);
 
-  @Input({ required: true }) itemTemplate!: TemplateRef<any>;
-  @Input({ required: true }) color!: TColor;
-  @Input({ required: true }) listHeader!: string;
-  @Input({ required: true }) pageHeader!: string;
+  readonly itemTemplate = input.required<TemplateRef<any>>();
+  readonly color = input.required<TColor>();
+  readonly listHeader = input.required<string>();
+  readonly pageHeader = input.required<string>();
 
   rxState$ = this.#store.select(selectListState);
   rxItems$ = this.#store.select(selectListItems);

@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import { IonItem, IonLabel, IonNote } from '@ionic/angular/standalone';
 import { TColor } from '../../../@types/types';
@@ -16,13 +16,13 @@ import { TColor } from '../../../@types/types';
     imports: [IonItem, IonLabel, IonNote]
 })
 export class TextItemComponent {
-  @Input() label?: string | null;
-  @Input() color?: TColor;
+  readonly label = input<string | null>();
+  readonly color = input<TColor>();
   @Input() helper?: string;
   @Input() time?: string;
   @Input() note?: string | null;
 
-  @Output() selectItem = new EventEmitter<void>();
+  readonly selectItem = output<void>();
 
   constructor() {}
 

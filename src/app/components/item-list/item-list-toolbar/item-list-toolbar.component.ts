@@ -2,9 +2,8 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import {
   IonButton,
@@ -24,10 +23,10 @@ import { TItemListSortType } from '../../../@types/types';
     imports: [IonToolbar, IonButtons, IonButton, IonIcon]
 })
 export class ItemListToolbarComponent {
-  @Input({ transform: booleanAttribute }) showReorder = false;
+  readonly showReorder = input(false, { transform: booleanAttribute });
 
-  @Output() selectSortMode = new EventEmitter<TItemListSortType>();
-  @Output() toggleReorder = new EventEmitter<void>();
+  readonly selectSortMode = output<TItemListSortType>();
+  readonly toggleReorder = output<void>();
 
   constructor() {
     addIcons({ add, remove, cart, list });

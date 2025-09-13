@@ -2,9 +2,8 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
@@ -19,12 +18,12 @@ import { TextItemComponent } from '../../item-list-items/text-item/text-item.com
     imports: [TextItemComponent, TranslateModule]
 })
 export class ItemListEmptyComponent {
-  @Input({ transform: booleanAttribute }) isEmptyList = true;
-  @Input({ transform: booleanAttribute }) isSearching = false;
-  @Input() searchTerm?: string;
+  readonly isEmptyList = input(true, { transform: booleanAttribute });
+  readonly isSearching = input(false, { transform: booleanAttribute });
+  readonly searchTerm = input<string>();
 
-  @Output() emptyList = new EventEmitter<void>();
-  @Output() emptySearch = new EventEmitter<void>();
+  readonly emptyList = output<void>();
+  readonly emptySearch = output<void>();
 
   constructor() {
     addIcons({ add, remove, cart, list });

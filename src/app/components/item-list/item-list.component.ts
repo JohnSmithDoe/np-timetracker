@@ -3,11 +3,11 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output,
   TemplateRef,
   ViewChild,
+  output,
+  input
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ItemReorderEventDetail } from '@ionic/angular';
@@ -42,16 +42,16 @@ import { IBaseItem, TColor } from '../../@types/types';
 export class ItemListComponent {
   @ViewChild('ionList', { static: true }) ionList?: IonList;
 
-  @Input({ required: true }) itemTemplate!: TemplateRef<any>;
-  @Input({ required: true }) items?: ReadonlyArray<IBaseItem> | null;
+  readonly itemTemplate = input.required<TemplateRef<any>>();
+  readonly items = input.required<(ReadonlyArray<IBaseItem> | null) | undefined>();
 
-  @Output() reorder = new EventEmitter<ItemReorderEventDetail>();
+  readonly reorder = output<ItemReorderEventDetail>();
 
   @Input() header?: string;
-  @Input({ transform: booleanAttribute }) listHeader: boolean = false;
-  @Input() headerColor?: TColor;
+  readonly listHeader = input<boolean, unknown>(false, { transform: booleanAttribute });
+  readonly headerColor = input<TColor>();
 
-  @Input() reorderDisabled = true;
+  readonly reorderDisabled = input(true);
 
   constructor() {
     addIcons({ add, remove, cart, list });

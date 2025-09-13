@@ -1,5 +1,5 @@
 <app-page-header
-  [color]="color"
+  [color]="color()"
   [disabled]="!!(rxSearchResult$ | async)?.exactMatch"
   (addItem)="showCreateDialog()"
 >
@@ -19,10 +19,10 @@
 
 <ion-content>
   <app-item-list
-    [headerColor]="color"
-    [header]="listHeader"
+    [headerColor]="color()"
+    [header]="listHeader()"
     [items]="rxItems$ | async"
-    [itemTemplate]="itemTemplate"
+    [itemTemplate]="itemTemplate()"
   >
     <ng-content select="[listActions]" />
   </app-item-list>

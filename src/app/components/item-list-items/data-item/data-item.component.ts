@@ -2,10 +2,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
   OnInit,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import {
   IonItem,
@@ -41,16 +40,16 @@ import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-data-item.pi
   ],
 })
 export class DataItemComponent implements OnInit {
-  @Input({ required: true }) item!: IDataItem;
-  @Input({ required: true }) view!: string;
-  @Input({ required: true }) ionList!: IonList;
+  readonly item = input.required<IDataItem>();
+  readonly view = input.required<string>();
+  readonly ionList = input.required<IonList>();
 
-  @Output() deleteItem = new EventEmitter<void>();
+  readonly deleteItem = output<void>();
 
   constructor() {}
 
   ngOnInit() {
-    if (!this.item) throw new Error('Item must be set');
+    if (!this.item()) throw new Error('Item must be set');
   }
 
   async handleItemOptionsOnDrag(ev: TIonDragEvent) {
@@ -61,7 +60,7 @@ export class DataItemComponent implements OnInit {
   }
 
   async emitDeleteItem() {
-    await this.ionList.closeSlidingItems();
+    await this.ionList().closeSlidingItems();
     this.deleteItem.emit();
   }
 }

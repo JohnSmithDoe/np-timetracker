@@ -2,9 +2,9 @@ import {
   booleanAttribute,
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import {
   IonButton,
@@ -38,10 +38,10 @@ import { TColor } from '../../../@types/types';
 })
 export class PageHeaderComponent {
   @Input() label = '';
-  @Input() color?: TColor;
-  @Input({ transform: booleanAttribute }) hideButtons = false;
-  @Input({ transform: booleanAttribute }) disabled = false;
-  @Output() addItem = new EventEmitter<void>();
+  readonly color = input<TColor>();
+  readonly hideButtons = input(false, { transform: booleanAttribute });
+  readonly disabled = input(false, { transform: booleanAttribute });
+  readonly addItem = output<void>();
 
   constructor() {
     addIcons({ add });

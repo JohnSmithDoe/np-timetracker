@@ -1,12 +1,11 @@
 import {
   Component,
-  EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
   SimpleChanges,
+  output,
+  input
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { marker } from '@colsen1991/ngx-translate-extract-marker';
@@ -23,9 +22,9 @@ import { matchesSearchExactly, validateNameInput } from '../../../app.utils';
     imports: [IonInput, IonItem, ReactiveFormsModule, TranslateModule]
 })
 export class ItemNameInputComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() item?: IBaseItem | null;
-  @Input() listItems?: IBaseItem[] | null;
-  @Output() updateValue = new EventEmitter<string>();
+  readonly item = input<IBaseItem | null>();
+  readonly listItems = input<IBaseItem[] | null>();
+  readonly updateValue = output<string>();
 
   public invalid = false;
   public valid = true;
@@ -52,18 +51,20 @@ export class ItemNameInputComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    const item = this.item();
     if (
       changes.hasOwnProperty('item') &&
-      !!this.item &&
-      !matchesSearchExactly(this.item, this.nameControl.value ?? '')
+      !!item &&
+      !matchesSearchExactly(item, this.nameControl.value ?? '')
     ) {
-      this.nameControl.setValue(this.item.name);
+      this.nameControl.setValue(item.name);
       this.nameControl.markAsTouched();
     }
-    if (changes.hasOwnProperty('listItems') && this.listItems) {
+    const listItems = this.listItems();
+    if (changes.hasOwnProperty('listItems') && listItems) {
       // update the validator on the input field...
       this.nameControl.setValidators(
-        validateNameInput(this.listItems, this.item)
+        validateNameInput(listItems, item)
       );
       this.nameControl.updateValueAndValidity();
     }

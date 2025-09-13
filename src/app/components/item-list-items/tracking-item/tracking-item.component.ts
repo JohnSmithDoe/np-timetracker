@@ -2,10 +2,10 @@ import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
+  output,
+  input
 } from '@angular/core';
 import {
   IonItem,
@@ -48,12 +48,12 @@ import { NpTimeFromDataItemPipe } from '../../../pipes/np-time-from-seconds.pipe
 })
 export class TrackingItemComponent implements OnInit {
   @Input({ required: true }) item!: ITrackingItem;
-  @Input({ required: true }) ionList!: IonList;
+  readonly ionList = input.required<IonList>();
 
-  @Output() selectItem = new EventEmitter<void>();
-  @Output() deleteItem = new EventEmitter<void>();
-  @Output() editItem = new EventEmitter<void>();
-  @Output() resetItem = new EventEmitter<void>();
+  readonly selectItem = output<void>();
+  readonly deleteItem = output<void>();
+  readonly editItem = output<void>();
+  readonly resetItem = output<void>();
 
   constructor() {}
 
@@ -71,12 +71,12 @@ export class TrackingItemComponent implements OnInit {
   }
 
   async emitDeleteItem() {
-    await this.ionList.closeSlidingItems();
+    await this.ionList().closeSlidingItems();
     this.deleteItem.emit();
   }
 
   async emitEditItem() {
-    await this.ionList.closeSlidingItems();
+    await this.ionList().closeSlidingItems();
     this.editItem.emit();
   }
 
@@ -91,7 +91,7 @@ export class TrackingItemComponent implements OnInit {
     }
   }
   async emitResetItem() {
-    await this.ionList.closeSlidingItems();
+    await this.ionList().closeSlidingItems();
     this.resetItem.emit();
   }
 }
