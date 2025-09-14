@@ -7,6 +7,7 @@ import { add, remove } from 'ionicons/icons';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
 import { AsyncPipe } from '@angular/common';
 import {
+  selectCurrentPercentage,
   selectHolidays,
   selectRemainingWorkDays,
   selectWorkDaysMonth,
@@ -36,6 +37,7 @@ export class OfficeTimePage implements IonViewWillEnter {
   readonly workDaysMonth$ = this.#store.select(selectWorkDaysMonth);
   readonly remainingWorkDays$ = this.#store.select(selectRemainingWorkDays);
   readonly holidays$ = this.#store.select(selectHolidays);
+  readonly currentPercentage$ = this.#store.select(selectCurrentPercentage);
 
   constructor() {
     addIcons({ add, remove });

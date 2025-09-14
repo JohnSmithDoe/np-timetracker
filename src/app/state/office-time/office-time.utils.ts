@@ -1,55 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
 import dayjs, { Dayjs } from 'dayjs';
-
-export const loadHolidays = (http: HttpClient) => {
-  const currentYear = new Date().getFullYear();
-  return http
-    .get<
-      Record<string, { datum: string }>
-    >(`assets/holidays/${currentYear}-BE.json`)
-    .pipe(map((holidays) => parseHolidays(holidays)));
-};
-
-const parseHolidays = (holidays?: Record<string, { datum: string }>) => {
-  const _holidays: Record<string, Dayjs> = {};
-  for (const key in holidays) {
-    const date = holidays[key].datum;
-    _holidays[key] = dayjs(date);
-  }
-  return _holidays;
-};
 
 export const getWorkDaysForYear = (holidays?: Record<string, Dayjs>) => {
   const start = dayjs().startOf('year');
   const end = start.endOf('year');
   return countWorkDaysBetween(start, end, holidays);
 };
+
 export const getWorkDaysForMonth = (holidays?: Record<string, Dayjs>) => {
   const start = dayjs().startOf('month');
   const end = start.endOf('month');
   return countWorkDaysBetween(start, end, holidays);
 };
-const getHoliday = (
-  current: dayjs.Dayjs,
-  holidays: Record<string, dayjs.Dayjs> | undefined
-) => {
-  let holiday: { name: string; date: Dayjs } | undefined = undefined;
-  for (const aHoliday in holidays) {
-    const holidayDate = holidays[aHoliday];
-    holiday =
-      holiday ??
-      (current.isSame(holidayDate, 'day')
-        ? { name: aHoliday, date: holidayDate }
-        : undefined);
-  }
-  return holiday;
+export const getOfficeDaysForMonth = (officeDays?: ReadonlyArray<Dayjs>) => {
+  const start = dayjs().startOf('month');
+  const end = start.endOf('month');
+  return countOfficeDaysBetween(start, end, officeDays);
 };
 
 const getHolidaysBetween = (
-  start: dayjs.Dayjs,
-  end: dayjs.Dayjs,
-  holidays: Record<string, dayjs.Dayjs> | undefined
+  start: Dayjs,
+  end: Dayjs,
+  holidays: Record<string, Dayjs> | undefined
 ) => {
   const result: { name: string; date: Dayjs }[] = [];
   let current = start;
@@ -85,9 +56,9 @@ export const getRemainingWorkDaysForYear = (
   return countWorkDaysBetween(start, end, holidays);
 };
 
-export const countWorkDaysBetween = (
-  start: dayjs.Dayjs,
-  end: dayjs.Dayjs,
+const countWorkDaysBetween = (
+  start: Dayjs,
+  end: Dayjs,
   holidays?: Record<string, Dayjs>
 ) => {
   let workDays = 0;
@@ -101,6 +72,21 @@ export const countWorkDaysBetween = (
   return workDays;
 };
 
+const countOfficeDaysBetween = (
+  start: Dayjs,
+  end: Dayjs,
+  officeDays?: ReadonlyArray<Dayjs>
+) => {
+  let officeDaysCount = 0;
+  let current = start;
+  while (current.isBefore(end) || current.isSame(end)) {
+    if (isOfficeDay(current, officeDays)) {
+      officeDaysCount++;
+    }
+    current = current.add(1, 'day');
+  }
+  return officeDays;
+};
 export const isHolidayOrWeekend = (
   current: Dayjs,
   holidays?: Record<string, Dayjs>
@@ -110,4 +96,21 @@ export const isHolidayOrWeekend = (
   const isSaturday = day === 6;
   let isHoliday = !!getHoliday(current, holidays);
   return isSunday || isSaturday || isHoliday;
+};
+
+export const isOfficeDay = (
+  current: Dayjs,
+  officeDays?: ReadonlyArray<Dayjs>
+) => {
+  return !!officeDays?.find((day) => day.isSame(current, 'day'));
+};
+
+const getHoliday = (
+  current: Dayjs,
+  holidays: Record<string, Dayjs> | undefined
+) => {
+  const holiday = Object.entries(holidays ?? {}).find(([_, date]) =>
+    current.isSame(date, 'day')
+  );
+  return holiday ? { name: holiday[0], date: holiday[1] } : undefined;
 };

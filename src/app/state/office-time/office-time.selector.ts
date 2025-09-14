@@ -3,6 +3,7 @@ import { IOfficeTimeState } from '../../@types/types';
 import {
   getHolidaysForMonth,
   getHolidaysForYear,
+  getOfficeDaysForMonth,
   getRemainingWorkDaysForYear,
   getWorkDaysForMonth,
   getWorkDaysForYear,
@@ -12,10 +13,8 @@ export const selectOfficeTimeState =
   createFeatureSelector<IOfficeTimeState>('officeTime');
 
 export const selectHolidays = createSelector(selectOfficeTimeState, (state) => {
-  debugger;
   return getHolidaysForYear(state.holidays);
 });
-
 export const selectHolidaysForMonth = createSelector(
   selectOfficeTimeState,
   (state) => {
@@ -29,10 +28,28 @@ export const selectWorkDaysYear = createSelector(
     return getWorkDaysForYear(state.holidays);
   }
 );
+
 export const selectWorkDaysMonth = createSelector(
   selectOfficeTimeState,
   (state) => {
     return getWorkDaysForMonth(state.holidays);
+  }
+);
+
+export const selectOfficeDaysMonth = createSelector(
+  selectOfficeTimeState,
+  (state) => {
+    return getOfficeDaysForMonth(state.officeDays);
+  }
+);
+export const selectCurrentPercentage = createSelector(
+  selectWorkDaysMonth,
+  selectOfficeDaysMonth,
+  (workDays, officeDays) => {
+    if (workDays && officeDays) {
+      return (officeDays.length / workDays) * 100;
+    }
+    return 0;
   }
 );
 export const selectRemainingWorkDays = createSelector(

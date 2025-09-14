@@ -7,14 +7,17 @@
 @let workDaysMonth = workDaysMonth$ | async;
 @let remainingWorkDays = remainingWorkDays$ | async;
 @let holidays = holidays$ | async;
+@let currentPercent = currentPercentage$ | async;
 
 <ion-content>
   <ion-list>
-    <ion-item>Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}}</ion-item>
+    <ion-item>Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}} {{currentPercent}}</ion-item>
   </ion-list>
   @for (holiday of holidays; track holiday) {
     <ion-list>
       <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY')}}</ion-item>
     </ion-list>
   }
+
+
 </ion-content>
