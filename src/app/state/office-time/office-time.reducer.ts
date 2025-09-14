@@ -32,6 +32,8 @@ export const officeTimeReducer = createReducer(
   ),
   on(officeTimeActions.saveBarcode,
     (_state, {base64Blob}):IOfficeTimeState => ({..._state, barcode: base64Blob})),
+  on(officeTimeActions.deleteBarcode,
+    (_state):IOfficeTimeState => ({..._state, barcode: undefined})),
   on(officeTimeActions.saveWorkingHours,
     (_state, {hours}):IOfficeTimeState => ({..._state, workingHours: hours})),
   on(officeTimeActions.saveWorkingHoursDefault,

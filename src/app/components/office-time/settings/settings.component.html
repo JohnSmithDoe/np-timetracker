@@ -1,0 +1,27 @@
+
+<ion-list>
+  @let barcode = (barcode$ | async);
+  @if (barcode) {
+    <ion-item>
+      <app-barcode class="barcode"/>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="deleteBarcode()" color="danger" size="small">{{ 'officetime.page.settings.barcode.delete' | translate }}</ion-button>
+    </ion-item>
+  } @else {
+    <ion-item>
+      <label for="image-input">{{ 'officetime.page.settings.barcode.button' }}</label>
+      <input id="image-input" type="file" accept="image/*" (change)="onFileSelected($event)"/>
+    </ion-item>
+  }
+  <ion-item>
+    @let workingHoursDefault = (workingHoursDefault$ | async);
+    <ion-input [label]="'officetime.page.settings.workhours.default' | translate" type="number"
+               (ionChange)="workHoursDefaultChange($event)" [value]="workingHoursDefault"/>
+  </ion-item>
+  <ion-item>
+    @let workingHours = (workingHours$ | async);
+    <ion-input [label]="'officetime.page.settings.workhours' | translate " type="number"
+               (ionChange)="workHoursChange($event)" [value]="workingHours"/>
+  </ion-item>
+</ion-list>
