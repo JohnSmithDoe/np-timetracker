@@ -104,3 +104,6 @@ export interface IAppState {
 export interface IonViewWillEnter {
   ionViewWillEnter(): void;
 }
+export interface IonViewDidEnter {
+  ionViewDidEnter(): void;
+}

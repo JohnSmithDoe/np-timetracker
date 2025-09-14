@@ -3,21 +3,24 @@
   [label]="'page-title.office-time' | translate"
   hideButtons="true"
 >
-  <ion-toolbar>
-    <ion-segment value="default">
-      <ion-segment-button value="default" content-id="default">
-        <ion-label>
-          {{ 'officetime.page.segment.default' | translate }}
-        </ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="barcode" content-id="barcode">
-        <ion-label> {{ 'officetime.page.segment.barcode' | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="settings" content-id="settings">
-        <ion-label> {{ 'officetime.page.segment.settings' | translate }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+  @if (hasLoaded$ | async) {
+
+    <ion-toolbar>
+      <ion-segment value="default">
+        <ion-segment-button value="default" content-id="default">
+          <ion-label>
+            {{ 'officetime.page.segment.default' | translate }}
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="barcode" content-id="barcode">
+          <ion-label> {{ 'officetime.page.segment.barcode' | translate }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="settings" content-id="settings">
+          <ion-label> {{ 'officetime.page.segment.settings' | translate }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  }
 </app-page-header>
 
 <ion-content>
@@ -29,8 +32,7 @@
       <app-barcode/>
     </ion-segment-content>
     <ion-segment-content id="settings">
-     <app-office-time-settings/>
+      <app-office-time-settings/>
     </ion-segment-content>
   </ion-segment-view>
-
 </ion-content>
