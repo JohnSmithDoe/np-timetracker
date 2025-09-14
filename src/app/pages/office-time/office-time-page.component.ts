@@ -9,6 +9,9 @@ import { AsyncPipe } from '@angular/common';
 import {
   selectCurrentPercentage,
   selectHolidays,
+  selectPartTimePercentage,
+  selectPartTimeWorkDaysMonth,
+  selectPartTimeWorkDaysYear,
   selectRemainingWorkDays,
   selectWorkDaysMonth,
   selectWorkDaysYear,
@@ -38,6 +41,13 @@ export class OfficeTimePage implements IonViewWillEnter {
   readonly remainingWorkDays$ = this.#store.select(selectRemainingWorkDays);
   readonly holidays$ = this.#store.select(selectHolidays);
   readonly currentPercentage$ = this.#store.select(selectCurrentPercentage);
+  readonly partTimeWorkDaysYear$ = this.#store.select(
+    selectPartTimeWorkDaysYear
+  );
+  readonly partTimeWorkDaysMonth$ = this.#store.select(
+    selectPartTimeWorkDaysMonth
+  );
+  readonly partTimePercentage$ = this.#store.select(selectPartTimePercentage);
 
   constructor() {
     addIcons({ add, remove });
@@ -45,5 +55,9 @@ export class OfficeTimePage implements IonViewWillEnter {
 
   ionViewWillEnter(): void {
     this.#store.dispatch(officeTimeActions.loadHolidays());
+  }
+
+  addOfficeDay() {
+    this.#store.dispatch(officeTimeActions.addOfficeTime());
   }
 }

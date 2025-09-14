@@ -7,6 +7,7 @@ import {
   getRemainingWorkDaysForYear,
   getWorkDaysForMonth,
   getWorkDaysForYear,
+  partTime,
 } from './office-time.utils';
 
 export const selectOfficeTimeState =
@@ -36,6 +37,21 @@ export const selectWorkDaysMonth = createSelector(
   }
 );
 
+export const selectPartTimeWorkDaysMonth = createSelector(
+  selectOfficeTimeState,
+  selectWorkDaysMonth,
+  (state, workdays) => {
+    return partTime(state.workingHoursWeek, workdays);
+  }
+);
+export const selectPartTimeWorkDaysYear = createSelector(
+  selectOfficeTimeState,
+  selectWorkDaysYear,
+  (state, workdays) => {
+    return partTime(state.workingHoursWeek, workdays);
+  }
+);
+
 export const selectOfficeDaysMonth = createSelector(
   selectOfficeTimeState,
   (state) => {
@@ -44,6 +60,17 @@ export const selectOfficeDaysMonth = createSelector(
 );
 export const selectCurrentPercentage = createSelector(
   selectWorkDaysMonth,
+  selectOfficeDaysMonth,
+  (workDays, officeDays) => {
+    if (workDays && officeDays) {
+      return (officeDays.length / workDays) * 100;
+    }
+    return 0;
+  }
+);
+
+export const selectPartTimePercentage = createSelector(
+  selectPartTimeWorkDaysMonth,
   selectOfficeDaysMonth,
   (workDays, officeDays) => {
     if (workDays && officeDays) {

@@ -114,3 +114,7 @@ const getHoliday = (
   );
   return holiday ? { name: holiday[0], date: holiday[1] } : undefined;
 };
+export const partTime = (workingHoursWeek: number, workDays: number) => {
+  const workingDaysWeek = (workingHoursWeek * 5) / 40;
+  return (workDays / 5) * workingDaysWeek;
+};

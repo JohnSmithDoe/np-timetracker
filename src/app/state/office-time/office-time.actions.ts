@@ -10,5 +10,6 @@ export const officeTimeActions = createActionGroup({
       holidays,
     }),
     'Save Office Time': emptyProps(),
+    'Add Office Time': emptyProps(),
   },
 });

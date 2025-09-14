@@ -9,15 +9,23 @@
 @let holidays = holidays$ | async;
 @let currentPercent = currentPercentage$ | async;
 
+@let partTimeWorkDaysYear = partTimeWorkDaysYear$ | async;
+@let partTimeWorkDaysMonth = partTimeWorkDaysMonth$ | async;
+@let partTimePercentage = partTimePercentage$ | async;
+
 <ion-content>
   <ion-list>
-    <ion-item>Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}} {{currentPercent}}</ion-item>
-  </ion-list>
+    <ion-item [button]="true" (click)="addOfficeDay()">Add Office Day</ion-item>
+    <ion-item>
+      Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}} {{currentPercent}}
+    </ion-item>
+    <ion-item>
+      Year {{partTimeWorkDaysYear}} / {{remainingWorkDays}} / Month {{partTimeWorkDaysMonth}} {{partTimePercentage}}
+    </ion-item>
   @for (holiday of holidays; track holiday) {
-    <ion-list>
-      <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY')}}</ion-item>
-    </ion-list>
+    <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY')}}</ion-item>
   }
+    </ion-list>
 
 
 </ion-content>
