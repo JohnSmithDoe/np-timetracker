@@ -1,0 +1,14 @@
+<ion-card>
+  @if (title()) {
+    <ion-card-header>
+      <ion-card-title>{{ title() }}</ion-card-title>
+    </ion-card-header>
+  }
+  <ion-card-content>
+    <ion-list class="dash-office-days-list">
+      @for (date of officeDays(); track $index) {
+        <ion-item>{{ date.format('ddd DD.MM.YYYY') }}</ion-item>
+      }
+    </ion-list>
+  </ion-card-content>
+</ion-card>

@@ -5,10 +5,17 @@
     </ion-card-header>
   }
   <ion-card-content>
-    <ion-button (click)="buttonClick.emit()" class="dash-button"
-                expand="block" color="secondary" size="large" >
-      <ion-icon name="add" slot="start"></ion-icon>
-      {{ 'officetime.page.add-office-day' | translate }}
+    <ion-button (click)="buttonClick.emit()"
+                class="dash-button"
+                expand="block"
+                color="secondary"
+                size="large"
+
+    >
+      <div flex-col flex-center-center>
+        <ion-icon name="add" size="large" class="ion-margin-bottom"></ion-icon>
+        <p>{{ 'officetime.page.add-office-day' | translate }}</p>
+      </div>
     </ion-button>
   </ion-card-content>
 </ion-card>

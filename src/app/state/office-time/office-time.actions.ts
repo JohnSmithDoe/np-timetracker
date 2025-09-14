@@ -11,5 +11,8 @@ export const officeTimeActions = createActionGroup({
     }),
     'Save Office Time': emptyProps(),
     'Add Office Time': emptyProps(),
+    'Save Barcode': (base64Blob: string) => ({ base64Blob }),
+    'Save Working Hours': (hours: number) => ({ hours }),
+    'Save Working Hours Default': (hours: number) => ({ hours }),
   },
 });

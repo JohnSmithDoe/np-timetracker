@@ -4,8 +4,10 @@ import { ApplicationActions } from '../application.actions';
 import { officeTimeActions } from './office-time.actions';
 import dayjs from 'dayjs';
 
+
 export const initialOfficeTime: IOfficeTimeState = {
-  workingHoursWeek: 35,
+  workingHoursDefault:40,
+  workingHours: 40,
 };
 
 export const officeTimeReducer = createReducer(
@@ -28,6 +30,12 @@ export const officeTimeReducer = createReducer(
       officeDays: [...(_state.officeDays ?? []), dayjs()],
     })
   ),
+  on(officeTimeActions.saveBarcode,
+    (_state, {base64Blob}):IOfficeTimeState => ({..._state, barcode: base64Blob})),
+  on(officeTimeActions.saveWorkingHours,
+    (_state, {hours}):IOfficeTimeState => ({..._state, workingHours: hours})),
+  on(officeTimeActions.saveWorkingHoursDefault,
+    (_state, {hours}):IOfficeTimeState => ({..._state, workingHoursDefault: hours})),
   on(
     ApplicationActions.loadedSuccessfully,
     (_state, { datastore }): IOfficeTimeState => datastore.officeTime ?? _state

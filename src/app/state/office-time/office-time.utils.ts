@@ -114,7 +114,11 @@ const getHoliday = (
   );
   return holiday ? { name: holiday[0], date: holiday[1] } : undefined;
 };
-export const partTime = (workingHoursWeek: number, workDays: number) => {
-  const workingDaysWeek = (workingHoursWeek * 5) / 40;
+export const partTime = (workingHoursWeek: number, workingHoursDefault: number, workDays: number) => {
+  const workingDaysWeek = (workingHoursWeek * 5) / workingHoursDefault;
   return (workDays / 5) * workingDaysWeek;
+};
+export const getPercentage = (officeDays: ReadonlyArray<Dayjs> | undefined, workDays: number) => {
+  // we consider 50% as the goal for the office days
+  return Math.trunc(((officeDays?.length ?? 0) / workDays) * 100) * 2;
 };

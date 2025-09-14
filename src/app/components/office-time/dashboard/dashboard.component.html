@@ -1,17 +1,26 @@
 @let officeTime = officeTime$ | async;
 @let holidays = holidays$ | async;
+@let officeDays = officeDays$ | async;
+@let partTime = partTime$ | async;
 
 @let workDaysYear = officeTime?.workDaysYear;
 @let workDaysMonth = officeTime?.workDaysMonth;
 @let remainingWorkDays = officeTime?.remainingWorkDays;
 @let percentage = officeTime?.percentage;
-@let partTimeWorkDaysYear = officeTime?.partTimeWorkDaysYear;
-@let partTimeWorkDaysMonth = officeTime?.partTimeWorkDaysMonth;
-@let partTimePercentage = officeTime?.partTimePercentage;
+
+@let partTimeWorkDaysYear = partTime?.partTimeWorkDaysYear;
+@let partTimeWorkDaysMonth = partTime?.partTimeWorkDaysMonth;
+@let partTimePercentage = partTime?.partTimePercentage;
 
 <ion-list>
   <ion-item>
-    <app-dash-button></app-dash-button>
+    <div flex-row flex-wrap>
+    <app-dash-button (buttonClick)="addOfficeDay()"></app-dash-button>
+      <app-dash-office-days
+        [title]="'officetime.page.stats.office-days' | translate"
+        [officeDays]="officeDays"
+      />
+    </div>
   </ion-item>
   <ion-item>
     <div flex-row flex-wrap>
@@ -44,8 +53,9 @@
                       [remaining]="remainingWorkDays"/>
     </div>
   </ion-item>
-  @for (holiday of holidays; track holiday) {
-    <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY') }}</ion-item>
-  }
+  <ion-item>
+    <app-dash-holidays [title]="'officetime.page.stats.holidays' | translate"
+    [holidays]="holidays"/>
+  </ion-item>
 
 </ion-list>

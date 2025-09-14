@@ -89,7 +89,9 @@ export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
 export interface IOfficeTimeState {
   holidays?: Record<string, Dayjs>;
   officeDays?: ReadonlyArray<Dayjs>;
-  workingHoursWeek: number;
+  barcode?: string;
+  workingHours: number;
+  workingHoursDefault: number;
 }
 
 export interface IAppState {

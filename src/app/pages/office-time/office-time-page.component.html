@@ -18,18 +18,36 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-  </app-page-header>
+</app-page-header>
 
 <ion-content>
   <ion-segment-view>
     <ion-segment-content id="default">
-    <app-dashboard/>
+      <app-dashboard/>
     </ion-segment-content>
     <ion-segment-content id="barcode">
-      <ion-input type="file" accept="image/*" (change)="onFileSelected($event)">hello</ion-input>
-
+      @let barcode = (barcode$ | async);
+      <img [src]="'data:image/*;base64,' + barcode" alt="Barcode" class="barcode"/>
     </ion-segment-content>
-    <ion-segment-content id="settings">Third</ion-segment-content>
+    <ion-segment-content id="settings">
+      @let workingHours = (workingHours$ | async);
+      @let workingHoursDefault = (workingHoursDefault$ | async);
+
+      <ion-list>
+      <ion-item>
+        <label for="image-input">{{ 'officetime.page.settings.barcode.button' }}</label>
+        <input id="image-input" type="file" accept="image/*" (change)="onFileSelected($event)"/>
+      </ion-item>
+        <ion-item>
+          <ion-input [label]="'officetime.page.settings.workhours.default' | translate" type="number" (ionChange)="workHoursDefaultChange($event)" [value]="workingHoursDefault"/>
+        </ion-item>
+        <ion-item>
+          <ion-input [label]="'officetime.page.settings.workhours' | translate " type="number" (ionChange)="workHoursChange($event)" [value]="workingHours"/>
+        </ion-item>
+
+
+      </ion-list>
+    </ion-segment-content>
   </ion-segment-view>
 
 </ion-content>
