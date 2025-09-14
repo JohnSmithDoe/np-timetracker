@@ -1,13 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
-  IonButton,
-  IonCol,
   IonContent,
-  IonGrid,
+  IonFooter,
   IonIcon,
   IonItem,
+  IonLabel,
   IonList,
-  IonRow,
+  IonSegment,
+  IonSegmentButton,
+  IonSegmentContent,
+  IonSegmentView,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,13 +39,16 @@ import { DashStatsComponent } from '../../components/office-time/dash-stats/dash
     IonList,
     IonItem,
     AsyncPipe,
-    IonButton,
     DashPercentageComponent,
-    IonGrid,
-    IonCol,
-    IonRow,
     DashStatsComponent,
     IonIcon,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonSegmentView,
+    IonSegmentContent,
+    IonToolbar,
+    IonFooter,
   ],
 })
 export class OfficeTimePage implements IonViewWillEnter {

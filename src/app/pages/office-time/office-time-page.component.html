@@ -13,43 +13,67 @@
 @let partTimeWorkDaysYear = officeTime?.partTimeWorkDaysYear;
 @let partTimeWorkDaysMonth = officeTime?.partTimeWorkDaysMonth;
 @let partTimePercentage = officeTime?.partTimePercentage;
-
 <ion-content>
-  <ion-list>
-    <ion-item [button]="true" (click)="addOfficeDay()" color="secondary">
-      <ion-icon name="add" slot="start"></ion-icon>
-      {{ 'officetime.page.add-office-day' | translate}}
-    </ion-item>
-    <ion-item>
-      <div flex-row flex-wrap>
-        <app-dash-percentage [percentage]="percentage" [title]="'officetime.page.stats.percentage' | translate"/>
-        <app-dash-percentage [percentage]="partTimePercentage" [title]="'officetime.page.stats.parttime.percentage' | translate"/>
-      </div>
-    </ion-item>
-    <ion-item>
-      <div flex-row flex-wrap>
-        <app-dash-stats [title]="'officetime.page.stats.year' | translate"
-                        [workdays]="workDaysYear"
-                        [officeDays]="2"
-                        [remaining]="remainingWorkDays"/>
-        <app-dash-stats [title]="'officetime.page.stats.month' | translate"
-                        [workdays]="workDaysMonth"
-                        [officeDays]="2"
-                        [remaining]="remainingWorkDays"/>
-      <app-dash-stats [title]="'officetime.page.stats.parttime.year' | translate"
-                      [workdays]="partTimeWorkDaysYear"
-                      [officeDays]="2"
-                      [remaining]="remainingWorkDays"/>
-      <app-dash-stats [title]="'officetime.page.stats.parttime.month' | translate"
-                      [workdays]="partTimeWorkDaysMonth"
-                      [officeDays]="2"
-                      [remaining]="remainingWorkDays"/>
-      </div>
-    </ion-item>
-  @for (holiday of holidays; track holiday) {
-    <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY')}}</ion-item>
-  }
+  <ion-segment-view>
+    <ion-segment-content id="default">
+      <ion-list>
+        <ion-item [button]="true" (click)="addOfficeDay()" color="secondary">
+          <ion-icon name="add" slot="start"></ion-icon>
+          {{ 'officetime.page.add-office-day' | translate }}
+        </ion-item>
+        <ion-item>
+          <div flex-row flex-wrap>
+            <app-dash-percentage [percentage]="percentage" [title]="'officetime.page.stats.percentage' | translate"/>
+            <app-dash-percentage [percentage]="partTimePercentage"
+                                 [title]="'officetime.page.stats.parttime.percentage' | translate"/>
+          </div>
+        </ion-item>
+        <ion-item>
+          <div flex-row flex-wrap>
+            <app-dash-stats [title]="'officetime.page.stats.year' | translate"
+                            [workdays]="workDaysYear"
+                            [officeDays]="2"
+                            [remaining]="remainingWorkDays"/>
+            <app-dash-stats [title]="'officetime.page.stats.month' | translate"
+                            [workdays]="workDaysMonth"
+                            [officeDays]="2"
+                            [remaining]="remainingWorkDays"/>
+            <app-dash-stats [title]="'officetime.page.stats.parttime.year' | translate"
+                            [workdays]="partTimeWorkDaysYear"
+                            [officeDays]="2"
+                            [remaining]="remainingWorkDays"/>
+            <app-dash-stats [title]="'officetime.page.stats.parttime.month' | translate"
+                            [workdays]="partTimeWorkDaysMonth"
+                            [officeDays]="2"
+                            [remaining]="remainingWorkDays"/>
+          </div>
+        </ion-item>
+        @for (holiday of holidays; track holiday) {
+          <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY') }}</ion-item>
+        }
 
-  </ion-list>
+      </ion-list>
+    </ion-segment-content>
+    <ion-segment-content id="barcode">Second</ion-segment-content>
+    <ion-segment-content id="settings">Third</ion-segment-content>
+  </ion-segment-view>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment value="default">
+      <ion-segment-button value="default" content-id="default">
+        <ion-label>
+          {{ 'officetime.page.segment.default' | translate }}
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="barcode" content-id="barcode">
+        <ion-label> {{ 'officetime.page.segment.barcode' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="settings" content-id="settings">
+        <ion-label> {{ 'officetime.page.segment.settings' | translate }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
