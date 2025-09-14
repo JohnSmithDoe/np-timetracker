@@ -1,0 +1,14 @@
+<ion-card>
+  @if (title()) {
+    <ion-card-header>
+      <ion-card-title>{{ title() }}</ion-card-title>
+    </ion-card-header>
+  }
+  <ion-card-content>
+    <ion-button (click)="buttonClick.emit()" class="dash-button"
+                expand="block" color="secondary" size="large" >
+      <ion-icon name="add" slot="start"></ion-icon>
+      {{ 'officetime.page.add-office-day' | translate }}
+    </ion-button>
+  </ion-card-content>
+</ion-card>

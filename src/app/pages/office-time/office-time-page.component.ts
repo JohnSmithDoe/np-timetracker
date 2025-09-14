@@ -2,10 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   IonContent,
   IonFooter,
-  IonIcon,
-  IonItem,
+  IonInput,
   IonLabel,
-  IonList,
   IonSegment,
   IonSegmentButton,
   IonSegmentContent,
@@ -17,39 +15,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
-import { AsyncPipe } from '@angular/common';
-import {
-  selectHolidays,
-  selectOfficeTime,
-} from '../../state/office-time/office-time.selector';
+import { selectHolidays, selectOfficeTime } from '../../state/office-time/office-time.selector';
 import { IonViewWillEnter } from '../../@types/types';
 import { officeTimeActions } from '../../state/office-time/office-time.actions';
-import { DashPercentageComponent } from '../../components/office-time/dash-percentage/dash-percentage.component';
-import { DashStatsComponent } from '../../components/office-time/dash-stats/dash-stats.component';
+import { DashboardComponent } from '../../components/office-time/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-page-office-time',
   templateUrl: 'office-time-page.component.html',
   styleUrls: ['office-time-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    PageHeaderComponent,
-    IonContent,
-    TranslateModule,
-    IonList,
-    IonItem,
-    AsyncPipe,
-    DashPercentageComponent,
-    DashStatsComponent,
-    IonIcon,
-    IonSegment,
-    IonSegmentButton,
-    IonLabel,
-    IonSegmentView,
-    IonSegmentContent,
-    IonToolbar,
-    IonFooter,
-  ],
+  imports: [PageHeaderComponent, IonContent, TranslateModule, IonSegment, IonSegmentButton, IonLabel, IonSegmentView, IonSegmentContent, IonToolbar, IonFooter, IonInput, DashboardComponent],
 })
 export class OfficeTimePage implements IonViewWillEnter {
   readonly #store = inject(Store);
@@ -65,7 +41,9 @@ export class OfficeTimePage implements IonViewWillEnter {
     this.#store.dispatch(officeTimeActions.loadHolidays());
   }
 
-  addOfficeDay() {
-    this.#store.dispatch(officeTimeActions.addOfficeTime());
+
+
+  onFileSelected($event: Event) {
+    console.log($event);
   }
 }
