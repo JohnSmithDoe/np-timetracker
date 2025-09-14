@@ -8,7 +8,7 @@ import {
 } from '../../../state/office-time/office-time.selector';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
 import { DashButtonComponent } from '../dash-button/dash-button.component';
@@ -19,7 +19,7 @@ import { DashHolidaysComponent } from '../dash-holidays/dash-holidays.component'
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [IonList, IonItem, DashPercentageComponent, DashStatsComponent, AsyncPipe, TranslateModule, DashButtonComponent, DashOfficeDaysComponent, DashHolidaysComponent],
+  imports: [IonList, IonItem, DashPercentageComponent, DashStatsComponent, AsyncPipe, TranslateModule, DashButtonComponent, DashOfficeDaysComponent, DashHolidaysComponent, JsonPipe],
 })
 export class DashboardComponent {
   readonly #store = inject(Store);

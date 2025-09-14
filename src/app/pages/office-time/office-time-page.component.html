@@ -26,8 +26,7 @@
       <app-dashboard/>
     </ion-segment-content>
     <ion-segment-content id="barcode">
-      @let barcode = (barcode$ | async);
-      <img [src]="'data:image/*;base64,' + barcode" alt="Barcode" class="barcode"/>
+      <app-barcode/>
     </ion-segment-content>
     <ion-segment-content id="settings">
       @let workingHours = (workingHours$ | async);

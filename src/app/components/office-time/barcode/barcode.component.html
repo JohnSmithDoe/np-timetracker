@@ -1,0 +1,6 @@
+@let barcode = (barcode$ | async);
+@if (barcode) {
+    <img [src]="'data:image/*;base64,' + barcode" alt="Barcode" class="barcode"/>
+} @else {
+  <p>{{'barcode.warning.not.found' | translate }}</p>
+}

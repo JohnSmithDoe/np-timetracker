@@ -49,7 +49,7 @@ export const selectPartTimeWorkDaysMonth = createSelector(
   selectWorkDaysMonth,
   selectWorkingHoursDefault,
   (state, workdays, workingHoursDefault) => {
-    return partTime(state.workingHours, workdays, workingHoursDefault);
+    return partTime(state.workingHours, workingHoursDefault, workdays);
   }
 );
 export const selectPartTimeWorkDaysYear = createSelector(
@@ -57,7 +57,7 @@ export const selectPartTimeWorkDaysYear = createSelector(
   selectWorkDaysYear,
   selectWorkingHoursDefault,
   (state, workdays, workingHoursDefault) => {
-    return partTime(state.workingHours, workdays, workingHoursDefault);
+    return partTime(state.workingHours, workingHoursDefault, workdays);
   }
 );
 

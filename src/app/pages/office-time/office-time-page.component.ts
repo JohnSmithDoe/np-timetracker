@@ -16,25 +16,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
-import {
-  selectBarcodeBlob, selectWorkingHours, selectWorkingHoursDefault,
-} from '../../state/office-time/office-time.selector';
+import { selectWorkingHours, selectWorkingHoursDefault } from '../../state/office-time/office-time.selector';
 import { IonViewWillEnter } from '../../@types/types';
 import { officeTimeActions } from '../../state/office-time/office-time.actions';
 import { DashboardComponent } from '../../components/office-time/dashboard/dashboard.component';
 import { AsyncPipe } from '@angular/common';
+import { BarcodeComponent } from '../../components/office-time/barcode/barcode.component';
 
 @Component({
   selector: 'app-page-office-time',
   templateUrl: 'office-time-page.component.html',
   styleUrls: ['office-time-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PageHeaderComponent, IonContent, TranslateModule, IonSegment, IonSegmentButton, IonLabel, IonSegmentView, IonSegmentContent, IonToolbar, DashboardComponent, IonItem, IonList, AsyncPipe, IonInput],
+  imports: [PageHeaderComponent, IonContent, TranslateModule, IonSegment, IonSegmentButton, IonLabel, IonSegmentView, IonSegmentContent, IonToolbar, DashboardComponent, IonItem, IonList, AsyncPipe, IonInput, BarcodeComponent],
 })
 export class OfficeTimePage implements IonViewWillEnter {
   readonly #store = inject(Store);
 
-  readonly barcode$ = this.#store.select(selectBarcodeBlob);
   readonly workingHours$ = this.#store.select(selectWorkingHours);
   readonly workingHoursDefault$ = this.#store.select(selectWorkingHoursDefault);
 
