@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
-import { BooleanKeys, ISettings } from '../../@types/types';
+import { BooleanKeys, ISettingsState } from '../../@types/types';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
 import { settingsActions } from '../../state/settings/settingsActions';
 import { selectSettingsState } from '../../state/settings/settings.selector';
@@ -24,7 +24,7 @@ export class SettingsPage {
     addIcons({ add, remove });
   }
 
-  toggleFlag(flag: BooleanKeys<ISettings>) {
+  toggleFlag(flag: BooleanKeys<ISettingsState>) {
     this.#store.dispatch(settingsActions.toggleFlag(flag));
   }
 }

@@ -4,11 +4,16 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
-import { BooleanKeys, ISettings } from '../../@types/types';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
-import { settingsActions } from '../../state/settings/settingsActions';
-import { OfficeTimeService } from '../../services/office-time.service';
 import { AsyncPipe } from '@angular/common';
+import {
+  selectHolidays,
+  selectRemainingWorkDays,
+  selectWorkDaysMonth,
+  selectWorkDaysYear,
+} from '../../state/office-time/office-time.selector';
+import { IonViewWillEnter } from '../../@types/types';
+import { officeTimeActions } from '../../state/office-time/office-time.actions';
 
 @Component({
   selector: 'app-page-office-time',
@@ -24,18 +29,19 @@ import { AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
 })
-export class OfficeTimePage {
+export class OfficeTimePage implements IonViewWillEnter {
   readonly #store = inject(Store);
-  readonly #officeTimeService = inject(OfficeTimeService);
 
-  readonly workDays$ = this.#officeTimeService.getWorkDaysForYear();
-  readonly workDaysForMonth$ = this.#officeTimeService.getWorkDaysForMonth();
+  readonly workDaysYear$ = this.#store.select(selectWorkDaysYear);
+  readonly workDaysMonth$ = this.#store.select(selectWorkDaysMonth);
+  readonly remainingWorkDays$ = this.#store.select(selectRemainingWorkDays);
+  readonly holidays$ = this.#store.select(selectHolidays);
 
   constructor() {
     addIcons({ add, remove });
   }
 
-  toggleFlag(flag: BooleanKeys<ISettings>) {
-    this.#store.dispatch(settingsActions.toggleFlag(flag));
+  ionViewWillEnter(): void {
+    this.#store.dispatch(officeTimeActions.loadHolidays());
   }
 }

@@ -16,6 +16,7 @@ export class DatabaseService {
     let initialData: IDatastore = {
       tracking: await this.#loadAs('tracking'),
       settings: await this.#loadAs('settings'),
+      officeTime: await this.#loadAs('officeTime'),
     };
     if (
       !initialData.settings?.version ||

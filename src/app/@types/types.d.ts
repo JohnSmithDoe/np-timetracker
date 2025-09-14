@@ -1,10 +1,10 @@
 import { Color } from '@ionic/core/dist/types/interface';
+import { Dayjs } from 'dayjs';
 
 export type BooleanKeys<T> = {
   [k in keyof T]: T[k] extends boolean ? k : never;
 }[keyof T];
 
-// eslint-disable-next-line functional/type-declaration-immutability
 export type TIonDragEvent = CustomEvent<{ amount: number; ratio: number }>;
 export type TMarker = string;
 export type TColor = Color | 'tracking' | 'settings';
@@ -57,14 +57,15 @@ export type TTrackingList = IListState<ITrackingItem> & {
 };
 export type ITrackingState = TTrackingList;
 
-export interface ISettings {
+export interface ISettingsState {
   showTotalTime: boolean;
   version: string;
 }
 
 export interface IDatastore {
-  tracking: TTrackingList;
-  settings: ISettings;
+  tracking: ITrackingState;
+  settings: ISettingsState;
+  officeTime: IOfficeTimeState;
 }
 // hmm clean up this and myba add a quick add state
 export interface ISearchResult<T extends ITrackingItem> {
@@ -85,10 +86,15 @@ export type IEditItemState<T extends IBaseItem> = Readonly<{
 export type TDialogsState = IEditItemState<ITrackingItem>;
 export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
 
+export interface IOfficeTimeState {
+  holidays?: Record<string, Dayjs>;
+}
+
 export interface IAppState {
   tracking: ITrackingState;
   dialogs: TDialogsState;
-  settings: ISettings;
+  settings: ISettingsState;
+  officeTime: IOfficeTimeState;
 }
 
 export interface IonViewWillEnter {

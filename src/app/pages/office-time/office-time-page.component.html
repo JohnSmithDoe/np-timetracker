@@ -3,10 +3,18 @@
   [label]="'page-title.office-time' | translate"
   hideButtons="true"
 />
-@let workDays = workDays$ | async;
-@let workDaysForMonth = workDaysForMonth$ | async;
+@let workDaysYear = workDaysYear$ | async;
+@let workDaysMonth = workDaysMonth$ | async;
+@let remainingWorkDays = remainingWorkDays$ | async;
+@let holidays = holidays$ | async;
+
 <ion-content>
   <ion-list>
-    <ion-item>Hello {{workDays}} / {{workDaysForMonth}}</ion-item>
+    <ion-item>Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}}</ion-item>
   </ion-list>
+  @for (holiday of holidays; track holiday) {
+    <ion-list>
+      <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY')}}</ion-item>
+    </ion-list>
+  }
 </ion-content>

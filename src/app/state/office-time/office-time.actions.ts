@@ -1,10 +1,14 @@
-import { createActionGroup } from '@ngrx/store';
-import { BooleanKeys, ISettings } from '../../@types/types';
+import { createActionGroup, emptyProps } from '@ngrx/store';
+import { Dayjs } from 'dayjs';
 
 export const officeTimeActions = createActionGroup({
-  source: 'Settings',
+  source: 'Office Time',
   events: {
-    'Update Settings': (settings: ISettings) => ({ settings }),
-    'Toggle Flag': (flag: BooleanKeys<ISettings>) => ({ flag }),
+    'Load Holidays': emptyProps(),
+    'Load Holidays Failure': emptyProps(),
+    'Load Holidays Success': (holidays: Record<string, Dayjs>) => ({
+      holidays,
+    }),
+    'Save Office Time': emptyProps(),
   },
 });

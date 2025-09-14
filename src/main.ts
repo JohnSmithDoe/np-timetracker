@@ -37,6 +37,8 @@ import { settingsReducer } from './app/state/settings/settings.reducer';
 import { trackingReducer } from './app/state/tracking/tracking.reducer';
 import { environment } from './environments/environment';
 import { TrackingEffects } from './app/state/tracking/tracking.effects';
+import { officeTimeReducer } from './app/state/office-time/office-time.reducer';
+import { OfficeTimeEffects } from './app/state/office-time/office-time.effects';
 
 if (environment.production) {
   enableProdMode();
@@ -74,6 +76,7 @@ void bootstrapApplication(AppComponent, {
       settings: settingsReducer,
       tracking: trackingReducer,
       dialogs: dialogsReducer,
+      officeTime: officeTimeReducer,
     }),
     provideRouterStore(),
     provideEffects(
@@ -82,7 +85,8 @@ void bootstrapApplication(AppComponent, {
       ItemListEffects,
       SettingsEffects,
       DialogsEffects,
-      TrackingEffects
+      TrackingEffects,
+      OfficeTimeEffects
     ),
     {
       provide: LOCALE_ID,
