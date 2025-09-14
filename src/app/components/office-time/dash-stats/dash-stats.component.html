@@ -1,0 +1,14 @@
+<ion-card>
+  @if (title()) {
+    <ion-card-header>
+      <ion-card-title>{{ title() }}</ion-card-title>
+    </ion-card-header>
+  }
+  <ion-card-content>
+    <ion-list>
+      <ion-item>Arbeitstage: {{ workdays() }}</ion-item>
+      <ion-item>Verbleibend: {{ remaining() }}</ion-item>
+      <ion-item>Bürotage: {{ officeDays() }}</ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

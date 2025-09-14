@@ -1,0 +1,12 @@
+<ion-card>
+  @if (title()) {
+    <ion-card-header>
+      <ion-card-title>{{ title() }}</ion-card-title>
+    </ion-card-header>
+  }
+  <ion-card-content>
+    <div class="circular-meter" [style.--p]="percentage() ?? 0">
+      <div class="center-text">{{ percentage() ?? 0 }}%</div>
+    </div>
+  </ion-card-content>
+</ion-card>
