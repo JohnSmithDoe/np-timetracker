@@ -3,24 +3,37 @@
   [label]="'page-title.office-time' | translate"
   hideButtons="true"
 />
-@let workDaysYear = workDaysYear$ | async;
-@let workDaysMonth = workDaysMonth$ | async;
-@let remainingWorkDays = remainingWorkDays$ | async;
+@let officeTime = officeTime$ | async;
 @let holidays = holidays$ | async;
-@let currentPercent = currentPercentage$ | async;
 
-@let partTimeWorkDaysYear = partTimeWorkDaysYear$ | async;
-@let partTimeWorkDaysMonth = partTimeWorkDaysMonth$ | async;
-@let partTimePercentage = partTimePercentage$ | async;
+@let workDaysYear = officeTime?.workDaysYear;
+@let workDaysMonth = officeTime?.workDaysMonth;
+@let remainingWorkDays = officeTime?.remainingWorkDays;
+@let percentage = officeTime?.percentage;
+@let partTimeWorkDaysYear = officeTime?.partTimeWorkDaysYear;
+@let partTimeWorkDaysMonth = officeTime?.partTimeWorkDaysMonth;
+@let partTimePercentage = officeTime?.partTimePercentage;
 
 <ion-content>
+
   <ion-list>
-    <ion-item [button]="true" (click)="addOfficeDay()">Add Office Day</ion-item>
+    <ion-item [button]="true" (click)="addOfficeDay()" color="secondary">Add Office Day</ion-item>
     <ion-item>
-      Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}} {{currentPercent}}
+      <ion-button (click)="addOfficeDay()" color="secondary">Add Office Day</ion-button>
+    </ion-item>
+    <ion-item>
+      Year {{workDaysYear}} / {{remainingWorkDays}} / Month {{workDaysMonth}} {{percentage}}
     </ion-item>
     <ion-item>
       Year {{partTimeWorkDaysYear}} / {{remainingWorkDays}} / Month {{partTimeWorkDaysMonth}} {{partTimePercentage}}
+    </ion-item>
+    <ion-item flex-row>
+      <div class="circular-meter"  [style.--p]="percentage">
+        <div class="center-text">{{ percentage }}%</div>
+      </div>
+      <div class="circular-meter"  [style.--p]="partTimePercentage">
+        <div class="center-text">{{ partTimePercentage }}%</div>
+      </div>
     </ion-item>
   @for (holiday of holidays; track holiday) {
     <ion-item>{{ holiday.name }} - {{ holiday.date.format('DD.MM.YYYY')}}</ion-item>
