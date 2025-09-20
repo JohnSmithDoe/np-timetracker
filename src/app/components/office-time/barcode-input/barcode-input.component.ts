@@ -4,20 +4,15 @@ import {
   selectBarcodeBlob, selectWorkingHours, selectWorkingHoursDefault,
 } from '../../../state/office-time/office-time.selector';
 import { Store } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
-import { IonButton, IonInput, IonItem, IonList } from '@ionic/angular/standalone';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
 import { map } from 'rxjs';
-import { BarcodeComponent } from '../barcode/barcode.component';
-import { BarcodeInputComponent } from '../barcode-input/barcode-input.component';
 
 @Component({
-  selector: 'app-office-time-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
-  imports: [TranslateModule, AsyncPipe, IonInput, IonItem, IonList, BarcodeComponent, IonButton, BarcodeInputComponent],
+  selector: 'app-barcode-input',
+  templateUrl: './barcode-input.component.html',
+  styleUrls: ['./barcode-input.component.scss'], imports: [TranslateModule],
 })
-export class SettingsComponent {
+export class BarcodeInputComponent {
   readonly #store = inject(Store);
   readonly barcode$ = this.#store.select(selectBarcodeBlob).pipe(
     map(blob => !!blob)

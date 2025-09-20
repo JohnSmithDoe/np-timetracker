@@ -7,6 +7,7 @@ import {
   IonItem,
   IonList,
 } from '@ionic/angular/standalone';
+import { Stats } from '../../../@types/types';
 
 @Component({
   selector: 'app-dash-stats',
@@ -23,7 +24,6 @@ import {
 })
 export class DashStatsComponent {
   readonly title = input<string | undefined>();
-  readonly workdays = input<number | undefined>();
-  readonly officeDays = input<number | undefined>();
-  readonly remaining = input<number | undefined>();
+
+  readonly data = input<Stats | undefined>();
 }

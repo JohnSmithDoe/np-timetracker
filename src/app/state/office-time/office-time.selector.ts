@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IOfficeTimeState } from '../../@types/types';
+import { DashboardStats, IOfficeTimeState } from '../../@types/types';
 import {
   getHolidaysForMonth,
   getHolidaysForYear,
@@ -18,10 +18,12 @@ export const selectHolidays = createSelector(selectOfficeTimeState, (state) => {
   return getHolidaysForYear(state.holidays);
 });
 
-
-export const selectWorkingHoursDefault = createSelector(selectOfficeTimeState, (state) => {
-  return state.workingHoursDefault;
-});
+export const selectWorkingHoursDefault = createSelector(
+  selectOfficeTimeState,
+  (state) => {
+    return state.workingHoursDefault;
+  }
+);
 
 export const selectHolidaysForMonth = createSelector(
   selectOfficeTimeState,
@@ -68,7 +70,7 @@ export const selectOfficeDaysMonth = createSelector(
   }
 );
 
-export const selectCurrentPercentage = createSelector(
+export const selectPercentage = createSelector(
   selectWorkDaysMonth,
   selectOfficeDaysMonth,
   (workDays, officeDays) => {
@@ -117,7 +119,6 @@ export const selectWorkingHours = createSelector(
   }
 );
 
-
 export const selectIsPartTime = createSelector(
   selectWorkingHours,
   selectWorkingHoursDefault,
@@ -126,41 +127,78 @@ export const selectIsPartTime = createSelector(
   }
 );
 
-export const selectOfficeTime = createSelector(
+export const selectFullTime = createSelector(
   selectWorkDaysYear,
   selectWorkDaysMonth,
   selectRemainingWorkDays,
-  selectCurrentPercentage,
-  (
-    workDaysYear,
-    workDaysMonth,
-    remainingWorkDays,
+  selectPercentage,
+  (workdaysYear, workdaysMonth, remaining, percentage) => ({
+    workdaysYear,
+    workdaysMonth,
+    remaining,
     percentage,
-  ) => {
-    return {
-      workDaysYear,
-      workDaysMonth,
-      remainingWorkDays,
-      percentage,
+  })
+);
+
+export const selectPartTime = createSelector(
+  [
+    selectPartTimeWorkDaysYear,
+    selectPartTimeWorkDaysMonth,
+    selectPartTimePercentage,
+    selectIsPartTime,
+  ],
+  (
+    workdaysYear: number,
+    workdaysMonth: number,
+    percentage: number,
+    isPartTime: boolean
+  ) => ({
+    workdaysYear,
+    workdaysMonth,
+    percentage,
+    isPartTime,
+  })
+);
+export const selectDashboardStatsMonth = createSelector(
+  selectFullTime,
+  selectPartTime,
+  (fullTime, partTime) => {
+    const stats: DashboardStats = {
+      isPartTime: partTime.isPartTime,
+      fullTime: {
+        ...fullTime,
+        officedays: 0,
+        workdays: fullTime.workdaysMonth,
+      },
+      partTime: {
+        ...partTime,
+        officedays: 0,
+        remaining: fullTime.remaining,
+        workdays: partTime.workdaysMonth,
+      },
     };
+    return stats;
   }
 );
-export const selectPartTime = createSelector(
-  selectPartTimeWorkDaysYear,
-  selectPartTimeWorkDaysMonth,
-  selectPartTimePercentage,
-  selectIsPartTime,
-  (
-    partTimeWorkDaysYear,
-    partTimeWorkDaysMonth,
-    partTimePercentage,
-    isPartTime
-  ) => {
-    return {
-      partTimeWorkDaysYear,
-      partTimeWorkDaysMonth,
-      partTimePercentage,
-      isPartTime,
+
+export const selectDashboardStatsYear = createSelector(
+  selectFullTime,
+  selectPartTime,
+  (fullTime, partTime) => {
+    const stats: DashboardStats = {
+      isPartTime: partTime.isPartTime,
+      fullTime: {
+        ...fullTime,
+        officedays: 0,
+        workdays: fullTime.workdaysYear,
+      },
+      partTime: {
+        ...partTime,
+        officedays: 0,
+        remaining: fullTime.remaining,
+        workdays: partTime.workdaysYear,
+      },
     };
+    return stats;
   }
 );

@@ -107,3 +107,20 @@ export interface IonViewWillEnter {
 export interface IonViewDidEnter {
   ionViewDidEnter(): void;
 }
+
+export type Stats = {
+  workdays: number;
+  officedays: number;
+  remaining: number;
+  percentage: number;
+  date?: {
+    date: Dayjs;
+    calendarWeek: number;
+  };
+};
+
+export type DashboardStats = {
+  isPartTime?: boolean;
+  fullTime?: Stats;
+  partTime?: Stats;
+};

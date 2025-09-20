@@ -2,5 +2,9 @@
 @if (barcode) {
     <img [src]="'data:image/*;base64,' + barcode" alt="Barcode" class="barcode"/>
 } @else {
-  <p>{{'barcode.warning.not.found' | translate }}</p>
+  <ion-list>
+    <ion-item>
+      <app-barcode-input />
+    </ion-item>
+  </ion-list>
 }

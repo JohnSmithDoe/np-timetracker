@@ -1,3 +1,5 @@
+@let stats = data();
+
 <ion-card>
   @if (title()) {
     <ion-card-header>
@@ -6,9 +8,9 @@
   }
   <ion-card-content>
     <ion-list>
-      <ion-item>Arbeitstage: {{ workdays() }}</ion-item>
-      <ion-item>Verbleibend: {{ remaining() }}</ion-item>
-      <ion-item>Bürotage: {{ officeDays() }}</ion-item>
+      <ion-item>Arbeitstage: {{ stats?.workdays }}</ion-item>
+      <ion-item>Verbleibend: {{ stats?.remaining }}</ion-item>
+      <ion-item>Bürotage: {{ stats?.officedays }}</ion-item>
     </ion-list>
   </ion-card-content>
 </ion-card>

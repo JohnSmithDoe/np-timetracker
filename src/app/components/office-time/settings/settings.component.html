@@ -10,8 +10,7 @@
     </ion-item>
   } @else {
     <ion-item>
-      <label for="image-input">{{ 'officetime.page.settings.barcode.button' }}</label>
-      <input id="image-input" type="file" accept="image/*" (change)="onFileSelected($event)"/>
+      <app-barcode-input/>
     </ion-item>
   }
   <ion-item>

@@ -1,21 +1,14 @@
-@let officeTime = officeTime$ | async;
 @let holidays = holidays$ | async;
 @let officeDays = officeDays$ | async;
-@let partTime = partTime$ | async;
+@let statsMonth = statsMonth$ | async;
+@let statsYear = statsYear$ | async;
+@let isPartTime = isPartTime$ | async;
 
-@let workDaysYear = officeTime?.workDaysYear;
-@let workDaysMonth = officeTime?.workDaysMonth;
-@let remainingWorkDays = officeTime?.remainingWorkDays;
-@let percentage = officeTime?.percentage;
 
-@let partTimeWorkDaysYear = partTime?.partTimeWorkDaysYear;
-@let partTimeWorkDaysMonth = partTime?.partTimeWorkDaysMonth;
-@let partTimePercentage = partTime?.partTimePercentage;
-{{partTime?.isPartTime | json}}
 <ion-list>
   <ion-item>
     <div flex-row flex-wrap>
-    <app-dash-button (buttonClick)="addOfficeDay()"></app-dash-button>
+      <app-dash-button (buttonClick)="addOfficeDay()"/>
       <app-dash-office-days
         [title]="'officetime.page.stats.office-days' | translate"
         [officeDays]="officeDays"
@@ -24,38 +17,37 @@
   </ion-item>
   <ion-item>
     <div flex-row flex-wrap>
-      <app-dash-percentage [percentage]="percentage" [title]="'officetime.page.stats.percentage' | translate"/>
-      <app-dash-percentage [percentage]="partTimePercentage"
-                           [title]="'officetime.page.stats.parttime.percentage' | translate"/>
+      <app-dash-percentage [percentage]="statsMonth?.fullTime?.percentage"
+                           [title]="'officetime.page.stats.percentage' | translate"/>
+      @if (isPartTime) {
+        <app-dash-percentage [percentage]="statsMonth?.partTime?.percentage"
+                             [title]="'officetime.page.stats.parttime.percentage' | translate"/>
+      }
     </div>
   </ion-item>
   <ion-item>
     <div flex-row flex-wrap>
       <app-dash-stats [title]="'officetime.page.stats.year' | translate"
-                      [workdays]="workDaysYear"
-                      [officeDays]="2"
-                      [remaining]="remainingWorkDays"/>
-      <app-dash-stats [title]="'officetime.page.stats.parttime.year' | translate"
-                      [workdays]="partTimeWorkDaysYear"
-                      [officeDays]="2"
-                      [remaining]="remainingWorkDays"/>
+                      [data]="statsYear?.fullTime"/>
+      @if (isPartTime) {
+        <app-dash-stats [title]="'officetime.page.stats.year.partTime' | translate"
+                      [data]="statsYear?.partTime"/>
+      }
     </div>
   </ion-item>
   <ion-item>
     <div flex-row flex-wrap>
       <app-dash-stats [title]="'officetime.page.stats.month' | translate"
-                      [workdays]="workDaysMonth"
-                      [officeDays]="2"
-                      [remaining]="remainingWorkDays"/>
-      <app-dash-stats [title]="'officetime.page.stats.parttime.month' | translate"
-                      [workdays]="partTimeWorkDaysMonth"
-                      [officeDays]="2"
-                      [remaining]="remainingWorkDays"/>
+                      [data]="statsMonth?.fullTime"/>
+      @if (isPartTime) {
+        <app-dash-stats [title]="'officetime.page.stats.month.partTime' | translate"
+                      [data]="statsMonth?.partTime"/>
+      }
     </div>
   </ion-item>
   <ion-item>
     <app-dash-holidays [title]="'officetime.page.stats.holidays' | translate"
-    [holidays]="holidays"/>
+                       [holidays]="holidays"/>
   </ion-item>
 
 </ion-list>
