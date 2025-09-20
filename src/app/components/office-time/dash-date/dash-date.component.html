@@ -1,0 +1,16 @@
+<ion-card>
+  @if (title()) {
+    <ion-card-header>
+      <ion-card-title>{{ title() }}</ion-card-title>
+    </ion-card-header>
+  }
+  <ion-card-content>
+    <ion-list>
+      <ion-item>{{ data?.date }}</ion-item>
+      <ion-item>{{ data?.week }}</ion-item>
+      <ion-item>{{ data?.month }}</ion-item>
+      <ion-item>{{ data?.weekday }}</ion-item>
+      <ion-item>{{ data?.day }}</ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

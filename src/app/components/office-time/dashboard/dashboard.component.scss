@@ -1,32 +1,42 @@
-$thickness: 20px;
-$bar: green;
-$track: red;
-$size: 140px;
+@use '../../../../theme/dashboard' as dashboard;
+@use 'sass:math' as math;
+$padding: 16px;
+:host {
+  display: block;
+  padding: $padding;
+}
 
-.circular-meter {
-  --p: 0; /* percentage 0..100 */
-  width: $size;
-  height: $size;
-  border-radius: 50%;
-  background: conic-gradient(
-    $bar calc(min(100, max(0, var(--p))) * 1%),
-    $track 0
-  );
+.dash-grid {
   display: grid;
-  place-items: center;
-  position: relative;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(dashboard.$sm-item-width, 1fr)
+  );
+  gap: 1rem;
+  align-items: stretch;
+  grid-auto-flow: dense;
 }
-.circular-meter::after {
-  content: '';
-  position: absolute;
-  inset: $thickness;
-  background: var(--ion-background-color, #fff);
-  border-radius: 50%;
+
+app-dash-stats,
+app-dash-date,
+app-dash-button,
+app-dash-holidays,
+app-dash-office-days {
+  grid-column: span 2;
 }
-.circular-meter .center-text {
-  position: relative;
-  font-weight: 600;
-  font-size: 1.5rem;
-  z-index: 1;
-  color: var(--ion-text-color);
+
+app-dash-percentage {
+  grid-column: span 1;
+}
+
+@media (min-width: #{dashboard.$sm-item-width * 3 + $padding * 4}) {
+  .dash-grid app-dash-holidays {
+    grid-column: span 3;
+  }
+}
+
+@media (min-width: #{dashboard.$sm-item-width * 4 + $padding * 5}) {
+  .dash-grid app-dash-holidays {
+    grid-column: span 4;
+  }
 }

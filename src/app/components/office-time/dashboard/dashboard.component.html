@@ -4,50 +4,60 @@
 @let statsYear = statsYear$ | async;
 @let isPartTime = isPartTime$ | async;
 
+<section class="dash-grid">
+  <app-dash-button (buttonClick)="addOfficeDay()"></app-dash-button>
 
-<ion-list>
-  <ion-item>
-    <div flex-row flex-wrap>
-      <app-dash-button (buttonClick)="addOfficeDay()"/>
-      <app-dash-office-days
-        [title]="'officetime.page.stats.office-days' | translate"
-        [officeDays]="officeDays"
-      />
-    </div>
-  </ion-item>
-  <ion-item>
-    <div flex-row flex-wrap>
-      <app-dash-percentage [percentage]="statsMonth?.fullTime?.percentage"
-                           [title]="'officetime.page.stats.percentage' | translate"/>
-      @if (isPartTime) {
-        <app-dash-percentage [percentage]="statsMonth?.partTime?.percentage"
-                             [title]="'officetime.page.stats.parttime.percentage' | translate"/>
-      }
-    </div>
-  </ion-item>
-  <ion-item>
-    <div flex-row flex-wrap>
-      <app-dash-stats [title]="'officetime.page.stats.year' | translate"
-                      [data]="statsYear?.fullTime"/>
-      @if (isPartTime) {
-        <app-dash-stats [title]="'officetime.page.stats.year.partTime' | translate"
-                      [data]="statsYear?.partTime"/>
-      }
-    </div>
-  </ion-item>
-  <ion-item>
-    <div flex-row flex-wrap>
-      <app-dash-stats [title]="'officetime.page.stats.month' | translate"
-                      [data]="statsMonth?.fullTime"/>
-      @if (isPartTime) {
-        <app-dash-stats [title]="'officetime.page.stats.month.partTime' | translate"
-                      [data]="statsMonth?.partTime"/>
-      }
-    </div>
-  </ion-item>
-  <ion-item>
-    <app-dash-holidays [title]="'officetime.page.stats.holidays' | translate"
-                       [holidays]="holidays"/>
-  </ion-item>
+  <app-dash-office-days
+    [title]="'officetime.page.stats.office-days' | translate"
+    [officeDays]="officeDays"
+  />
 
-</ion-list>
+  <app-dash-percentage
+    [percentage]="statsMonth?.fullTime?.percentage"
+    [title]="'officetime.page.stats.percentage' | translate"
+  />
+  <app-dash-percentage
+    [percentage]="statsMonth?.fullTime?.percentage"
+    [title]="'officetime.page.stats.percentage' | translate"
+  />
+
+  @if (isPartTime) {
+    <app-dash-percentage
+      [percentage]="statsMonth?.partTime?.percentage"
+      [title]="'officetime.page.stats.parttime.percentage' | translate"
+    />
+  }
+
+  <app-dash-date
+    [title]="'officetime.page.stats.date' | translate"
+  />
+
+  <app-dash-stats
+    [title]="'officetime.page.stats.year' | translate"
+    [data]="statsYear?.fullTime"
+  />
+
+  @if (isPartTime) {
+    <app-dash-stats
+      [title]="'officetime.page.stats.year.partTime' | translate"
+      [data]="statsYear?.partTime"
+    />
+  }
+
+  <app-dash-stats
+    [title]="'officetime.page.stats.month' | translate"
+    [data]="statsMonth?.fullTime"
+  />
+
+  @if (isPartTime) {
+    <app-dash-stats
+      [title]="'officetime.page.stats.month.partTime' | translate"
+      [data]="statsMonth?.partTime"
+    />
+  }
+
+  <app-dash-holidays
+    [title]="'officetime.page.stats.holidays' | translate"
+    [holidays]="holidays"
+  />
+</section>

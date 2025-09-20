@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs, OpUnitType } from 'dayjs';
 
 export const getWorkDaysForYear = (holidays?: Record<string, Dayjs>) => {
   const start = dayjs().startOf('year');
@@ -48,11 +48,12 @@ export const getHolidaysForYear = (holidays?: Record<string, Dayjs>) => {
   return getHolidaysBetween(start, end, holidays);
 };
 
-export const getRemainingWorkDaysForYear = (
-  holidays?: Record<string, Dayjs>
+export const getRemainingWorkDays = (
+  holidays?: Record<string, Dayjs>,
+  unit: OpUnitType = 'year'
 ) => {
   const start = dayjs().startOf('day');
-  const end = start.endOf('year');
+  const end = start.endOf(unit);
   return countWorkDaysBetween(start, end, holidays);
 };
 
@@ -114,11 +115,18 @@ const getHoliday = (
   );
   return holiday ? { name: holiday[0], date: holiday[1] } : undefined;
 };
-export const partTime = (workingHoursWeek: number, workingHoursDefault: number, workDays: number) => {
+export const partTime = (
+  workingHoursWeek: number,
+  workingHoursDefault: number,
+  workDays: number
+) => {
   const workingDaysWeek = (workingHoursWeek * 5) / workingHoursDefault;
   return (workDays / 5) * workingDaysWeek;
 };
-export const getPercentage = (officeDays: ReadonlyArray<Dayjs> | undefined, workDays: number) => {
+export const getPercentage = (
+  officeDays: ReadonlyArray<Dayjs> | undefined,
+  workDays: number
+) => {
   // we consider 50% as the goal for the office days
   return Math.trunc(((officeDays?.length ?? 0) / workDays) * 100) * 2;
 };

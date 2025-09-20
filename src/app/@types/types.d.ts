@@ -113,10 +113,6 @@ export type Stats = {
   officedays: number;
   remaining: number;
   percentage: number;
-  date?: {
-    date: Dayjs;
-    calendarWeek: number;
-  };
 };
 
 export type DashboardStats = {

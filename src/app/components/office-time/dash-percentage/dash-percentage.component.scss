@@ -1,32 +1,8 @@
-$thickness: 20px;
-$bar: green;
-$track: red;
-$size: 140px;
+@use '../../../../theme/dashboard';
+@use '../../../../theme/charts';
+:host {
+  @include dashboard.dashboard-item();
+}
+@include dashboard.dashboard-item-card();
 
-.circular-meter {
-  --p: 0; /* percentage 0..100 */
-  width: $size;
-  height: $size;
-  border-radius: 50%;
-  background: conic-gradient(
-    $bar calc(min(100, max(0, var(--p))) * 1%),
-    $track 0
-  );
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-.circular-meter::after {
-  content: '';
-  position: absolute;
-  inset: $thickness;
-  background: var(--ion-background-color, #fff);
-  border-radius: 50%;
-}
-.circular-meter .center-text {
-  position: relative;
-  font-weight: 600;
-  font-size: 1.5rem;
-  z-index: 1;
-  color: var(--ion-text-color);
-}
+@include charts.circular-meter();

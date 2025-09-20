@@ -1,4 +1,5 @@
-.dash-holidays-list {
-  height: 250px;
-  overflow: auto;
+@use '../../../../theme/dashboard';
+:host {
+  @include dashboard.dashboard-item();
 }
+@include dashboard.dashboard-item-card-with-list();

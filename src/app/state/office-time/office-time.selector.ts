@@ -5,7 +5,7 @@ import {
   getHolidaysForYear,
   getOfficeDaysForMonth,
   getPercentage,
-  getRemainingWorkDaysForYear,
+  getRemainingWorkDays,
   getWorkDaysForMonth,
   getWorkDaysForYear,
   partTime,
@@ -91,10 +91,16 @@ export const selectPartTimePercentage = createSelector(
     return 0;
   }
 );
-export const selectRemainingWorkDays = createSelector(
+export const selectRemainingWorkDaysYear = createSelector(
   selectOfficeTimeState,
   (state) => {
-    return getRemainingWorkDaysForYear(state.holidays);
+    return getRemainingWorkDays(state.holidays, 'year');
+  }
+);
+export const selectRemainingWorkDaysMonth = createSelector(
+  selectOfficeTimeState,
+  (state) => {
+    return getRemainingWorkDays(state.holidays, 'month');
   }
 );
 
@@ -130,12 +136,10 @@ export const selectIsPartTime = createSelector(
 export const selectFullTime = createSelector(
   selectWorkDaysYear,
   selectWorkDaysMonth,
-  selectRemainingWorkDays,
   selectPercentage,
-  (workdaysYear, workdaysMonth, remaining, percentage) => ({
+  (workdaysYear, workdaysMonth, percentage) => ({
     workdaysYear,
     workdaysMonth,
-    remaining,
     percentage,
   })
 );
@@ -162,18 +166,20 @@ export const selectPartTime = createSelector(
 export const selectDashboardStatsMonth = createSelector(
   selectFullTime,
   selectPartTime,
-  (fullTime, partTime) => {
+  selectRemainingWorkDaysMonth,
+  (fullTime, partTime, remaining) => {
     const stats: DashboardStats = {
       isPartTime: partTime.isPartTime,
       fullTime: {
         ...fullTime,
+        remaining,
         officedays: 0,
         workdays: fullTime.workdaysMonth,
       },
       partTime: {
         ...partTime,
         officedays: 0,
-        remaining: fullTime.remaining,
+        remaining,
         workdays: partTime.workdaysMonth,
       },
     };
@@ -184,18 +190,20 @@ export const selectDashboardStatsMonth = createSelector(
 export const selectDashboardStatsYear = createSelector(
   selectFullTime,
   selectPartTime,
-  (fullTime, partTime) => {
+  selectRemainingWorkDaysYear,
+  (fullTime, partTime, remaining) => {
     const stats: DashboardStats = {
       isPartTime: partTime.isPartTime,
       fullTime: {
         ...fullTime,
+        remaining,
         officedays: 0,
         workdays: fullTime.workdaysYear,
       },
       partTime: {
         ...partTime,
         officedays: 0,
-        remaining: fullTime.remaining,
+        remaining,
         workdays: partTime.workdaysYear,
       },
     };

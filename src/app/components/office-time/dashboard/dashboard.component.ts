@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { IonItem, IonList } from '@ionic/angular/standalone';
 import { DashPercentageComponent } from '../dash-percentage/dash-percentage.component';
 import { Store } from '@ngrx/store';
 import {
@@ -18,14 +17,13 @@ import { DashButtonComponent } from '../dash-button/dash-button.component';
 import { DashOfficeDaysComponent } from '../dash-office-days/dash-office-days.component';
 import { DashStatsComponent } from '../dash-stats/dash-stats.component';
 import { DashHolidaysComponent } from '../dash-holidays/dash-holidays.component';
+import { DashDateComponent } from '../dash-date/dash-date.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   imports: [
-    IonList,
-    IonItem,
     AsyncPipe,
     TranslateModule,
     DashButtonComponent,
@@ -33,6 +31,7 @@ import { DashHolidaysComponent } from '../dash-holidays/dash-holidays.component'
     DashOfficeDaysComponent,
     DashStatsComponent,
     DashHolidaysComponent,
+    DashDateComponent,
   ],
 })
 export class DashboardComponent {
