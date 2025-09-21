@@ -1,5 +1,5 @@
-import { Color } from '@ionic/core/dist/types/interface';
-import { Dayjs } from 'dayjs';
+import {Color} from '@ionic/core/dist/types/interface';
+import {Dayjs} from 'dayjs';
 
 export type BooleanKeys<T> = {
   [k in keyof T]: T[k] extends boolean ? k : never;
@@ -12,13 +12,10 @@ export type TColor = Color | 'tracking' | 'settings';
 export type TTimestamp = string;
 
 export type IBaseItem = {
-  id: string;
-  name: string;
-  createdAt: TTimestamp;
+  id: string; name: string; createdAt: TTimestamp;
 };
 
-export type TUpdateDTO<T extends IBaseItem> = IBaseItem &
-  Partial<T> & { id: string };
+export type TUpdateDTO<T extends IBaseItem> = IBaseItem & Partial<T> & { id: string };
 
 export type ITrackingItem = IBaseItem & {
   startTime?: TTimestamp;
@@ -28,17 +25,13 @@ export type ITrackingItem = IBaseItem & {
   state: 'running' | 'stopped' | 'paused';
 };
 
-export type IDataItem = Pick<
-  ITrackingItem,
-  'trackedTimeInSeconds' | 'name' | 'id' | 'startTime'
->;
+export type IDataItem = Pick<ITrackingItem, 'trackedTimeInSeconds' | 'name' | 'id' | 'startTime'>;
 
 type TItemListSortType = 'name' | string;
 type TItemListSortDir = 'asc' | 'desc';
 
 export type TItemListSort = {
-  sortDir: TItemListSortDir;
-  sortBy: TItemListSortType;
+  sortDir: TItemListSortDir; sortBy: TItemListSortType;
 };
 
 export interface IItemList<T extends IBaseItem> {
@@ -51,9 +44,7 @@ export interface IItemList<T extends IBaseItem> {
 export type IListState<T extends IBaseItem> = IItemList<T>;
 
 export type TTrackingList = IListState<ITrackingItem> & {
-  title: 'Time tracking';
-  data: ITrackingItem[];
-  dataViewId: string;
+  title: 'Time tracking'; data: ITrackingItem[]; dataViewId: string;
 };
 export type ITrackingState = TTrackingList;
 
@@ -67,6 +58,7 @@ export interface IDatastore {
   settings: ISettingsState;
   officeTime: IOfficeTimeStateStorage;
 }
+
 // hmm clean up this and myba add a quick add state
 export interface ISearchResult<T extends ITrackingItem> {
   listItems: T[];
@@ -77,11 +69,7 @@ export interface ISearchResult<T extends ITrackingItem> {
 
 export type TEditItemMode = 'update' | 'create';
 export type IEditItemState<T extends IBaseItem> = Readonly<{
-  item: T;
-  isEditing?: boolean;
-  editMode?: TEditItemMode;
-  dialogTitle?: string;
-  saveButtonText?: string;
+  item: T; isEditing?: boolean; editMode?: TEditItemMode; dialogTitle?: string; saveButtonText?: string;
 }>;
 export type TDialogsState = IEditItemState<ITrackingItem>;
 export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
@@ -92,13 +80,11 @@ export interface IOfficeTimeState {
   barcode?: string;
   workingHours: number;
   workingHoursDefault: number;
+  dashboardSettings: DashboardSettings;
 }
-export type IOfficeTimeStateStorage = Omit<
-  IOfficeTimeState,
-  'holidays' | 'officeDays'
-> & {
-  holidays?: Record<string, string>;
-  officeDays?: Array<string>;
+
+export type IOfficeTimeStateStorage = Omit<IOfficeTimeState, 'holidays' | 'officeDays'> & {
+  holidays?: Record<string, string>; officeDays?: Array<string>;
 };
 
 export interface IAppState {
@@ -111,19 +97,27 @@ export interface IAppState {
 export interface IonViewWillEnter {
   ionViewWillEnter(): void;
 }
+
 export interface IonViewDidEnter {
   ionViewDidEnter(): void;
 }
 
 export type Stats = {
-  workdays: number;
-  officedays: number;
-  remaining: number;
-  percentage: number;
+  workdays: number; officedays: number; remaining: number; percentage: number;
 };
 
 export type DashboardStats = {
-  isPartTime?: boolean;
-  fullTime?: Stats;
-  partTime?: Stats;
+  isPartTime?: boolean; fullTime?: Stats; partTime?: Stats;
 };
+
+export type DashboardSettings = {
+  dateCard: boolean;
+  percentageCard: boolean;
+  officedaysCard: boolean;
+  holidaysCard: boolean;
+  statsWeek: boolean;
+  statsMonth: boolean;
+  statsYear: boolean;
+};
+
+export type DashboardType = keyof DashboardSettings;

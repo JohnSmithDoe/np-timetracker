@@ -1,5 +1,5 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { DashboardStats, IOfficeTimeState } from '../../@types/types';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {DashboardStats, IOfficeTimeState} from '../../@types/types';
 import {
   calculatePartTimeWorkDays,
   getHolidaysForMonth,
@@ -21,6 +21,9 @@ export const holidays = createSelector(officeTimeState, (state) => {
 
 export const workingHoursDefault = createSelector(officeTimeState, (state) => {
   return state.workingHoursDefault;
+});
+export const dashboardSettings = createSelector(officeTimeState, (state) => {
+  return state.dashboardSettings;
 });
 
 export const holidaysForMonth = createSelector(officeTimeState, (state) => {

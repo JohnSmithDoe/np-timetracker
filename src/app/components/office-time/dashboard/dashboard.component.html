@@ -3,54 +3,65 @@
 @let statsMonth = statsMonth$ | async;
 @let statsYear = statsYear$ | async;
 @let isPartTime = isPartTime$ | async;
+@let show = dashboardSettings$ | async;
+
 <div class="dash-grid">
   <app-dash-button/>
 
-  <app-dash-office-days
-    [title]="'officetime.page.stats.office-days' | translate"
-    [officeDays]="officeDays"
-  />
+  @if (show?.officedaysCard) {
+    <app-dash-office-days
+      [title]="'officetime.page.stats.office-days' | translate"
+      [officeDays]="officeDays"
+    />
+  }
+  @if (show?.percentageCard) {
+    <app-dash-percentage
+      [percentage]="statsMonth?.fullTime?.percentage"
+      [title]="'officetime.page.stats.percentage' | translate"
+    />
+  }
 
-  <app-dash-percentage
-    [percentage]="statsMonth?.fullTime?.percentage"
-    [title]="'officetime.page.stats.percentage' | translate"
-  />
-
-  @if (isPartTime) {
+  @if (show?.percentageCard && isPartTime) {
     <app-dash-percentage
       [percentage]="statsMonth?.partTime?.percentage"
       [title]="'officetime.page.stats.parttime.percentage' | translate"
     />
   }
 
-  <app-dash-date />
+  @if (show?.dateCard) {
+    <app-dash-date/>
+  }
 
-  <app-dash-stats
-    [title]="'officetime.page.stats.year' | translate"
-    [data]="statsYear?.fullTime"
-  />
+  @if (show?.statsYear) {
+    <app-dash-stats
+      [title]="'officetime.page.stats.year' | translate"
+      [data]="statsYear?.fullTime"
+    />
+  }
 
-  @if (isPartTime) {
+  @if (show?.statsYear && isPartTime) {
     <app-dash-stats
       [title]="'officetime.page.stats.year.partTime' | translate"
       [data]="statsYear?.partTime"
     />
   }
+  @if (show?.statsMonth) {
+    <app-dash-stats
+      [title]="'officetime.page.stats.month' | translate"
+      [data]="statsMonth?.fullTime"
+    />
+  }
 
-  <app-dash-stats
-    [title]="'officetime.page.stats.month' | translate"
-    [data]="statsMonth?.fullTime"
-  />
-
-  @if (isPartTime) {
+  @if (show?.statsMonth && isPartTime) {
     <app-dash-stats
       [title]="'officetime.page.stats.month.partTime' | translate"
       [data]="statsMonth?.partTime"
     />
   }
-
-  <app-dash-holidays
-    [title]="'officetime.page.stats.holidays' | translate"
-    [holidays]="holidays"
-  />
+  @if (show?.holidaysCard) {
+    <app-dash-holidays
+      [title]="'officetime.page.stats.holidays' | translate"
+      [holidays]="holidays"
+    />
+  }
 </div>

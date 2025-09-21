@@ -1,16 +1,22 @@
-import { createReducer, on } from '@ngrx/store';
-import { IOfficeTimeState } from '../../@types/types';
-import { ApplicationActions } from '../application.actions';
-import { officeTimeActions } from './office-time.actions';
+import {createReducer, on} from '@ngrx/store';
+import {IOfficeTimeState} from '../../@types/types';
+import {ApplicationActions} from '../application.actions';
+import {officeTimeActions} from './office-time.actions';
 import dayjs from 'dayjs';
-import {
-  deserializeIsoStringMap,
-  deserializeIsoStrings,
-} from './office-time.utils';
+import {deserializeIsoStringMap, deserializeIsoStrings,} from './office-time.utils';
 
 export const initialOfficeTime: IOfficeTimeState = {
   workingHoursDefault: 40,
   workingHours: 40,
+  dashboardSettings: {
+    dateCard: true,
+    percentageCard: true,
+    officedaysCard: true,
+    holidaysCard: false,
+    statsWeek: true,
+    statsMonth: true,
+    statsYear: true
+  }
 };
 
 export const officeTimeReducer = createReducer(
@@ -66,6 +72,16 @@ export const officeTimeReducer = createReducer(
     (_state, { hours }): IOfficeTimeState => ({
       ..._state,
       workingHoursDefault: hours,
+    })
+  ),
+  on(
+    officeTimeActions.saveDashboardSettings,
+    (_state, {key, active}): IOfficeTimeState => ({
+      ..._state,
+      dashboardSettings: {
+        ..._state.dashboardSettings,
+        [key]: active
+      }
     })
   ),
   on(

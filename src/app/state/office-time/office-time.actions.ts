@@ -1,5 +1,6 @@
 import { createActionGroup, emptyProps } from '@ngrx/store';
 import { Dayjs } from 'dayjs';
+import { DashboardType } from '../../@types/types';
 
 export const officeTimeActions = createActionGroup({
   source: 'Office Time',
@@ -19,5 +20,9 @@ export const officeTimeActions = createActionGroup({
     }),
     'Save Working Hours': (hours: number) => ({ hours }),
     'Save Working Hours Default': (hours: number) => ({ hours }),
+    'Save Dashboard Settings': (key: DashboardType, active: boolean) => ({
+      key,
+      active,
+    }),
   },
 });
