@@ -46,6 +46,14 @@
       "rules": {}
     },
     {
+      "files": ["*.html"],
+      "excludedFiles": ["*inline-template-*.component.html"],
+      "extends": ["plugin:prettier/recommended"],
+      "rules": {
+        "prettier/prettier": ["error", { "parser": "angular" }]
+      }
+    },
+    {
       "files": ["*.ts"],
       "extends": ["plugin:@ngrx/all"]
     }

@@ -3,8 +3,7 @@
 @let statsMonth = statsMonth$ | async;
 @let statsYear = statsYear$ | async;
 @let isPartTime = isPartTime$ | async;
-
-<section class="dash-grid">
+<div class="dash-grid">
   <app-dash-button/>
 
   <app-dash-office-days
@@ -54,4 +53,4 @@
     [title]="'officetime.page.stats.holidays' | translate"
     [holidays]="holidays"
   />
-</section>
+</div>

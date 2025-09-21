@@ -1,6 +1,14 @@
 @let barcode = (barcode$ | async);
 @if (barcode) {
     <img [src]="barcode" alt="Barcode" class="barcode"/>
+    <ion-item>
+      <ion-button (click)="deleteBarcode()" color="danger"
+                  size="small">{{ 'officetime.page.settings.barcode.delete' | translate }}
+      </ion-button>
+      <ion-button (click)="rotateBarcode()" color="secondary"
+                  size="small">{{ 'officetime.page.settings.barcode.rotate' | translate }}
+      </ion-button>
+    </ion-item>
 } @else {
   <ion-list>
     <ion-item>
