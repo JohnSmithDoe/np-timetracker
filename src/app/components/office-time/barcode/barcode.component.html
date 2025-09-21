@@ -1,6 +1,7 @@
 @let barcode = (barcode$ | async);
+@let barcodeRot = (barcodeRot$ | async);
 @if (barcode) {
-    <img [src]="'data:image/*;base64,' + barcode" alt="Barcode" class="barcode"/>
+    <img [src]="'data:image/*;base64,' + barcode" alt="Barcode" class="barcode" [style]="`--rotation:${barcodeRot}deg`"/>
 } @else {
   <ion-list>
     <ion-item>

@@ -16,10 +16,6 @@
     [percentage]="statsMonth?.fullTime?.percentage"
     [title]="'officetime.page.stats.percentage' | translate"
   />
-  <app-dash-percentage
-    [percentage]="statsMonth?.fullTime?.percentage"
-    [title]="'officetime.page.stats.percentage' | translate"
-  />
 
   @if (isPartTime) {
     <app-dash-percentage
@@ -28,9 +24,7 @@
     />
   }
 
-  <app-dash-date
-    [title]="'officetime.page.stats.date' | translate"
-  />
+  <app-dash-date />
 
   <app-dash-stats
     [title]="'officetime.page.stats.year' | translate"

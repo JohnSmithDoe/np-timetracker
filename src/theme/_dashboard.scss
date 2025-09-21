@@ -1,5 +1,4 @@
 $item-height: 264px;
-
 $sm-item-width: 132px;
 $md-item-width: $sm-item-width * 2;
 $lg-item-width: $sm-item-width * 4;
@@ -8,7 +7,7 @@ $lg-item-width: $sm-item-width * 4;
   display: block;
   height: $item-height;
   min-height: $item-height;
-  //min-width: $md-item-width;
+  min-width: $sm-item-width;
   width: 100%;
   // --ion-background-color: orange;
 }

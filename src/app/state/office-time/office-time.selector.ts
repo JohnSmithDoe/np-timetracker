@@ -117,6 +117,12 @@ export const selectBarcodeBlob = createSelector(
     return state.barcode;
   }
 );
+export const selectBarcodeRot = createSelector(
+  selectOfficeTimeState,
+  (state) => {
+    return state.barcodeRot;
+  }
+);
 
 export const selectWorkingHours = createSelector(
   selectOfficeTimeState,
