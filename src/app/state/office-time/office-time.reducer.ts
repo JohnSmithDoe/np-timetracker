@@ -38,10 +38,11 @@ export const officeTimeReducer = createReducer(
     })
   ),
   on(
-    officeTimeActions.rotateBarcode,
-    (_state): IOfficeTimeState => ({
+    officeTimeActions.rotateBarcodeSuccess,
+    (_state, { barcode, barcodeRot }): IOfficeTimeState => ({
       ..._state,
-      barcodeRot: _state.barcodeRot + 90,
+      barcode,
+      barcodeRot,
     })
   ),
   on(

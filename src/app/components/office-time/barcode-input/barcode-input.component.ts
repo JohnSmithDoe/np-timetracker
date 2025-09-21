@@ -29,8 +29,8 @@ export class BarcodeInputComponent {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
-      const base64String = (e.target?.result as string).split(',')[1];
-      this.#store.dispatch(officeTimeActions.saveBarcode(base64String));
+      const dataUrl = e.target?.result as string;
+      this.#store.dispatch(officeTimeActions.saveBarcode(dataUrl));
     };
     reader.readAsDataURL(file);
   }

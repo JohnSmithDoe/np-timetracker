@@ -41,17 +41,6 @@ export class SettingsComponent {
   readonly workingHours$ = this.#store.select(selectWorkingHours);
   readonly workingHoursDefault$ = this.#store.select(selectWorkingHoursDefault);
 
-  onFileSelected(ev: Event) {
-    const file = (ev.target as HTMLInputElement).files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const base64String = (e.target?.result as string).split(',')[1];
-      this.#store.dispatch(officeTimeActions.saveBarcode(base64String));
-    };
-    reader.readAsDataURL(file);
-  }
-
   deleteBarcode() {
     this.#store.dispatch(officeTimeActions.deleteBarcode());
   }
