@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
-  IonContent, IonLabel, IonSegment, IonSegmentButton, IonSegmentContent, IonSegmentView, IonToolbar,
+  IonContent,
+  IonLabel,
+  IonSegment,
+  IonSegmentButton,
+  IonSegmentContent,
+  IonSegmentView,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,7 +26,21 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: 'office-time-page.component.html',
   styleUrls: ['office-time-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PageHeaderComponent, IonContent, TranslateModule, IonSegment, IonSegmentButton, IonLabel, IonSegmentView, IonSegmentContent, IonToolbar, DashboardComponent, BarcodeComponent, SettingsComponent, AsyncPipe],
+  imports: [
+    PageHeaderComponent,
+    IonContent,
+    TranslateModule,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonSegmentView,
+    IonSegmentContent,
+    IonToolbar,
+    DashboardComponent,
+    BarcodeComponent,
+    SettingsComponent,
+    AsyncPipe,
+  ],
 })
 export class OfficeTimePage implements IonViewWillEnter, IonViewDidEnter {
   readonly #store = inject(Store);
@@ -39,5 +59,4 @@ export class OfficeTimePage implements IonViewWillEnter, IonViewDidEnter {
   ionViewDidEnter(): void {
     this.hasLoaded.next(true);
   }
-
 }

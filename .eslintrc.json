@@ -1,18 +1,13 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "plugins": ["@ngrx"],
+  "extends": ["plugin:prettier/recommended"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -23,11 +18,7 @@
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": [
-              "Page",
-              "Dialog",
-              "Component"
-            ]
+            "suffixes": ["Page", "Dialog", "Component"]
           }
         ],
         "@angular-eslint/component-selector": [
@@ -49,21 +40,14 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "parser": "@angular-eslint/template-parser",
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     },
     {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "plugin:@ngrx/all"
-      ]
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/all"]
     }
   ]
 }

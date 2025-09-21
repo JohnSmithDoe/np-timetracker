@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
   output,
-  input
+  input,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { marker } from '@colsen1991/ngx-translate-extract-marker';
@@ -16,10 +16,10 @@ import { IBaseItem, TMarker } from '../../../@types/types';
 import { matchesSearchExactly, validateNameInput } from '../../../app.utils';
 
 @Component({
-    selector: 'app-item-name-input',
-    templateUrl: './item-name-input.component.html',
-    styleUrls: ['./item-name-input.component.scss'],
-    imports: [IonInput, IonItem, ReactiveFormsModule, TranslateModule]
+  selector: 'app-item-name-input',
+  templateUrl: './item-name-input.component.html',
+  styleUrls: ['./item-name-input.component.scss'],
+  imports: [IonInput, IonItem, ReactiveFormsModule, TranslateModule],
 })
 export class ItemNameInputComponent implements OnInit, OnDestroy, OnChanges {
   readonly item = input<IBaseItem | null>();
@@ -63,9 +63,7 @@ export class ItemNameInputComponent implements OnInit, OnDestroy, OnChanges {
     const listItems = this.listItems();
     if (changes.hasOwnProperty('listItems') && listItems) {
       // update the validator on the input field...
-      this.nameControl.setValidators(
-        validateNameInput(listItems, item)
-      );
+      this.nameControl.setValidators(validateNameInput(listItems, item));
       this.nameControl.updateValueAndValidity();
     }
   }

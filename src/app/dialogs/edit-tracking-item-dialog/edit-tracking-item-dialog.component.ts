@@ -10,17 +10,17 @@ import { selectEditItemTracking } from '../../state/dialogs/dialogs.selector';
 import { selectListItemsTracking } from '../../state/tracking/tracking.selector';
 
 @Component({
-    selector: 'app-edit-tracking-item-dialog',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        FormsModule,
-        TranslateModule,
-        AsyncPipe,
-        ReactiveFormsModule,
-        ItemEditModalComponent,
-    ],
-    templateUrl: './edit-tracking-item-dialog.component.html',
-    styleUrl: './edit-tracking-item-dialog.component.scss'
+  selector: 'app-edit-tracking-item-dialog',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormsModule,
+    TranslateModule,
+    AsyncPipe,
+    ReactiveFormsModule,
+    ItemEditModalComponent,
+  ],
+  templateUrl: './edit-tracking-item-dialog.component.html',
+  styleUrl: './edit-tracking-item-dialog.component.scss',
 })
 export class EditTrackingItemDialogComponent {
   readonly #store = inject(Store);

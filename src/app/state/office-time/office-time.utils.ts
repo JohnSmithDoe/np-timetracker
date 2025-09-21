@@ -11,7 +11,7 @@ export const getWorkDaysForMonth = (holidays?: Record<string, Dayjs>) => {
   const end = start.endOf('month');
   return countWorkDaysBetween(start, end, holidays);
 };
-export const getOfficeDaysForMonth = (officeDays?: ReadonlyArray<Dayjs>) => {
+export const getOfficeDaysForMonth = (officeDays?: Array<Dayjs>) => {
   const start = dayjs().startOf('month');
   const end = start.endOf('month');
   return countOfficeDaysBetween(start, end, officeDays);
@@ -76,7 +76,7 @@ const countWorkDaysBetween = (
 const countOfficeDaysBetween = (
   start: Dayjs,
   end: Dayjs,
-  officeDays?: ReadonlyArray<Dayjs>
+  officeDays?: Array<Dayjs>
 ) => {
   let officeDaysCount = 0;
   let current = start;
@@ -99,10 +99,7 @@ export const isHolidayOrWeekend = (
   return isSunday || isSaturday || isHoliday;
 };
 
-export const isOfficeDay = (
-  current: Dayjs,
-  officeDays?: ReadonlyArray<Dayjs>
-) => {
+export const isOfficeDay = (current: Dayjs, officeDays?: Array<Dayjs>) => {
   return !!officeDays?.find((day) => day.isSame(current, 'day'));
 };
 
@@ -124,7 +121,7 @@ export const calculatePartTimeWorkDays = (
   return (workDays / 5) * workingDaysWeek;
 };
 export const getPercentage = (
-  officeDays: ReadonlyArray<Dayjs> | undefined,
+  officeDays: Array<Dayjs> | undefined,
   workDays: number
 ) => {
   // we consider 50% as the goal for the office days
@@ -167,3 +164,29 @@ export const rotateBase64 = async (dataUrl?: string, deg = 90) => {
   // export (match your source mime if needed)
   return canvas.toDataURL('image/*');
 };
+
+export const deserializeIsoStringMap = (
+  isoStringMap?: Record<string, string>
+) =>
+  Object.entries(isoStringMap ?? {}).reduce(
+    (acc, [name, isoString]) => {
+      acc[name] = dayjs(isoString);
+      return acc;
+    },
+    {} as Record<string, Dayjs>
+  );
+
+export const deserializeIsoStrings = (isoStrings?: string[]) =>
+  isoStrings?.map((day) => dayjs(day));
+
+export const serializeDateMap = (dateMap?: Record<string, Dayjs>) =>
+  Object.entries(dateMap ?? {}).reduce(
+    (acc, [name, date]) => {
+      acc[name] = date.toISOString();
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+
+export const serializeDates = (dates?: Dayjs[]) =>
+  dates?.map((day) => day.toISOString());

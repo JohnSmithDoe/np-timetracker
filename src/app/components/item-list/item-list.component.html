@@ -13,7 +13,7 @@
       </ion-toolbar>
     }
   }
-    <ng-container *ngTemplateOutlet="listMode" />
+  <ng-container *ngTemplateOutlet="listMode" />
 </ion-list>
 
 <ng-template #listMode>
@@ -23,11 +23,12 @@
     (ionItemReorder)="handleReorder($any($event))"
   >
     @for (item of items(); track item.id) {
-      <ng-container *ngTemplateOutlet="
+      <ng-container
+        *ngTemplateOutlet="
           itemTemplate();
           context: { $implicit: item, ionList: ionList }
         "
-       />
+      />
     }
   </ion-reorder-group>
 </ng-template>

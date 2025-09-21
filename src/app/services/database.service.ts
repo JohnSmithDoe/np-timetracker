@@ -34,10 +34,10 @@ export class DatabaseService {
   }
 
   async #loadAs<T extends keyof IDatastore>(key: T): Promise<IDatastore[T]> {
-    return await this.#storageService.get('npkh-' + key);
+    return await this.#storageService.get('nptt-' + key);
   }
 
   async save<T extends keyof IDatastore>(key: T, value: IDatastore[T]) {
-    return await this.#storageService.set('npkh-' + key, value);
+    return await this.#storageService.set('nptt-' + key, value);
   }
 }

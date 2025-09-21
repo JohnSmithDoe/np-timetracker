@@ -4,7 +4,7 @@ import {
   Component,
   OnInit,
   output,
-  input
+  input,
 } from '@angular/core';
 import {
   IonItem,

@@ -1,27 +1,44 @@
+@let workingHoursDefault = (workingHoursDefault$ | async);
+@let workingHours = (workingHours$ | async);
 
 <ion-list>
-  @let barcode = (barcode$ | async);
-  @if (barcode) {
-    <ion-item>
-      <app-barcode class="barcode"/>
-    </ion-item>
-    <ion-item>
-      <ion-button (click)="deleteBarcode()" color="danger" size="small">{{ 'officetime.page.settings.barcode.delete' | translate }}</ion-button>
-      <ion-button (click)="rotateBarcode()" color="secondary" size="small">{{ 'officetime.page.settings.barcode.rotate' | translate }}</ion-button>
-    </ion-item>
-  } @else {
-    <ion-item>
-      <app-barcode-input/>
-    </ion-item>
-  }
   <ion-item>
-    @let workingHoursDefault = (workingHoursDefault$ | async);
     <ion-input [label]="'officetime.page.settings.workhours.default' | translate" type="number"
-               (ionChange)="workHoursDefaultChange($event)" [value]="workingHoursDefault"/>
+               (ionChange)="workHoursDefaultChange($event)" [value]="workingHoursDefault" />
   </ion-item>
-  <ion-item>
-    @let workingHours = (workingHours$ | async);
-    <ion-input [label]="'officetime.page.settings.workhours' | translate " type="number"
-               (ionChange)="workHoursChange($event)" [value]="workingHours"/>
+                    <ion-item>
+
+
+
+
+
+
+
+            <ion-input [label]="'officetime.page.settings.workhours' | translate " type="number"
+               (ionChange)="workHoursChange($event)" [value]="workingHours" />
   </ion-item>
 </ion-list>
+
+@let barcode = (barcode$ | async);
+@if (barcode) {
+  <ion-list>
+    <ion-item>
+      <app-barcode class="barcode" />
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="deleteBarcode()" color="danger"
+                  size="small">{{ 'officetime.page.settings.barcode.delete' | translate }}
+      </ion-button>
+      <ion-button (click)="rotateBarcode()" color="secondary"
+                  size="small">{{ 'officetime.page.settings.barcode.rotate' | translate }}
+      </ion-button>
+    </ion-item>
+  </ion-list>
+} @else {
+  <ion-list>
+
+    <ion-item>
+      <app-barcode-input />
+    </ion-item>
+  </ion-list>
+}

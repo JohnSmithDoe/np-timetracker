@@ -2,5 +2,13 @@
   "singleQuote": true,
   "trailingComma": "es5",
   "requirePragma": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
 }

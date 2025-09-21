@@ -9,8 +9,8 @@ describe('DateInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DateInputComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [DateInputComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DateInputComponent);

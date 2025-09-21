@@ -2,23 +2,23 @@
 
 ### [Github-page](https://johnsmithdoe.github.io/np-time-tracker/)
 
-## Todo 
-* Data Monthly/Overall View
+## Todo
 
-Android
-=======
+- Data Monthly/Overall View
 
-Build
-----
+# Android
+
+## Build
 
 "buildOptimizer": false, in production.. modals not showing coz of tree shaking
 https://github.com/ionic-team/ionic-framework/issues/28385
+
 > ionic serve --prod
 
->ionic capacitor build android
+> ionic capacitor build android
 
-Run and Build Apk
----
+## Run and Build Apk
+
 Install Android Studio and open it once
 Open the android folder as a new project
 Enable SVM Mode in Bios (on AMD ryzen)

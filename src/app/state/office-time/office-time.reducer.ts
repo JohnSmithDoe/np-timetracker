@@ -3,6 +3,10 @@ import { IOfficeTimeState } from '../../@types/types';
 import { ApplicationActions } from '../application.actions';
 import { officeTimeActions } from './office-time.actions';
 import dayjs from 'dayjs';
+import {
+  deserializeIsoStringMap,
+  deserializeIsoStrings,
+} from './office-time.utils';
 
 export const initialOfficeTime: IOfficeTimeState = {
   workingHoursDefault: 40,
@@ -66,6 +70,14 @@ export const officeTimeReducer = createReducer(
   ),
   on(
     ApplicationActions.loadedSuccessfully,
-    (_state, { datastore }): IOfficeTimeState => datastore.officeTime ?? _state
+    (_state, { datastore }): IOfficeTimeState => {
+      if (!datastore.officeTime) return _state;
+
+      return {
+        ...datastore.officeTime,
+        holidays: deserializeIsoStringMap(datastore.officeTime.holidays),
+        officeDays: deserializeIsoStrings(datastore.officeTime.officeDays),
+      };
+    }
   )
 );

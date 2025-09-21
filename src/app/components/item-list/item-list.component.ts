@@ -42,9 +42,7 @@ export class ItemListComponent {
   readonly ionList = viewChild<IonList>('ionList');
 
   readonly itemTemplate = input.required<TemplateRef<any>>();
-  readonly items = input.required<
-    (ReadonlyArray<IBaseItem> | null) | undefined
-  >();
+  readonly items = input.required<(Array<IBaseItem> | null) | undefined>();
   readonly header = input<string>();
   readonly listHeader = input<boolean, unknown>(false, {
     transform: booleanAttribute,

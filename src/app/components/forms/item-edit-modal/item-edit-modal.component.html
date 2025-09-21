@@ -1,7 +1,5 @@
 <ion-modal
-  [isOpen]="
-    (rxState$ | async)?.isEditing === true
-  "
+  [isOpen]="(rxState$ | async)?.isEditing === true"
   (didDismiss)="closedDialog()"
 >
   <ng-template>
@@ -29,11 +27,12 @@
         {{ (rxState$ | async)?.dialogTitle ?? '' | translate }}
       </h3>
       <ion-list>
-        <app-item-name-input #nameInput
+        <app-item-name-input
+          #nameInput
           [item]="rxItem$ | async"
           [listItems]="listItems()"
           (updateValue)="updateName($event)"
-         />
+        />
         <ng-content />
       </ion-list>
     </ion-content>

@@ -21,13 +21,9 @@
             "outputPath": {
               "base": "www"
             },
-              "allowedCommonJsDependencies": [
-                "dayjs", "localforage"
-              ],
+            "allowedCommonJsDependencies": ["dayjs", "localforage"],
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -37,7 +33,7 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss","src/theme/variables.scss"],
+            "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": [],
             "browser": "src/main.ts"
           },

@@ -65,7 +65,7 @@ export interface ISettingsState {
 export interface IDatastore {
   tracking: ITrackingState;
   settings: ISettingsState;
-  officeTime: IOfficeTimeState;
+  officeTime: IOfficeTimeStateStorage;
 }
 // hmm clean up this and myba add a quick add state
 export interface ISearchResult<T extends ITrackingItem> {
@@ -88,11 +88,18 @@ export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
 
 export interface IOfficeTimeState {
   holidays?: Record<string, Dayjs>;
-  officeDays?: ReadonlyArray<Dayjs>;
+  officeDays?: Array<Dayjs>;
   barcode?: string;
   workingHours: number;
   workingHoursDefault: number;
 }
+export type IOfficeTimeStateStorage = Omit<
+  IOfficeTimeState,
+  'holidays' | 'officeDays'
+> & {
+  holidays?: Record<string, string>;
+  officeDays?: Array<string>;
+};
 
 export interface IAppState {
   tracking: ITrackingState;
