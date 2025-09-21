@@ -5,12 +5,13 @@
     </ion-card-header>
   }
   <ion-card-content>
-    <ion-button (click)="buttonClick.emit()"
-                class="dash-button"
-                expand="block"
-                color="secondary"
-                size="large"
-
+    <ion-button
+      (click)="addOfficeDay()"
+      [disabled]=""
+      class="dash-button"
+      expand="block"
+      color="secondary"
+      size="large"
     >
       <div flex-col flex-center-center>
         <ion-icon name="add" size="large" class="ion-margin-bottom"></ion-icon>

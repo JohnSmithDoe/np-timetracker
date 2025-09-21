@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  selectBarcodeBlob,
-  selectWorkingHours,
-  selectWorkingHoursDefault,
+  barcodeDataUrl,
+  workingHours,
+  workingHoursDefault,
 } from '../../../state/office-time/office-time.selector';
 import { Store } from '@ngrx/store';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
@@ -19,10 +19,10 @@ import { IonButton } from '@ionic/angular/standalone';
 export class BarcodeInputComponent {
   readonly #store = inject(Store);
   readonly barcode$ = this.#store
-    .select(selectBarcodeBlob)
+    .select(barcodeDataUrl)
     .pipe(map((blob) => !!blob));
-  readonly workingHours$ = this.#store.select(selectWorkingHours);
-  readonly workingHoursDefault$ = this.#store.select(selectWorkingHoursDefault);
+  readonly workingHours$ = this.#store.select(workingHours);
+  readonly workingHoursDefault$ = this.#store.select(workingHoursDefault);
 
   onFileSelected(ev: Event) {
     const file = (ev.target as HTMLInputElement).files?.[0];

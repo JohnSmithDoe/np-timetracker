@@ -90,7 +90,6 @@ export interface IOfficeTimeState {
   holidays?: Record<string, Dayjs>;
   officeDays?: ReadonlyArray<Dayjs>;
   barcode?: string;
-  barcodeRot: number;
   workingHours: number;
   workingHoursDefault: number;
 }

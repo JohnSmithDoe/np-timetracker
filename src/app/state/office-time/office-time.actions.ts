@@ -14,9 +14,8 @@ export const officeTimeActions = createActionGroup({
     'Save Barcode': (base64Blob: string) => ({ base64Blob }),
     'Delete Barcode': emptyProps(),
     'Rotate Barcode': emptyProps(),
-    'Rotate Barcode Success': (barcode: string, barcodeRot: number) => ({
+    'Rotate Barcode Success': (barcode: string) => ({
       barcode,
-      barcodeRot,
     }),
     'Save Working Hours': (hours: number) => ({ hours }),
     'Save Working Hours Default': (hours: number) => ({ hours }),

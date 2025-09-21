@@ -7,7 +7,6 @@ import dayjs from 'dayjs';
 export const initialOfficeTime: IOfficeTimeState = {
   workingHoursDefault: 40,
   workingHours: 40,
-  barcodeRot: 0,
 };
 
 export const officeTimeReducer = createReducer(
@@ -23,13 +22,16 @@ export const officeTimeReducer = createReducer(
     officeTimeActions.loadHolidaysFailure,
     (_state): IOfficeTimeState => ({ ..._state, holidays: undefined })
   ),
-  on(
-    officeTimeActions.addOfficeTime,
-    (_state): IOfficeTimeState => ({
+  on(officeTimeActions.addOfficeTime, (_state): IOfficeTimeState => {
+    const today = dayjs();
+    if (_state.officeDays?.find((day) => day.isSame(today, 'day')))
+      return _state;
+
+    return {
       ..._state,
-      officeDays: [...(_state.officeDays ?? []), dayjs()],
-    })
-  ),
+      officeDays: [...(_state.officeDays ?? []), today],
+    };
+  }),
   on(
     officeTimeActions.saveBarcode,
     (_state, { base64Blob }): IOfficeTimeState => ({
@@ -39,10 +41,9 @@ export const officeTimeReducer = createReducer(
   ),
   on(
     officeTimeActions.rotateBarcodeSuccess,
-    (_state, { barcode, barcodeRot }): IOfficeTimeState => ({
+    (_state, { barcode }): IOfficeTimeState => ({
       ..._state,
       barcode,
-      barcodeRot,
     })
   ),
   on(

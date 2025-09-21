@@ -6,7 +6,7 @@ import { DatabaseService } from '../../services/database.service';
 import { officeTimeActions } from './office-time.actions';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { selectOfficeTimeState } from './office-time.selector';
+import { officeTimeState } from './office-time.selector';
 import dayjs, { Dayjs } from 'dayjs';
 import { rotateBase64 } from './office-time.utils';
 
@@ -20,14 +20,12 @@ export class OfficeTimeEffects {
   rotateBarcode$ = createEffect(() =>
     this.#actions$.pipe(
       ofType(officeTimeActions.rotateBarcode),
-      withLatestFrom(this.#store.select(selectOfficeTimeState)), // selector that returns IOfficeTimeState
+      withLatestFrom(this.#store.select(officeTimeState)), // selector that returns IOfficeTimeState
       switchMap(([_, state]) => {
-        const nextRot = state.barcodeRot + 90;
         return from(rotateBase64(state.barcode, 90)).pipe(
           map((rotated) =>
             officeTimeActions.rotateBarcodeSuccess(
-              rotated ?? state.barcode ?? '',
-              nextRot
+              rotated ?? state.barcode ?? ''
             )
           )
         );
@@ -51,7 +49,7 @@ export class OfficeTimeEffects {
     () => {
       return this.#actions$.pipe(
         ofType(officeTimeActions.saveOfficeTime),
-        withLatestFrom(this.#store.select(selectOfficeTimeState)),
+        withLatestFrom(this.#store.select(officeTimeState)),
         map(([_, officeTimeState]) =>
           fromPromise(this.#database.save('officeTime', officeTimeState))
         )

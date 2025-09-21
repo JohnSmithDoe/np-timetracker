@@ -2,17 +2,16 @@ import { Component, inject } from '@angular/core';
 import { DashPercentageComponent } from '../dash-percentage/dash-percentage.component';
 import { Store } from '@ngrx/store';
 import {
-  selectDashboardStatsMonth,
-  selectDashboardStatsYear,
-  selectHolidays,
-  selectIsPartTime,
-  selectOfficeDays,
+  dashboardStatsMonth,
+  dashboardStatsYear,
+  holidays,
+  isPartTime,
+  officeDays,
 } from '../../../state/office-time/office-time.selector';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
 import { AsyncPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { officeTimeActions } from '../../../state/office-time/office-time.actions';
 import { DashButtonComponent } from '../dash-button/dash-button.component';
 import { DashOfficeDaysComponent } from '../dash-office-days/dash-office-days.component';
 import { DashStatsComponent } from '../dash-stats/dash-stats.component';
@@ -37,18 +36,14 @@ import { DashDateComponent } from '../dash-date/dash-date.component';
 export class DashboardComponent {
   readonly #store = inject(Store);
 
-  readonly holidays$ = this.#store.select(selectHolidays);
-  readonly officeDays$ = this.#store.select(selectOfficeDays);
-  readonly isPartTime$ = this.#store.select(selectIsPartTime);
+  readonly holidays$ = this.#store.select(holidays);
+  readonly officeDays$ = this.#store.select(officeDays);
+  readonly isPartTime$ = this.#store.select(isPartTime);
 
-  readonly statsMonth$ = this.#store.select(selectDashboardStatsMonth);
-  readonly statsYear$ = this.#store.select(selectDashboardStatsYear);
+  readonly statsMonth$ = this.#store.select(dashboardStatsMonth);
+  readonly statsYear$ = this.#store.select(dashboardStatsYear);
 
   constructor() {
     addIcons({ add, remove });
-  }
-
-  addOfficeDay() {
-    this.#store.dispatch(officeTimeActions.addOfficeTime());
   }
 }

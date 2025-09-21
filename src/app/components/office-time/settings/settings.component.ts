@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  selectBarcodeBlob,
-  selectWorkingHours,
-  selectWorkingHoursDefault,
+  barcodeDataUrl,
+  workingHours,
+  workingHoursDefault,
 } from '../../../state/office-time/office-time.selector';
 import { Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
@@ -36,10 +36,10 @@ import { BarcodeInputComponent } from '../barcode-input/barcode-input.component'
 export class SettingsComponent {
   readonly #store = inject(Store);
   readonly barcode$ = this.#store
-    .select(selectBarcodeBlob)
+    .select(barcodeDataUrl)
     .pipe(map((blob) => !!blob));
-  readonly workingHours$ = this.#store.select(selectWorkingHours);
-  readonly workingHoursDefault$ = this.#store.select(selectWorkingHoursDefault);
+  readonly workingHours$ = this.#store.select(workingHours);
+  readonly workingHoursDefault$ = this.#store.select(workingHoursDefault);
 
   deleteBarcode() {
     this.#store.dispatch(officeTimeActions.deleteBarcode());
