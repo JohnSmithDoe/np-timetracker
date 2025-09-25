@@ -1,15 +1,10 @@
-import { createReducer, on } from '@ngrx/store';
-import { ITrackingItem, ITrackingState } from '../../@types/types';
-import {
-  addListItem,
-  removeListItem,
-  updateListItem,
-  updateListSort,
-} from '../@shared/item-list.utils';
-import { ApplicationActions } from '../application.actions';
-import { trackingActions } from './trackingActions';
+import {createReducer, on} from '@ngrx/store';
+import {ITrackingItem, ITrackingState} from '../../@types/types';
+import {addListItem, removeListItem, updateListItem, updateListSort,} from '../@shared/item-list.utils';
+import {applicationActions} from '../application.actions';
+import {trackingActions} from './trackingActions';
 import dayjs from 'dayjs';
-import { uuidv4 } from '../../app.utils';
+import {uuidv4} from '../../app.utils';
 
 export const initialState: ITrackingState = {
   title: 'Time tracking',
@@ -165,7 +160,7 @@ export const trackingReducer = createReducer(
   })),
 
   on(
-    ApplicationActions.loadedSuccessfully,
+    applicationActions.loadedSuccessfully,
     (_state, { datastore }): ITrackingState => {
       return {
         ...(datastore.tracking ?? _state),

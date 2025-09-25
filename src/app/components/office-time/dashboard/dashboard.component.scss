@@ -23,7 +23,7 @@ $padding: 16px;
   }
 
   @media (min-width: #{dashboard.$sm-item-width * 3 + $padding * 4}) {
-    app-dash-holidays, app-dash-free-days, app-dash-days-list {
+    app-dash-holidays, app-dash-freedays, app-dash-days-list {
       grid-column: span 3;
     }
   }

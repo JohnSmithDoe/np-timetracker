@@ -1,5 +1,5 @@
 import {Component, computed, inject, input} from '@angular/core';
-import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonDatetime, IonItem,} from '@ionic/angular/standalone';
+import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonDatetime,} from '@ionic/angular/standalone';
 import {TranslateModule} from '@ngx-translate/core';
 import dayjs, {Dayjs} from 'dayjs';
 import {DatetimeCustomEvent} from "@ionic/angular";
@@ -7,12 +7,12 @@ import {Store} from "@ngrx/store";
 import {officeTimeActions} from "../../../state/office-time/office-time.actions";
 
 @Component({
-  selector: 'app-dash-free-days-edit',
-  templateUrl: './dash-free-days-edit.component.html',
-  styleUrls: ['./dash-free-days-edit.component.scss'],
-  imports: [IonCard, IonCardContent, IonCardHeader, IonCardTitle, TranslateModule, IonItem, IonDatetime,],
+  selector: 'app-dash-freedays-edit',
+  templateUrl: './dash-freedays-edit.component.html',
+  styleUrls: ['./dash-freedays-edit.component.scss'],
+  imports: [IonCard, IonCardContent, IonCardHeader, IonCardTitle, TranslateModule, IonDatetime,],
 })
-export class DashFreeDaysEditComponent {
+export class DashFreedaysEditComponent {
   readonly today = dayjs().toISOString();
   readonly #store = inject(Store);
   readonly title = input<string | undefined>();

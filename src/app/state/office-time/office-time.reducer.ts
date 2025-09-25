@@ -1,9 +1,12 @@
-import {createReducer, on} from '@ngrx/store';
-import {IOfficeTimeState} from '../../@types/types';
-import {ApplicationActions} from '../application.actions';
-import {officeTimeActions} from './office-time.actions';
+import { createReducer, on } from '@ngrx/store';
+import { IOfficeTimeState } from '../../@types/types';
+import { applicationActions } from '../application.actions';
+import { officeTimeActions } from './office-time.actions';
 import dayjs from 'dayjs';
-import {deserializeIsoStringMap, deserializeIsoStrings,} from './office-time.utils';
+import {
+  deserializeIsoStringMap,
+  deserializeIsoStrings,
+} from './office-time.utils';
 
 export const initialOfficeTime: IOfficeTimeState = {
   workingHoursDefault: 40,
@@ -20,7 +23,7 @@ export const initialOfficeTime: IOfficeTimeState = {
     statsMonth: true,
     statsQuarter: true,
     statsYear: true,
-  }
+  },
 };
 
 export const officeTimeReducer = createReducer(
@@ -119,7 +122,7 @@ export const officeTimeReducer = createReducer(
     })
   ),
   on(
-    ApplicationActions.loadedSuccessfully,
+    applicationActions.loadedSuccessfully,
     (_state, { datastore }): IOfficeTimeState => {
       if (!datastore.officeTime) return _state;
 

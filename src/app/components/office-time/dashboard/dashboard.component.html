@@ -37,15 +37,15 @@
   }
 
   @if (show?.freedaysCardEdit) {
-    <app-dash-free-days-edit
-      [title]="'officetime.page.stats.free-days.edit' | translate"
+    <app-dash-freedays-edit
+      [title]="'officetime.page.stats.freedays.edit' | translate"
       [freedays]="freedays"
       [holidays]="holidays"
     />
   }
   @if (show?.freedaysCardList) {
     <app-dash-days-list
-      [title]="'officetime.page.stats.free-days.list' | translate"
+      [title]="'officetime.page.stats.freedays.list' | translate"
       [days]="freedays"
     />
   }

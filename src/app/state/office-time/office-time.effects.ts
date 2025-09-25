@@ -1,15 +1,19 @@
-import {inject, Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, from, map, of, switchMap, withLatestFrom,} from 'rxjs';
-import {fromPromise} from 'rxjs/internal/observable/innerFrom';
-import {DatabaseService} from '../../services/database.service';
-import {officeTimeActions} from './office-time.actions';
-import {HttpClient} from '@angular/common/http';
-import {Store} from '@ngrx/store';
-import {officeTimeState} from './office-time.selector';
-import dayjs, {Dayjs} from 'dayjs';
-import {rotateBase64, serializeDateMap, serializeDates,} from './office-time.utils';
-import {IOfficeTimeStateStorage} from '../../@types/types';
+import { inject, Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { DatabaseService } from '../../services/database.service';
+import { officeTimeActions } from './office-time.actions';
+import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { officeTimeState } from './office-time.selector';
+import dayjs, { Dayjs } from 'dayjs';
+import {
+  rotateBase64,
+  serializeDateMap,
+  serializeDates,
+} from './office-time.utils';
+import { IOfficeTimeStateStorage } from '../../@types/types';
 
 @Injectable({ providedIn: 'root' })
 export class OfficeTimeEffects {
@@ -18,10 +22,17 @@ export class OfficeTimeEffects {
   #http = inject(HttpClient);
   #database = inject(DatabaseService);
 
+  initOfficeTime$ = createEffect(() =>
+    this.#actions$.pipe(
+      ofType(officeTimeActions.initOfficeTime),
+      map(() => officeTimeActions.loadHolidays())
+    )
+  );
+
   rotateBarcode$ = createEffect(() =>
     this.#actions$.pipe(
       ofType(officeTimeActions.rotateBarcode),
-      withLatestFrom(this.#store.select(officeTimeState)), // selector that returns IOfficeTimeState
+      withLatestFrom(this.#store.select(officeTimeState)),
       switchMap(([_, state]) => {
         return from(rotateBase64(state.barcode, 90)).pipe(
           map((rotated) =>
@@ -59,30 +70,28 @@ export class OfficeTimeEffects {
         officeTimeActions.addOfficeday,
         officeTimeActions.setOfficedays,
         officeTimeActions.addFreeday,
-        officeTimeActions.setFreedays,
+        officeTimeActions.setFreedays
       ),
-      map(() => officeTimeActions.saveOfficeTime()),
+      map(() => officeTimeActions.saveOfficeTime())
     );
   });
 
-  saveOfficeTime$ = createEffect(
-    () => {
-      return this.#actions$.pipe(
-        ofType(officeTimeActions.saveOfficeTime),
-        withLatestFrom(this.#store.select(officeTimeState)),
-        map(([_, state]) => {
-          const toSave: IOfficeTimeStateStorage = {
-            ...state,
-            holidays: serializeDateMap(state.holidays),
-            officedays: serializeDates(state.officedays),
-            freedays: serializeDates(state.freedays),
-          };
-          return fromPromise(this.#database.save('officeTime', toSave));
-        })
-      );
-    },
-    { dispatch: false }
-  );
+  saveOfficeTime$ = createEffect(() => {
+    return this.#actions$.pipe(
+      ofType(officeTimeActions.saveOfficeTime),
+      withLatestFrom(this.#store.select(officeTimeState)),
+      map(([_, state]) => {
+        const toSave: IOfficeTimeStateStorage = {
+          ...state,
+          holidays: serializeDateMap(state.holidays),
+          officedays: serializeDates(state.officedays),
+          freedays: serializeDates(state.freedays),
+        };
+        return fromPromise(this.#database.save('officeTime', toSave));
+      }),
+      map(() => officeTimeActions.saveOfficeTimeSuccess())
+    );
+  });
 
   #loadHolidays = () => {
     const currentYear = new Date().getFullYear();

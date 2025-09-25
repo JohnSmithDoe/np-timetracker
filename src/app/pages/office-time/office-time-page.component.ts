@@ -53,7 +53,7 @@ export class OfficeTimePage implements IonViewWillEnter, IonViewDidEnter {
   }
 
   ionViewWillEnter(): void {
-    this.#store.dispatch(officeTimeActions.loadHolidays());
+    this.#store.dispatch(officeTimeActions.initOfficeTime());
   }
 
   ionViewDidEnter(): void {

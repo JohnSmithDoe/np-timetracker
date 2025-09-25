@@ -1,7 +1,7 @@
-import { createReducer, on } from '@ngrx/store';
-import { ISettingsState } from '../../@types/types';
-import { ApplicationActions } from '../application.actions';
-import { settingsActions } from './settingsActions';
+import {createReducer, on} from '@ngrx/store';
+import {ISettingsState} from '../../@types/types';
+import {applicationActions} from '../application.actions';
+import {settingsActions} from './settingsActions';
 
 export const VERSION: string = '1';
 
@@ -17,7 +17,7 @@ export const settingsReducer = createReducer(
     (_state, { settings }): ISettingsState => settings
   ),
   on(
-    ApplicationActions.loadedSuccessfully,
+    applicationActions.loadedSuccessfully,
     (_state, { datastore }): ISettingsState => datastore.settings ?? _state
   )
 );

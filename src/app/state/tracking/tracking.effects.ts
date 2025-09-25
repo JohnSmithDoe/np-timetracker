@@ -1,15 +1,12 @@
-import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { interval, map, switchMap, withLatestFrom } from 'rxjs';
-import { trackingActions } from './trackingActions';
-import {
-  selectRunningTrackingItem,
-  selectTrackingDataAsCSV,
-} from './tracking.selector';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { ApplicationActions } from '../application.actions';
-import { Share } from '@capacitor/share';
+import {inject, Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Store} from '@ngrx/store';
+import {interval, map, switchMap, withLatestFrom} from 'rxjs';
+import {trackingActions} from './trackingActions';
+import {selectRunningTrackingItem, selectTrackingDataAsCSV,} from './tracking.selector';
+import {fromPromise} from 'rxjs/internal/observable/innerFrom';
+import {applicationActions} from '../application.actions';
+import {Share} from '@capacitor/share';
 
 @Injectable({ providedIn: 'root' })
 export class TrackingEffects {
@@ -20,7 +17,7 @@ export class TrackingEffects {
     return this.#actions$.pipe(
       ofType(
         trackingActions.toggleTrackingItem,
-        ApplicationActions.loadedSuccessfully
+        applicationActions.loadedSuccessfully
       ),
       switchMap(() => {
         return interval(1000).pipe(

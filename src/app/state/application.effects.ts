@@ -1,16 +1,16 @@
-import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { combineLatestWith, map, withLatestFrom } from 'rxjs';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { IAppState } from '../@types/types';
-import { matchesItemExactly } from '../app.utils';
-import { DatabaseService } from '../services/database.service';
-import { addTrackingItemFromSearch } from './@shared/item-list.effects';
+import {inject, Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Store} from '@ngrx/store';
+import {combineLatestWith, map, withLatestFrom} from 'rxjs';
+import {fromPromise} from 'rxjs/internal/observable/innerFrom';
+import {IAppState} from '../@types/types';
+import {matchesItemExactly} from '../app.utils';
+import {DatabaseService} from '../services/database.service';
+import {addTrackingItemFromSearch} from './@shared/item-list.effects';
 
-import { updatedSearchQuery } from './@shared/item-list.utils';
-import { ApplicationActions } from './application.actions';
-import { trackingActions } from './tracking/trackingActions';
+import {updatedSearchQuery} from './@shared/item-list.utils';
+import {applicationActions} from './application.actions';
+import {trackingActions} from './tracking/trackingActions';
 
 @Injectable({ providedIn: 'root' })
 export class ApplicationEffects {
@@ -20,9 +20,9 @@ export class ApplicationEffects {
 
   initializeApplication$ = createEffect(() => {
     return this.#actions$.pipe(
-      ofType(ApplicationActions.load),
+      ofType(applicationActions.load),
       combineLatestWith(fromPromise(this.#database.create())),
-      map(([_, data]) => ApplicationActions.loadedSuccessfully(data))
+      map(([_, data]) => applicationActions.loadedSuccessfully(data))
     );
   });
 

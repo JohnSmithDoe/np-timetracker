@@ -12,15 +12,15 @@ import {DashButtonComponent} from '../dash-button/dash-button.component';
 import {DashStatsComponent} from '../dash-stats/dash-stats.component';
 import {DashHolidaysComponent} from '../dash-holidays/dash-holidays.component';
 import {DashDateComponent} from '../dash-date/dash-date.component';
-import {DashFreeDaysEditComponent} from "../dash-free-days-edit/dash-free-days-edit.component";
 import {DashDaysListComponent} from "../dash-days-list/dash-days-list.component";
 import {DashOfficeDaysEditComponent} from "../dash-office-days-edit/dash-office-days-edit.component";
+import {DashFreedaysEditComponent} from "../dash-freedays-edit/dash-freedays-edit.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [AsyncPipe, TranslateModule, DashButtonComponent, DashPercentageComponent, DashStatsComponent, DashHolidaysComponent, DashDateComponent, DashFreeDaysEditComponent, DashDaysListComponent, DashOfficeDaysEditComponent,],
+  imports: [AsyncPipe, TranslateModule, DashButtonComponent, DashPercentageComponent, DashStatsComponent, DashHolidaysComponent, DashDateComponent, DashDaysListComponent, DashOfficeDaysEditComponent, DashFreedaysEditComponent,],
 })
 export class DashboardComponent {
   readonly #store = inject(Store);

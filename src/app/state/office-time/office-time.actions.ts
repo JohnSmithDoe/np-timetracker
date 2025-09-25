@@ -1,16 +1,18 @@
-import {createActionGroup, emptyProps} from '@ngrx/store';
-import {Dayjs} from 'dayjs';
-import {DashboardType} from '../../@types/types';
+import { createActionGroup, emptyProps } from '@ngrx/store';
+import { Dayjs } from 'dayjs';
+import { DashboardType } from '../../@types/types';
 
 export const officeTimeActions = createActionGroup({
   source: 'Office Time',
   events: {
+    'Init Office Time': emptyProps(),
     'Load Holidays': emptyProps(),
     'Load Holidays Failure': emptyProps(),
     'Load Holidays Success': (holidays: Record<string, Dayjs>) => ({
       holidays,
     }),
     'Save Office Time': emptyProps(),
+    'Save Office Time Success': emptyProps(),
     'Add Office Time': emptyProps(),
     'Add Officeday': (officeday: Dayjs) => ({ officeday }),
     'Set Officedays': (officedays: Dayjs[]) => ({ officedays }),
