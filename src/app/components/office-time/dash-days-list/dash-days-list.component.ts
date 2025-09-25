@@ -1,21 +1,23 @@
 import {Component, input} from '@angular/core';
 import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonList,} from '@ionic/angular/standalone';
-import {DashboardStats} from '../../../@types/types';
+import {TranslateModule} from '@ngx-translate/core';
+import {Dayjs} from 'dayjs';
 
 @Component({
-  selector: 'app-dash-stats',
-  templateUrl: './dash-stats.component.html',
-  styleUrls: ['./dash-stats.component.scss'],
+  selector: 'app-dash-days-list',
+  templateUrl: './dash-days-list.component.html',
+  styleUrls: ['./dash-days-list.component.scss'],
   imports: [
     IonCard,
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
+    TranslateModule,
     IonList,
     IonItem,
   ],
 })
-export class DashStatsComponent {
+export class DashDaysListComponent {
   readonly title = input<string | undefined>();
-  readonly data = input<DashboardStats | undefined | null>();
+  readonly days = input<Array<Dayjs> | undefined | null>();
 }

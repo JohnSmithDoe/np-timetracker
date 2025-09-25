@@ -56,6 +56,10 @@ export class OfficeTimeEffects {
         officeTimeActions.saveWorkingHours,
         officeTimeActions.saveWorkingHoursDefault,
         officeTimeActions.saveDashboardSettings,
+        officeTimeActions.addOfficeday,
+        officeTimeActions.setOfficedays,
+        officeTimeActions.addFreeday,
+        officeTimeActions.setFreedays,
       ),
       map(() => officeTimeActions.saveOfficeTime()),
     );
@@ -70,7 +74,8 @@ export class OfficeTimeEffects {
           const toSave: IOfficeTimeStateStorage = {
             ...state,
             holidays: serializeDateMap(state.holidays),
-            officeDays: serializeDates(state.officeDays),
+            officedays: serializeDates(state.officedays),
+            freedays: serializeDates(state.freedays),
           };
           return fromPromise(this.#database.save('officeTime', toSave));
         })

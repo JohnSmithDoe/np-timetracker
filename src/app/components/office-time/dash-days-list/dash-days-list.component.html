@@ -6,8 +6,8 @@
   }
   <ion-card-content>
     <ion-list class="dash-office-days-list">
-      @for (date of officeDays(); track $index) {
-        <ion-item>{{ date.format('dddd, DD MMMM YYYY') }}</ion-item>
+      @for (date of days(); track $index) {
+        <ion-item>{{ date.format('DD MMMM YYYY, dddd') }}</ion-item>
       }
     </ion-list>
   </ion-card-content>

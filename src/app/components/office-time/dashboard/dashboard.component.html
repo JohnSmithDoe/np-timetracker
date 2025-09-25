@@ -1,63 +1,83 @@
 @let holidays = holidays$ | async;
-@let officeDays = officeDays$ | async;
+@let officedays = officedays$ | async;
+@let freedays = freedays$ | async;
 @let statsMonth = statsMonth$ | async;
+@let statsWeek = statsMonth$ | async;
+@let statsQuarter = statsMonth$ | async;
 @let statsYear = statsYear$ | async;
 @let isPartTime = isPartTime$ | async;
 @let show = dashboardSettings$ | async;
 
 <div class="dash-grid">
-  <app-dash-button/>
-
-  @if (show?.officedaysCard) {
-    <app-dash-office-days
-      [title]="'officetime.page.stats.office-days' | translate"
-      [officeDays]="officeDays"
-    />
-  }
-  @if (show?.percentageCard) {
-    <app-dash-percentage
-      [percentage]="statsMonth?.fullTime?.percentage"
-      [title]="'officetime.page.stats.percentage' | translate"
-    />
-  }
-
-  @if (show?.percentageCard && isPartTime) {
-    <app-dash-percentage
-      [percentage]="statsMonth?.partTime?.percentage"
-      [title]="'officetime.page.stats.parttime.percentage' | translate"
-    />
-  }
-
   @if (show?.dateCard) {
     <app-dash-date/>
   }
 
+  <app-dash-button/>
+
+  @if (show?.percentageCard) {
+    <app-dash-percentage
+      [stats]="statsMonth"
+      [title]="'officetime.page.stats.percentage' | translate"
+    />
+  }
+
+  @if (show?.officedaysCardEdit) {
+    <app-dash-office-days-edit
+      [title]="'officetime.page.stats.office-days.edit' | translate"
+      [officedays]="officedays"
+    />
+  }
+
+  @if (show?.officedaysCardList) {
+    <app-dash-days-list
+      [title]="'officetime.page.stats.office-days' | translate"
+      [days]="officedays"
+    />
+  }
+
+  @if (show?.freedaysCardEdit) {
+    <app-dash-free-days-edit
+      [title]="'officetime.page.stats.free-days.edit' | translate"
+      [freedays]="freedays"
+      [holidays]="holidays"
+    />
+  }
+  @if (show?.freedaysCardList) {
+    <app-dash-days-list
+      [title]="'officetime.page.stats.free-days.list' | translate"
+      [days]="freedays"
+    />
+  }
+
+
   @if (show?.statsYear) {
     <app-dash-stats
       [title]="'officetime.page.stats.year' | translate"
-      [data]="statsYear?.fullTime"
+      [data]="statsYear"
+    />
+  }
+  @if (show?.statsQuarter) {
+    <app-dash-stats
+      [title]="'officetime.page.stats.quarter' | translate"
+      [data]="statsQuarter"
     />
   }
 
-  @if (show?.statsYear && isPartTime) {
-    <app-dash-stats
-      [title]="'officetime.page.stats.year.partTime' | translate"
-      [data]="statsYear?.partTime"
-    />
-  }
   @if (show?.statsMonth) {
     <app-dash-stats
       [title]="'officetime.page.stats.month' | translate"
-      [data]="statsMonth?.fullTime"
+      [data]="statsMonth"
     />
   }
 
-  @if (show?.statsMonth && isPartTime) {
+ @if (show?.statsWeek) {
     <app-dash-stats
-      [title]="'officetime.page.stats.month.partTime' | translate"
-      [data]="statsMonth?.partTime"
+      [title]="'officetime.page.stats.week' | translate"
+      [data]="statsWeek"
     />
   }
+
   @if (show?.holidaysCard) {
     <app-dash-holidays
       [title]="'officetime.page.stats.holidays' | translate"

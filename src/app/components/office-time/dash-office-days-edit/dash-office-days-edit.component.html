@@ -5,8 +5,8 @@
     </ion-card-header>
   }
   <ion-card-content>
-    <div class="circular-meter" [style.--p]="percentage()">
-      <div class="center-text">{{ percentage() }}%</div>
-    </div>
+      <ion-datetime presentation="date" [multiple]="true" [value]="officedates()"
+                    [locale]="'de-DE'"
+      (ionChange)="updateOfficeDates($event)"/>
   </ion-card-content>
 </ion-card>

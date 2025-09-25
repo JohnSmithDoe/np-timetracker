@@ -2,19 +2,19 @@
 @let workingHours = (workingHours$ | async);
 @let dashboardSettings = (dashboardSettings$ | async);
 <ion-list>
-  <ion-item>
-    <ion-input [label]="'officetime.page.settings.workhours.default' | translate" type="number"
-               (ionChange)="workHoursDefaultChange($event)" [value]="workingHoursDefault"/>
-  </ion-item>
-  <ion-item>
-    <ion-input [label]="'officetime.page.settings.workhours' | translate " type="number"
-               (ionChange)="workHoursChange($event)" [value]="workingHours"/>
-  </ion-item>
+  <app-number-input [label]="'officetime.page.settings.workhours.default' | translate"
+                    [value]="workingHoursDefault"
+                    (updateValue)="workHoursDefaultChange($event)"/>
+
+  <app-number-input [label]="'officetime.page.settings.workhours' | translate"
+                    [value]="workingHours"
+                    (updateValue)="workHoursChange($event)"/>
+
   @for (setting of dashboardSettings; track setting.key) {
     <ion-item>
       <ion-toggle [value]="setting.key" [checked]="setting.value"
                   (ionChange)="changeDashboardSettings( $event)">
-        <ion-label>{{ 'officetime.page.settings.dashboard.'+setting.key | translate }}</ion-label>
+        <ion-label>{{ 'officetime.page.settings.dashboard.' + setting.key | translate }}</ion-label>
       </ion-toggle>
     </ion-item>
   }

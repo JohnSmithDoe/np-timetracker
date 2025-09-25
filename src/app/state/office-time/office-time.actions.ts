@@ -1,6 +1,6 @@
-import { createActionGroup, emptyProps } from '@ngrx/store';
-import { Dayjs } from 'dayjs';
-import { DashboardType } from '../../@types/types';
+import {createActionGroup, emptyProps} from '@ngrx/store';
+import {Dayjs} from 'dayjs';
+import {DashboardType} from '../../@types/types';
 
 export const officeTimeActions = createActionGroup({
   source: 'Office Time',
@@ -12,6 +12,10 @@ export const officeTimeActions = createActionGroup({
     }),
     'Save Office Time': emptyProps(),
     'Add Office Time': emptyProps(),
+    'Add Officeday': (officeday: Dayjs) => ({ officeday }),
+    'Set Officedays': (officedays: Dayjs[]) => ({ officedays }),
+    'Add Freeday': (freeday: Dayjs) => ({ freeday }),
+    'Set Freedays': (freedays: Dayjs[]) => ({ freedays }),
     'Save Barcode': (base64Blob: string) => ({ base64Blob }),
     'Delete Barcode': emptyProps(),
     'Rotate Barcode': emptyProps(),

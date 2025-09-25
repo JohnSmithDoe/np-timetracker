@@ -11,11 +11,15 @@ export const initialOfficeTime: IOfficeTimeState = {
   dashboardSettings: {
     dateCard: true,
     percentageCard: true,
-    officedaysCard: true,
-    holidaysCard: false,
+    officedaysCardEdit: true,
+    officedaysCardList: false,
+    freedaysCardEdit: true,
+    freedaysCardList: false,
+    holidaysCard: true,
     statsWeek: true,
     statsMonth: true,
-    statsYear: true
+    statsQuarter: true,
+    statsYear: true,
   }
 };
 
@@ -34,12 +38,42 @@ export const officeTimeReducer = createReducer(
   ),
   on(officeTimeActions.addOfficeTime, (_state): IOfficeTimeState => {
     const today = dayjs();
-    if (_state.officeDays?.find((day) => day.isSame(today, 'day')))
+    if (_state.officedays?.find((day) => day.isSame(today, 'day')))
       return _state;
 
     return {
       ..._state,
-      officeDays: [...(_state.officeDays ?? []), today],
+      officedays: [...(_state.officedays ?? []), today],
+    };
+  }),
+  on(officeTimeActions.addOfficeday, (_state, {officeday}): IOfficeTimeState => {
+    if (_state.officedays?.find((day) => day.isSame(officeday, 'day')))
+      return _state;
+
+    return {
+      ..._state,
+      officedays: [...(_state.officedays ?? []), officeday],
+    };
+  }),
+  on(officeTimeActions.setOfficedays, (_state, {officedays}): IOfficeTimeState => {
+    return {
+      ..._state,
+      officedays:[...officedays],
+    };
+  }),
+  on(officeTimeActions.addFreeday, (_state, {freeday}): IOfficeTimeState => {
+    if (_state.freedays?.find((day) => day.isSame(freeday, 'day')))
+      return _state;
+
+    return {
+      ..._state,
+      freedays: [...(_state.freedays ?? []), freeday],
+    };
+  }),
+  on(officeTimeActions.setFreedays, (_state, {freedays}): IOfficeTimeState => {
+    return {
+      ..._state,
+      freedays:[...freedays],
     };
   }),
   on(
@@ -92,7 +126,8 @@ export const officeTimeReducer = createReducer(
       return {
         ...datastore.officeTime,
         holidays: deserializeIsoStringMap(datastore.officeTime.holidays),
-        officeDays: deserializeIsoStrings(datastore.officeTime.officeDays),
+        officedays: deserializeIsoStrings(datastore.officeTime.officedays),
+        freedays: deserializeIsoStrings(datastore.officeTime.freedays),
       };
     }
   )

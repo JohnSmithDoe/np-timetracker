@@ -1,5 +1,6 @@
 import {Color} from '@ionic/core/dist/types/interface';
 import {Dayjs} from 'dayjs';
+import {marker} from "@colsen1991/ngx-translate-extract-marker";
 
 export type BooleanKeys<T> = {
   [k in keyof T]: T[k] extends boolean ? k : never;
@@ -27,8 +28,8 @@ export type ITrackingItem = IBaseItem & {
 
 export type IDataItem = Pick<ITrackingItem, 'trackedTimeInSeconds' | 'name' | 'id' | 'startTime'>;
 
-type TItemListSortType = 'name' | string;
-type TItemListSortDir = 'asc' | 'desc';
+export type TItemListSortType = 'name' | string;
+export type TItemListSortDir = 'asc' | 'desc';
 
 export type TItemListSort = {
   sortDir: TItemListSortDir; sortBy: TItemListSortType;
@@ -76,15 +77,16 @@ export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
 
 export interface IOfficeTimeState {
   holidays?: Record<string, Dayjs>;
-  officeDays?: Array<Dayjs>;
+  officedays?: Array<Dayjs>;
+  freedays?: Array<Dayjs>;
   barcode?: string;
   workingHours: number;
   workingHoursDefault: number;
   dashboardSettings: DashboardSettings;
 }
 
-export type IOfficeTimeStateStorage = Omit<IOfficeTimeState, 'holidays' | 'officeDays'> & {
-  holidays?: Record<string, string>; officeDays?: Array<string>;
+export type IOfficeTimeStateStorage = Omit<IOfficeTimeState, 'holidays' | 'officedays' | 'freedays'> & {
+  holidays?: Record<string, string>; officedays?: Array<string>; freedays?: Array<string>;
 };
 
 export interface IAppState {
@@ -110,13 +112,30 @@ export type DashboardStats = {
   isPartTime?: boolean; fullTime?: Stats; partTime?: Stats;
 };
 
+marker("officetime.page.settings.dashboard.dateCard");
+marker("officetime.page.settings.dashboard.percentageCard");
+marker("officetime.page.settings.dashboard.officedaysCardList");
+marker("officetime.page.settings.dashboard.officedaysCardEdit");
+marker("officetime.page.settings.dashboard.freedaysCardList");
+marker("officetime.page.settings.dashboard.freedaysCardEdit");
+marker("officetime.page.settings.dashboard.holidaysCard");
+marker("officetime.page.settings.dashboard.statsWeek");
+marker("officetime.page.settings.dashboard.statsMonth");
+marker("officetime.page.settings.dashboard.statsQuarter");
+marker("officetime.page.settings.dashboard.statsYear");
+
+
 export type DashboardSettings = {
   dateCard: boolean;
   percentageCard: boolean;
-  officedaysCard: boolean;
+  officedaysCardList: boolean;
+  officedaysCardEdit: boolean;
+  freedaysCardList: boolean;
+  freedaysCardEdit: boolean;
   holidaysCard: boolean;
   statsWeek: boolean;
   statsMonth: boolean;
+  statsQuarter: boolean;
   statsYear: boolean;
 };
 

@@ -1,17 +1,17 @@
-import dayjs, { Dayjs, OpUnitType } from 'dayjs';
+import dayjs, {Dayjs, OpUnitType} from 'dayjs';
 
-export const getWorkDaysForYear = (holidays?: Record<string, Dayjs>) => {
+export const getWorkdaysForYear = (holidays?: Record<string, Dayjs>) => {
   const start = dayjs().startOf('year');
   const end = start.endOf('year');
   return countWorkDaysBetween(start, end, holidays);
 };
 
-export const getWorkDaysForMonth = (holidays?: Record<string, Dayjs>) => {
+export const getWorkdaysForMonth = (holidays?: Record<string, Dayjs>) => {
   const start = dayjs().startOf('month');
   const end = start.endOf('month');
   return countWorkDaysBetween(start, end, holidays);
 };
-export const getOfficeDaysForMonth = (officeDays?: Array<Dayjs>) => {
+export const getOfficedaysForMonth = (officeDays?: Array<Dayjs>) => {
   const start = dayjs().startOf('month');
   const end = start.endOf('month');
   return countOfficeDaysBetween(start, end, officeDays);
@@ -48,7 +48,7 @@ export const getHolidaysForYear = (holidays?: Record<string, Dayjs>) => {
   return getHolidaysBetween(start, end, holidays);
 };
 
-export const getRemainingWorkDays = (
+export const getRemainingWorkdays = (
   holidays?: Record<string, Dayjs>,
   unit: OpUnitType = 'year'
 ) => {
@@ -112,7 +112,7 @@ const getHoliday = (
   );
   return holiday ? { name: holiday[0], date: holiday[1] } : undefined;
 };
-export const calculatePartTimeWorkDays = (
+export const calculatePartTimeWorkdays = (
   workingHoursWeek: number,
   workingHoursDefault: number,
   workDays: number

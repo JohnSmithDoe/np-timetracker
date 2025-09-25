@@ -3,33 +3,17 @@ import {TranslateModule} from '@ngx-translate/core';
 import {dashboardSettings, workingHours, workingHoursDefault,} from '../../../state/office-time/office-time.selector';
 import {Store} from '@ngrx/store';
 import {AsyncPipe} from '@angular/common';
-import {IonInput, IonItem, IonLabel, IonList, IonToggle,} from '@ionic/angular/standalone';
+import {IonItem, IonLabel, IonList, IonToggle,} from '@ionic/angular/standalone';
 import {officeTimeActions} from '../../../state/office-time/office-time.actions';
 import {ToggleChangeEventDetail} from '@ionic/angular';
 import {filter, map} from "rxjs";
-import {marker} from "@colsen1991/ngx-translate-extract-marker";
-
-marker("officetime.page.settings.dashboard.dateCard");
-marker("officetime.page.settings.dashboard.percentageCard");
-marker("officetime.page.settings.dashboard.officedaysCard");
-marker("officetime.page.settings.dashboard.holidaysCard");
-marker("officetime.page.settings.dashboard.statsWeek");
-marker("officetime.page.settings.dashboard.statsMonth");
-marker("officetime.page.settings.dashboard.statsYear");
+import {NumberInputComponent} from "../../forms/number-input/number-input.component";
 
 @Component({
   selector: 'app-office-time-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
-  imports: [
-    TranslateModule,
-    AsyncPipe,
-    IonInput,
-    IonItem,
-    IonList,
-    IonToggle,
-    IonLabel,
-  ],
+  imports: [TranslateModule, AsyncPipe, IonItem, IonList, IonToggle, IonLabel, NumberInputComponent,],
 })
 export class SettingsComponent {
   readonly #store = inject(Store);
@@ -41,17 +25,18 @@ export class SettingsComponent {
   );
 
 
-  workHoursChange($event: CustomEvent<{ value?: string | null }>) {
-    if ($event.detail.value === '') return;
+  workHoursChange(workingHours?: number) {
+    if (!workingHours) return;
     this.#store.dispatch(
-      officeTimeActions.saveWorkingHours(Number($event.detail.value))
+      officeTimeActions.saveWorkingHours(workingHours)
     );
   }
 
-  workHoursDefaultChange($event: CustomEvent<{ value?: string | null }>) {
-    if ($event.detail.value === '') return;
+  workHoursDefaultChange(workingHours?: number) {
+    if (!workingHours) return;
+    console.log(workingHours);
     this.#store.dispatch(
-      officeTimeActions.saveWorkingHoursDefault(Number($event.detail.value))
+      officeTimeActions.saveWorkingHoursDefault(Number(workingHours))
     );
   }
 
