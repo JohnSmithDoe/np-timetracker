@@ -2,8 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import { IOfficeTimeState } from '../../@types/types';
 import { applicationActions } from '../application.actions';
 import { officeTimeActions } from './office-time.actions';
-import dayjs from 'dayjs';
 import {
+  dayjsFromString,
   deserializeIsoStringMap,
   deserializeIsoStrings,
 } from './office-time.utils';
@@ -32,7 +32,7 @@ export const officeTimeReducer = createReducer(
     officeTimeActions.loadHolidaysSuccess,
     (_state, { holidays }): IOfficeTimeState => ({
       ..._state,
-      holidays,
+      holidays: {...holidays},
     })
   ),
   on(
@@ -40,7 +40,7 @@ export const officeTimeReducer = createReducer(
     (_state): IOfficeTimeState => ({ ..._state, holidays: undefined })
   ),
   on(officeTimeActions.addOfficeTime, (_state): IOfficeTimeState => {
-    const today = dayjs();
+    const today = dayjsFromString();
     if (_state.officedays?.find((day) => day.isSame(today, 'day')))
       return _state;
 

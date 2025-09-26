@@ -7,8 +7,9 @@ import { officeTimeActions } from './office-time.actions';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { officeTimeState } from './office-time.selector';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import {
+  dayjsFromString,
   rotateBase64,
   serializeDateMap,
   serializeDates,
@@ -106,7 +107,7 @@ export class OfficeTimeEffects {
     const _holidays: Record<string, Dayjs> = {};
     for (const key in holidays) {
       const date = holidays[key].datum;
-      _holidays[key] = dayjs(date);
+      _holidays[key] = dayjsFromString(date);
     }
     return _holidays;
   };

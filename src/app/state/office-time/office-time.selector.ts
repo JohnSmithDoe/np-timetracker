@@ -1,7 +1,8 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {DashboardStats, IOfficeTimeState} from '../../@types/types';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { DashboardStats, IOfficeTimeState } from '../../@types/types';
 import {
   calculatePartTimeWorkdays,
+  dayjsFromString,
   getHolidaysForMonth,
   getHolidaysForYear,
   getOfficedaysForMonth,
@@ -10,7 +11,6 @@ import {
   getWorkdaysForMonth,
   getWorkdaysForYear,
 } from './office-time.utils';
-import dayjs from 'dayjs';
 
 export const officeTimeState =
   createFeatureSelector<IOfficeTimeState>('officeTime');
@@ -105,6 +105,7 @@ export const officedays = createSelector(officeTimeState, (state) => {
   return state.officedays;
 });
 export const freedays = createSelector(officeTimeState, (state) => {
+  console.log('store', state);
   return state.freedays;
 });
 
@@ -117,7 +118,7 @@ export const workingHours = createSelector(officeTimeState, (state) => {
 });
 
 export const todayIsOfficeDay = createSelector(officedays, (officeDays) => {
-  const today = dayjs();
+  const today = dayjsFromString();
   return officeDays?.some((day) => day.isSame(today, 'day'));
 });
 

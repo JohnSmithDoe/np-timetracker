@@ -1,4 +1,4 @@
-import dayjs, {Dayjs, OpUnitType} from 'dayjs';
+import dayjs, { Dayjs, OpUnitType } from 'dayjs';
 
 export const getWorkdaysForYear = (holidays?: Record<string, Dayjs>) => {
   const start = dayjs().startOf('year');
@@ -165,28 +165,31 @@ export const rotateBase64 = async (dataUrl?: string, deg = 90) => {
   return canvas.toDataURL('image/*');
 };
 
+export const dayjsToString = (day: Dayjs) => day.hour(12).toISOString();
+export const dayjsFromString = (date?: string) => dayjs(date).hour(12);
+
 export const deserializeIsoStringMap = (
   isoStringMap?: Record<string, string>
 ) =>
   Object.entries(isoStringMap ?? {}).reduce(
     (acc, [name, isoString]) => {
-      acc[name] = dayjs(isoString);
+      acc[name] = dayjsFromString(isoString);
       return acc;
     },
     {} as Record<string, Dayjs>
   );
 
 export const deserializeIsoStrings = (isoStrings?: string[]) =>
-  isoStrings?.map((day) => dayjs(day));
+  isoStrings?.map((day) => dayjsFromString(day));
 
 export const serializeDateMap = (dateMap?: Record<string, Dayjs>) =>
   Object.entries(dateMap ?? {}).reduce(
     (acc, [name, date]) => {
-      acc[name] = date.toISOString();
+      acc[name] = dayjsToString(date);
       return acc;
     },
     {} as Record<string, string>
   );
 
 export const serializeDates = (dates?: Dayjs[]) =>
-  dates?.map((day) => day.toISOString());
+  dates?.map((day) => dayjsToString(day));
