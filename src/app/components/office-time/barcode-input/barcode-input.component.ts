@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   barcodeDataUrl,
+  selectWorkingHoursDefault,
   workingHours,
-  workingHoursDefault,
 } from '../../../state/office-time/office-time.selector';
 import { Store } from '@ngrx/store';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
@@ -22,7 +22,7 @@ export class BarcodeInputComponent {
     .select(barcodeDataUrl)
     .pipe(map((blob) => !!blob));
   readonly workingHours$ = this.#store.select(workingHours);
-  readonly workingHoursDefault$ = this.#store.select(workingHoursDefault);
+  readonly workingHoursDefault$ = this.#store.select(selectWorkingHoursDefault);
 
   onFileSelected(ev: Event) {
     const file = (ev.target as HTMLInputElement).files?.[0];

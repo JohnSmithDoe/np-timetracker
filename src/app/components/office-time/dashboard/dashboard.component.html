@@ -1,49 +1,43 @@
 @let holidays = holidays$ | async;
 @let officedays = officedays$ | async;
 @let freedays = freedays$ | async;
+@let holidates = holidates$ | async;
 @let statsMonth = statsMonth$ | async;
 @let statsWeek = statsMonth$ | async;
 @let statsQuarter = statsMonth$ | async;
 @let statsYear = statsYear$ | async;
-@let isPartTime = isPartTime$ | async;
-@let show = dashboardSettings$ | async;
+@let dashSettings = dashboardSettings$ | async;
 
 <div class="dash-grid">
-  @if (show?.dateCard) {
+  @if (dashSettings?.showDateCard) {
     <app-dash-date/>
   }
 
   <app-dash-button/>
 
-  @if (show?.percentageCard) {
-    <app-dash-percentage
-      [stats]="statsMonth"
-      [title]="'officetime.page.stats.percentage' | translate"
-    />
-  }
 
-  @if (show?.officedaysCardEdit) {
+  @if (dashSettings?.showOfficedaysCardEdit) {
     <app-dash-office-days-edit
       [title]="'officetime.page.stats.office-days.edit' | translate"
       [officedays]="officedays"
     />
   }
 
-  @if (show?.officedaysCardList) {
+  @if (dashSettings?.showOfficedaysCardList) {
     <app-dash-days-list
       [title]="'officetime.page.stats.office-days' | translate"
       [days]="officedays"
     />
   }
 
-  @if (show?.freedaysCardEdit) {
+  @if (dashSettings?.showFreedaysCardEdit) {
     <app-dash-freedays-edit
       [title]="'officetime.page.stats.freedays.edit' | translate"
       [freedays]="freedays"
-      [holidays]="holidays"
+      [holidays]="holidates"
     />
   }
-  @if (show?.freedaysCardList) {
+  @if (dashSettings?.showFreedaysCardList) {
     <app-dash-days-list
       [title]="'officetime.page.stats.freedays.list' | translate"
       [days]="freedays"
@@ -51,34 +45,38 @@
   }
 
 
-  @if (show?.statsYear) {
+  @if (dashSettings?.showStatsYear) {
     <app-dash-stats
       [title]="'officetime.page.stats.year' | translate"
       [data]="statsYear"
+      [showPercentage]="dashSettings?.showPercentageCard"
     />
   }
-  @if (show?.statsQuarter) {
+  @if (dashSettings?.showStatsQuarter) {
     <app-dash-stats
       [title]="'officetime.page.stats.quarter' | translate"
       [data]="statsQuarter"
+      [showPercentage]="dashSettings?.showPercentageCard"
     />
   }
 
-  @if (show?.statsMonth) {
+  @if (dashSettings?.showStatsMonth) {
     <app-dash-stats
       [title]="'officetime.page.stats.month' | translate"
       [data]="statsMonth"
+      [showPercentage]="dashSettings?.showPercentageCard"
     />
   }
 
- @if (show?.statsWeek) {
+ @if (dashSettings?.showStatsWeek) {
     <app-dash-stats
       [title]="'officetime.page.stats.week' | translate"
       [data]="statsWeek"
+      [showPercentage]="dashSettings?.showPercentageCard"
     />
   }
 
-  @if (show?.holidaysCard) {
+  @if (dashSettings?.showHolidaysCard) {
     <app-dash-holidays
       [title]="'officetime.page.stats.holidays' | translate"
       [holidays]="holidays"

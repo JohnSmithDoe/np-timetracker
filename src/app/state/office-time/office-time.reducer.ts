@@ -6,23 +6,25 @@ import {
   dayjsFromString,
   deserializeIsoStringMap,
   deserializeIsoStrings,
+  validateFreedays,
 } from './office-time.utils';
 
 export const initialOfficeTime: IOfficeTimeState = {
   workingHoursDefault: 40,
   workingHours: 40,
   dashboardSettings: {
-    dateCard: true,
-    percentageCard: true,
-    officedaysCardEdit: true,
-    officedaysCardList: false,
-    freedaysCardEdit: true,
-    freedaysCardList: false,
-    holidaysCard: true,
-    statsWeek: true,
-    statsMonth: true,
-    statsQuarter: true,
-    statsYear: true,
+    showDateCard: true,
+    showPercentageCard: true,
+    showOfficedaysCardEdit: true,
+    showOfficedaysCardList: false,
+    showFreedaysCardEdit: true,
+    showFreedaysCardList: false,
+    showHolidaysCard: true,
+    showStatsWeek: true,
+    showStatsMonth: true,
+    showStatsQuarter: true,
+    showStatsYear: true,
+    showPartTime: false,
   },
 };
 
@@ -32,7 +34,7 @@ export const officeTimeReducer = createReducer(
     officeTimeActions.loadHolidaysSuccess,
     (_state, { holidays }): IOfficeTimeState => ({
       ..._state,
-      holidays: {...holidays},
+      holidays: { ...holidays },
     })
   ),
   on(
@@ -49,22 +51,28 @@ export const officeTimeReducer = createReducer(
       officedays: [...(_state.officedays ?? []), today],
     };
   }),
-  on(officeTimeActions.addOfficeday, (_state, {officeday}): IOfficeTimeState => {
-    if (_state.officedays?.find((day) => day.isSame(officeday, 'day')))
-      return _state;
+  on(
+    officeTimeActions.addOfficeday,
+    (_state, { officeday }): IOfficeTimeState => {
+      if (_state.officedays?.find((day) => day.isSame(officeday, 'day')))
+        return _state;
 
-    return {
-      ..._state,
-      officedays: [...(_state.officedays ?? []), officeday],
-    };
-  }),
-  on(officeTimeActions.setOfficedays, (_state, {officedays}): IOfficeTimeState => {
-    return {
-      ..._state,
-      officedays:[...officedays],
-    };
-  }),
-  on(officeTimeActions.addFreeday, (_state, {freeday}): IOfficeTimeState => {
+      return {
+        ..._state,
+        officedays: [...(_state.officedays ?? []), officeday],
+      };
+    }
+  ),
+  on(
+    officeTimeActions.setOfficedays,
+    (_state, { officedays }): IOfficeTimeState => {
+      return {
+        ..._state,
+        officedays: [...officedays],
+      };
+    }
+  ),
+  on(officeTimeActions.addFreeday, (_state, { freeday }): IOfficeTimeState => {
     if (_state.freedays?.find((day) => day.isSame(freeday, 'day')))
       return _state;
 
@@ -73,12 +81,15 @@ export const officeTimeReducer = createReducer(
       freedays: [...(_state.freedays ?? []), freeday],
     };
   }),
-  on(officeTimeActions.setFreedays, (_state, {freedays}): IOfficeTimeState => {
-    return {
-      ..._state,
-      freedays:[...freedays],
-    };
-  }),
+  on(
+    officeTimeActions.setFreedays,
+    (_state, { freedays }): IOfficeTimeState => {
+      return {
+        ..._state,
+        freedays: [...validateFreedays(freedays, _state.holidays)],
+      };
+    }
+  ),
   on(
     officeTimeActions.saveBarcode,
     (_state, { base64Blob }): IOfficeTimeState => ({
@@ -113,12 +124,12 @@ export const officeTimeReducer = createReducer(
   ),
   on(
     officeTimeActions.saveDashboardSettings,
-    (_state, {key, active}): IOfficeTimeState => ({
+    (_state, { key, active }): IOfficeTimeState => ({
       ..._state,
       dashboardSettings: {
         ..._state.dashboardSettings,
-        [key]: active
-      }
+        [key]: active,
+      },
     })
   ),
   on(

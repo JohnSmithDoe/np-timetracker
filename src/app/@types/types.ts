@@ -1,6 +1,6 @@
-import {Color} from '@ionic/core/dist/types/interface';
-import {Dayjs} from 'dayjs';
-import {marker} from "@colsen1991/ngx-translate-extract-marker";
+import { Color } from '@ionic/core/dist/types/interface';
+import { Dayjs } from 'dayjs';
+import { marker } from '@colsen1991/ngx-translate-extract-marker';
 
 export type BooleanKeys<T> = {
   [k in keyof T]: T[k] extends boolean ? k : never;
@@ -13,10 +13,13 @@ export type TColor = Color | 'tracking' | 'settings';
 export type TTimestamp = string;
 
 export type IBaseItem = {
-  id: string; name: string; createdAt: TTimestamp;
+  id: string;
+  name: string;
+  createdAt: TTimestamp;
 };
 
-export type TUpdateDTO<T extends IBaseItem> = IBaseItem & Partial<T> & { id: string };
+export type TUpdateDTO<T extends IBaseItem> = IBaseItem &
+  Partial<T> & { id: string };
 
 export type ITrackingItem = IBaseItem & {
   startTime?: TTimestamp;
@@ -26,13 +29,17 @@ export type ITrackingItem = IBaseItem & {
   state: 'running' | 'stopped' | 'paused';
 };
 
-export type IDataItem = Pick<ITrackingItem, 'trackedTimeInSeconds' | 'name' | 'id' | 'startTime'>;
+export type IDataItem = Pick<
+  ITrackingItem,
+  'trackedTimeInSeconds' | 'name' | 'id' | 'startTime'
+>;
 
 export type TItemListSortType = 'name' | string;
 export type TItemListSortDir = 'asc' | 'desc';
 
 export type TItemListSort = {
-  sortDir: TItemListSortDir; sortBy: TItemListSortType;
+  sortDir: TItemListSortDir;
+  sortBy: TItemListSortType;
 };
 
 export interface IItemList<T extends IBaseItem> {
@@ -45,7 +52,9 @@ export interface IItemList<T extends IBaseItem> {
 export type IListState<T extends IBaseItem> = IItemList<T>;
 
 export type TTrackingList = IListState<ITrackingItem> & {
-  title: 'Time tracking'; data: ITrackingItem[]; dataViewId: string;
+  title: 'Time tracking';
+  data: ITrackingItem[];
+  dataViewId: string;
 };
 export type ITrackingState = TTrackingList;
 
@@ -70,7 +79,11 @@ export interface ISearchResult<T extends ITrackingItem> {
 
 export type TEditItemMode = 'update' | 'create';
 export type IEditItemState<T extends IBaseItem> = Readonly<{
-  item: T; isEditing?: boolean; editMode?: TEditItemMode; dialogTitle?: string; saveButtonText?: string;
+  item: T;
+  isEditing?: boolean;
+  editMode?: TEditItemMode;
+  dialogTitle?: string;
+  saveButtonText?: string;
 }>;
 export type TDialogsState = IEditItemState<ITrackingItem>;
 export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
@@ -85,8 +98,13 @@ export interface IOfficeTimeState {
   dashboardSettings: DashboardSettings;
 }
 
-export type IOfficeTimeStateStorage = Omit<IOfficeTimeState, 'holidays' | 'officedays' | 'freedays'> & {
-  holidays?: Record<string, string>; officedays?: Array<string>; freedays?: Array<string>;
+export type IOfficeTimeStateStorage = Omit<
+  IOfficeTimeState,
+  'holidays' | 'officedays' | 'freedays'
+> & {
+  holidays?: Record<string, string>;
+  officedays?: Array<string>;
+  freedays?: Array<string>;
 };
 
 export interface IAppState {
@@ -105,38 +123,44 @@ export interface IonViewDidEnter {
 }
 
 export type Stats = {
-  workdays: number; officedays: number; remaining: number; percentage: number;
+  workdays: number;
+  officedays: number;
+  remaining: number;
+  percentage: number;
 };
 
 export type DashboardStats = {
-  isPartTime?: boolean; fullTime?: Stats; partTime?: Stats;
+  isPartTime?: boolean;
+  fullTime?: Stats;
+  partTime?: Stats;
 };
 
-marker("officetime.page.settings.dashboard.dateCard");
-marker("officetime.page.settings.dashboard.percentageCard");
-marker("officetime.page.settings.dashboard.officedaysCardList");
-marker("officetime.page.settings.dashboard.officedaysCardEdit");
-marker("officetime.page.settings.dashboard.freedaysCardList");
-marker("officetime.page.settings.dashboard.freedaysCardEdit");
-marker("officetime.page.settings.dashboard.holidaysCard");
-marker("officetime.page.settings.dashboard.statsWeek");
-marker("officetime.page.settings.dashboard.statsMonth");
-marker("officetime.page.settings.dashboard.statsQuarter");
-marker("officetime.page.settings.dashboard.statsYear");
-
+marker('officetime.page.settings.dashboard.showDateCard');
+marker('officetime.page.settings.dashboard.showPercentageCard');
+marker('officetime.page.settings.dashboard.showOfficedaysCardList');
+marker('officetime.page.settings.dashboard.showOfficedaysCardEdit');
+marker('officetime.page.settings.dashboard.showFreedaysCardList');
+marker('officetime.page.settings.dashboard.showFreedaysCardEdit');
+marker('officetime.page.settings.dashboard.showHolidaysCard');
+marker('officetime.page.settings.dashboard.showStatsWeek');
+marker('officetime.page.settings.dashboard.showStatsMonth');
+marker('officetime.page.settings.dashboard.showStatsQuarter');
+marker('officetime.page.settings.dashboard.showStatsYear');
+marker('officetime.page.settings.dashboard.showPartTime');
 
 export type DashboardSettings = {
-  dateCard: boolean;
-  percentageCard: boolean;
-  officedaysCardList: boolean;
-  officedaysCardEdit: boolean;
-  freedaysCardList: boolean;
-  freedaysCardEdit: boolean;
-  holidaysCard: boolean;
-  statsWeek: boolean;
-  statsMonth: boolean;
-  statsQuarter: boolean;
-  statsYear: boolean;
+  showDateCard: boolean;
+  showPercentageCard: boolean;
+  showOfficedaysCardList: boolean;
+  showOfficedaysCardEdit: boolean;
+  showFreedaysCardList: boolean;
+  showFreedaysCardEdit: boolean;
+  showHolidaysCard: boolean;
+  showStatsWeek: boolean;
+  showStatsMonth: boolean;
+  showStatsQuarter: boolean;
+  showStatsYear: boolean;
+  showPartTime: boolean;
 };
 
 export type DashboardType = keyof DashboardSettings;

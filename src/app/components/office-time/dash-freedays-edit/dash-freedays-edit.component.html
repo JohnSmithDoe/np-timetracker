@@ -5,9 +5,13 @@
     </ion-card-header>
   }
   <ion-card-content>
-    {{ freeDates() | json}}
-      <ion-datetime presentation="date" [multiple]="true" [value]="freeDates() ?? [today]"
-                    [locale]="'de-DE'"
-      (ionChange)="updateFreeDates($event)"/>
+    <ion-datetime
+      presentation="date"
+      [multiple]="true"
+      [value]="freedays()"
+      [locale]="'de-DE'"
+      [highlightedDates]="holidays()"
+      (ionChange)="updateFreeDatesFromCalender($event)"
+    />
   </ion-card-content>
 </ion-card>

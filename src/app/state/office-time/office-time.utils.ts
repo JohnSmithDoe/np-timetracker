@@ -193,3 +193,18 @@ export const serializeDateMap = (dateMap?: Record<string, Dayjs>) =>
 
 export const serializeDates = (dates?: Dayjs[]) =>
   dates?.map((day) => dayjsToString(day));
+
+export const validateFreedays = (
+  freedays: (string | undefined | null)[],
+  holidays: Record<string, Dayjs> | undefined
+) => {
+  return freedays
+    .filter((date): date is string => !!date)
+    .filter(
+      (date) =>
+        !Object.values(holidays ?? {}).some((holiday) =>
+          holiday.isSame(dayjsFromString(date))
+        )
+    )
+    .map(dayjsFromString);
+};
