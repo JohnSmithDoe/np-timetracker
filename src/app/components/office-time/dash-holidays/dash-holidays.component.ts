@@ -27,6 +27,14 @@ import { Dayjs } from 'dayjs';
 export class DashHolidaysComponent {
   readonly title = input<string | undefined>();
   readonly holidays = input<
-    { name: string; date: Dayjs }[] | undefined | null
-  >();
+    { name: string; date: Dayjs }[],
+    Record<string, Dayjs> | undefined | null
+  >([], {
+    transform(day?: Record<string, Dayjs> | null) {
+      return Object.entries(day ?? {}).map(([name, date]) => ({
+        name,
+        date,
+      }));
+    },
+  });
 }

@@ -24,7 +24,6 @@ export const officeTimeActions = createActionGroup({
     'Rotate Barcode Success': (barcode: string) => ({
       barcode,
     }),
-    'Save Working Hours': (hours: number) => ({ hours }),
     'Save Working Hours Default': (hours: number) => ({ hours }),
     'Save Dashboard Settings': (key: DashboardType, active: boolean) => ({
       key,

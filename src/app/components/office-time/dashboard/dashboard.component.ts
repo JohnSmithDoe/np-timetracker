@@ -1,14 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  dashboardStatsMonth,
-  dashboardStatsYear,
   selectDashboardSettings,
   selectFreedays,
-  selectHolidayDates,
-  selectHolidaysForYear,
+  selectHolidayDays,
+  selectHolidays,
   selectOfficedays,
-} from '../../../state/office-time/office-time.selector';
+} from '../../../state/office-time/office-time.selectors';
 import { addIcons } from 'ionicons';
 import { add, remove } from 'ionicons/icons';
 import { AsyncPipe } from '@angular/common';
@@ -20,6 +18,12 @@ import { DashDateComponent } from '../dash-date/dash-date.component';
 import { DashDaysListComponent } from '../dash-days-list/dash-days-list.component';
 import { DashOfficeDaysEditComponent } from '../dash-office-days-edit/dash-office-days-edit.component';
 import { DashFreedaysEditComponent } from '../dash-freedays-edit/dash-freedays-edit.component';
+import {
+  selectDashboardStatsMonth,
+  selectDashboardStatsQuarter,
+  selectDashboardStatsWeek,
+  selectDashboardStatsYear,
+} from '../../../state/office-time/office-time.stats.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,13 +44,15 @@ import { DashFreedaysEditComponent } from '../dash-freedays-edit/dash-freedays-e
 export class DashboardComponent {
   readonly #store = inject(Store);
 
-  readonly holidays$ = this.#store.select(selectHolidaysForYear);
-  readonly holidates$ = this.#store.select(selectHolidayDates);
+  readonly holidays$ = this.#store.select(selectHolidays);
+  readonly holidates$ = this.#store.select(selectHolidayDays);
   readonly officedays$ = this.#store.select(selectOfficedays);
   readonly freedays$ = this.#store.select(selectFreedays);
 
-  readonly statsMonth$ = this.#store.select(dashboardStatsMonth);
-  readonly statsYear$ = this.#store.select(dashboardStatsYear);
+  readonly statsWeek$ = this.#store.select(selectDashboardStatsWeek);
+  readonly statsMonth$ = this.#store.select(selectDashboardStatsMonth);
+  readonly statsQuarter$ = this.#store.select(selectDashboardStatsQuarter);
+  readonly statsYear$ = this.#store.select(selectDashboardStatsYear);
 
   readonly dashboardSettings$ = this.#store.select(selectDashboardSettings);
 

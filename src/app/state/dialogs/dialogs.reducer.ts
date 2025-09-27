@@ -1,9 +1,14 @@
-import {marker} from '@colsen1991/ngx-translate-extract-marker';
-import {createReducer, on} from '@ngrx/store';
-import {IBaseItem, IEditItemState, TDialogsState, TEditItemMode,} from '../../@types/types';
-import {createTrackingItem} from '../../app.factory';
-import {applicationActions} from '../application.actions';
-import {dialogsActions} from './dialogsActions';
+import { marker } from '@colsen1991/ngx-translate-extract-marker';
+import { createReducer, on } from '@ngrx/store';
+import {
+  IBaseItem,
+  IEditItemState,
+  TDialogsState,
+  TEditItemMode,
+} from '../../@types/types';
+import { createTrackingItem } from '../../app.factory';
+import { applicationActions } from '../application.actions';
+import { dialogsActions } from './dialogsActions';
 
 export const initialSettings: TDialogsState = {
   isEditing: false,

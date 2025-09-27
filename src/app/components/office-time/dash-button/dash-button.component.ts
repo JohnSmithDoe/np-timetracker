@@ -10,10 +10,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
 import { Store } from '@ngrx/store';
-import { todayIsOfficeDay } from '../../../state/office-time/office-time.selector';
 import { AsyncPipe } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { beer, business } from 'ionicons/icons';
+import { todayIsOfficeDay } from '../../../state/office-time/office-time.stats.selectors';
 
 @Component({
   selector: 'app-dash-button',

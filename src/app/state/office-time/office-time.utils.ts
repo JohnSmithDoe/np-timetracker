@@ -1,131 +1,134 @@
-import dayjs, { Dayjs, OpUnitType } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
+import { DashboardStats, IOfficeTimeState } from '../../@types/types';
+import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 
-export const getWorkdaysForYear = (holidays?: Record<string, Dayjs>) => {
-  const start = dayjs().startOf('year');
-  const end = start.endOf('year');
-  return countWorkDaysBetween(start, end, holidays);
-};
+dayjs.extend(quarterOfYear);
 
-export const getWorkdaysForMonth = (holidays?: Record<string, Dayjs>) => {
-  const start = dayjs().startOf('month');
-  const end = start.endOf('month');
-  return countWorkDaysBetween(start, end, holidays);
-};
-export const getOfficedaysForMonth = (officeDays?: Array<Dayjs>) => {
-  const start = dayjs().startOf('month');
-  const end = start.endOf('month');
-  return countOfficeDaysBetween(start, end, officeDays);
-};
+type TimePeriod = 'year' | 'quarter' | 'month' | 'week';
 
-const getHolidaysBetween = (
-  start: Dayjs,
-  end: Dayjs,
-  holidays: Record<string, Dayjs> | undefined
+export const getWorkdays = (
+  type: TimePeriod,
+  holidays: Dayjs[],
+  freedays: Dayjs[]
 ) => {
-  const result: { name: string; date: Dayjs }[] = [];
-  let current = start;
-  while (current.isBefore(end) || current.isSame(end)) {
-    const holiday = getHoliday(current, holidays);
-    if (holiday) {
-      result.push(holiday);
-    }
-    current = current.add(1, 'day');
-  }
-  return result;
+  const start = dayjs().startOf(type);
+  const end = start.endOf(type);
+  return daysBetween(
+    start,
+    end,
+    (current) => !isHolidayOrFreeday(current, holidays, freedays)
+  );
 };
 
-export const getHolidaysForMonth = (holidays?: Record<string, Dayjs>) => {
-  const start = dayjs().startOf('month');
-  const end = start.endOf('month');
-
-  return getHolidaysBetween(start, end, holidays);
+export const getOfficedays = (type: TimePeriod, officedays: Dayjs[]) => {
+  const start = dayjs().startOf(type);
+  const end = start.endOf(type);
+  return daysBetween(start, end, isOfficeDay, officedays ?? []);
+};
+export const getFreedays = (type: TimePeriod, freedays: Dayjs[]) => {
+  const start = dayjs().startOf(type);
+  const end = start.endOf(type);
+  return daysBetween(start, end, (current) => isFreeday(current, freedays));
 };
 
-export const getHolidaysForYear = (holidays?: Record<string, Dayjs>) => {
-  const start = dayjs().startOf('year');
-  const end = start.endOf('year');
-
-  return getHolidaysBetween(start, end, holidays);
+export const getHolidays = (
+  type: TimePeriod,
+  holidays: Record<string, Dayjs>
+) => {
+  const holidayDays = Object.values(holidays);
+  const start = dayjs().startOf(type);
+  const end = start.endOf(type);
+  return daysBetween(start, end, (current) => isHoliday(current, holidayDays));
 };
-
 export const getRemainingWorkdays = (
-  holidays?: Record<string, Dayjs>,
-  unit: OpUnitType = 'year'
+  unit: TimePeriod,
+  holidays: Dayjs[],
+  freedays: Dayjs[]
 ) => {
   const start = dayjs().startOf('day');
   const end = start.endOf(unit);
-  return countWorkDaysBetween(start, end, holidays);
+  return daysBetween(
+    start,
+    end,
+    (current) => !isHolidayOrFreeday(current, holidays, freedays)
+  );
 };
 
-const countWorkDaysBetween = (
-  start: Dayjs,
-  end: Dayjs,
-  holidays?: Record<string, Dayjs>
-) => {
-  let workDays = 0;
+const allDaysBetween = (start: Dayjs, end: Dayjs) => {
+  const days: Dayjs[] = [];
   let current = start;
   while (current.isBefore(end) || current.isSame(end)) {
-    if (!isHolidayOrWeekend(current, holidays)) {
-      workDays++;
-    }
+    days.push(current.clone());
     current = current.add(1, 'day');
   }
-  return workDays;
+  return days;
 };
 
-const countOfficeDaysBetween = (
+const daysBetween = (
   start: Dayjs,
   end: Dayjs,
-  officeDays?: Array<Dayjs>
+  condition: (current: Dayjs) => boolean,
+  options?: Dayjs[]
 ) => {
-  let officeDaysCount = 0;
-  let current = start;
-  while (current.isBefore(end) || current.isSame(end)) {
-    if (isOfficeDay(current, officeDays)) {
-      officeDaysCount++;
-    }
-    current = current.add(1, 'day');
-  }
-  return officeDays;
+  const days = options ?? allDaysBetween(start, end);
+  return days.filter(
+    (current) =>
+      (current.isAfter(start, 'day') || current.isSame(start, 'day')) &&
+      (current.isBefore(end, 'day') || current.isSame(end, 'day')) &&
+      condition(current)
+  );
 };
-export const isHolidayOrWeekend = (
+
+export const isFreeday = (current: Dayjs, freedays: Dayjs[]) => {
+  return !!freedays?.some((freeday) => freeday.isSame(current, 'day'));
+};
+
+export const isHoliday = (current: Dayjs, holidays: Dayjs[]) => {
+  return !!holidays?.some((holiday) => holiday.isSame(current, 'day'));
+};
+
+export const isHolidayOrFreeday = (
   current: Dayjs,
-  holidays?: Record<string, Dayjs>
+  holidays: Dayjs[],
+  freedays: Dayjs[]
 ) => {
+  return (
+    isWeekend(current) ||
+    isFreeday(current, freedays) ||
+    isHoliday(current, holidays)
+  );
+};
+export const isWeekend = (current: Dayjs) => {
   const day = current.day();
   const isSunday = day === 0;
   const isSaturday = day === 6;
-  let isHoliday = !!getHoliday(current, holidays);
-  return isSunday || isSaturday || isHoliday;
+  return isSunday || isSaturday;
 };
 
 export const isOfficeDay = (current: Dayjs, officeDays?: Array<Dayjs>) => {
-  return !!officeDays?.find((day) => day.isSame(current, 'day'));
+  return !!officeDays?.find((officeday) => officeday.isSame(current, 'day'));
 };
 
-const getHoliday = (
-  current: Dayjs,
-  holidays: Record<string, Dayjs> | undefined
-) => {
-  const holiday = Object.entries(holidays ?? {}).find(([_, date]) =>
-    current.isSame(date, 'day')
-  );
-  return holiday ? { name: holiday[0], date: holiday[1] } : undefined;
-};
-export const calculatePartTimeWorkdays = (
-  workingHoursWeek: number,
-  workingHoursDefault: number,
-  workDays: number
-) => {
-  const workingDaysWeek = (workingHoursWeek * 5) / workingHoursDefault;
-  return (workDays / 5) * workingDaysWeek;
-};
-export const getPercentage = (
-  officeDays: Array<Dayjs> | undefined,
-  workDays: number
-) => {
+export const getPercentage = (officeDays: number, workDays: number) => {
   // we consider 50% as the goal for the office days
-  return Math.trunc(((officeDays?.length ?? 0) / workDays) * 100) * 2;
+  return Math.trunc((officeDays / workDays) * 100) * 2;
+};
+
+export const calculateStats = (
+  period: TimePeriod,
+  state: IOfficeTimeState
+): DashboardStats => {
+  const officedays = getOfficedays(period, state.officedays);
+  const freedays = getFreedays(period, state.freedays);
+  const holidays = getHolidays(period, state.holidays);
+  const workdays = getWorkdays(period, holidays, freedays);
+  const remaining = getRemainingWorkdays(period, holidays, freedays);
+  return {
+    percentage: getPercentage(officedays.length, state.workingHoursDefault),
+    officedays: officedays.length,
+    workdays: workdays.length,
+    remaining: remaining.length,
+  };
 };
 
 export const rotateBase64 = async (dataUrl?: string, deg = 90) => {
@@ -180,7 +183,7 @@ export const deserializeIsoStringMap = (
   );
 
 export const deserializeIsoStrings = (isoStrings?: string[]) =>
-  isoStrings?.map((day) => dayjsFromString(day));
+  isoStrings?.map((day) => dayjsFromString(day)) ?? [];
 
 export const serializeDateMap = (dateMap?: Record<string, Dayjs>) =>
   Object.entries(dateMap ?? {}).reduce(

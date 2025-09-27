@@ -6,7 +6,7 @@ import { DatabaseService } from '../../services/database.service';
 import { officeTimeActions } from './office-time.actions';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { selectOfficeTimeState } from './office-time.selector';
+import { selectOfficeTimeState } from './office-time.selectors';
 import { Dayjs } from 'dayjs';
 import {
   dayjsFromString,
@@ -65,7 +65,6 @@ export class OfficeTimeEffects {
         officeTimeActions.deleteBarcode,
         officeTimeActions.rotateBarcodeSuccess,
         officeTimeActions.addOfficeTime,
-        officeTimeActions.saveWorkingHours,
         officeTimeActions.saveWorkingHoursDefault,
         officeTimeActions.saveDashboardSettings,
         officeTimeActions.addOfficeday,

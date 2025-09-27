@@ -11,7 +11,9 @@ import {
 
 export const initialOfficeTime: IOfficeTimeState = {
   workingHoursDefault: 40,
-  workingHours: 40,
+  freedays: [],
+  holidays: {},
+  officedays: [],
   dashboardSettings: {
     showDateCard: true,
     showPercentageCard: true,
@@ -24,7 +26,6 @@ export const initialOfficeTime: IOfficeTimeState = {
     showStatsMonth: true,
     showStatsQuarter: true,
     showStatsYear: true,
-    showPartTime: false,
   },
 };
 
@@ -39,7 +40,7 @@ export const officeTimeReducer = createReducer(
   ),
   on(
     officeTimeActions.loadHolidaysFailure,
-    (_state): IOfficeTimeState => ({ ..._state, holidays: undefined })
+    (_state): IOfficeTimeState => ({ ..._state, holidays: {} })
   ),
   on(officeTimeActions.addOfficeTime, (_state): IOfficeTimeState => {
     const today = dayjsFromString();
@@ -107,13 +108,6 @@ export const officeTimeReducer = createReducer(
   on(
     officeTimeActions.deleteBarcode,
     (_state): IOfficeTimeState => ({ ..._state, barcode: undefined })
-  ),
-  on(
-    officeTimeActions.saveWorkingHours,
-    (_state, { hours }): IOfficeTimeState => ({
-      ..._state,
-      workingHours: hours,
-    })
   ),
   on(
     officeTimeActions.saveWorkingHoursDefault,

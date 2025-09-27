@@ -1,24 +1,23 @@
 @let stats = data();
-@if(stats) {
-
-<ion-card>
-  @if (title()) {
-    <ion-card-header>
-      <ion-card-title>{{ title() }}</ion-card-title>
-    </ion-card-header>
-  }
-  <ion-card-content>
-    <ion-list>
-      @if (showPercentage()) {
-        <app-dash-percentage
-          [stats]="stats"
-          [title]="'officetime.page.stats.percentage' | translate"
-        />
-      }
-      <ion-item>Arbeitstage: {{ stats.fullTime?.workdays }} {{ stats.isPartTime ? stats.partTime?.workdays : '' }}</ion-item>
-      <ion-item>Verbleibend: {{ stats.fullTime?.remaining }} {{ stats.isPartTime ? stats.partTime?.remaining : '' }}</ion-item>
-      <ion-item>Bürotage: {{ stats.fullTime?.officedays }} {{ stats.isPartTime ? stats.partTime?.officedays : '' }}</ion-item>
-    </ion-list>
-  </ion-card-content>
-</ion-card>
+@if (stats) {
+  <ion-card>
+    @if (title()) {
+      <ion-card-header>
+        <ion-card-title>{{ title() }}</ion-card-title>
+      </ion-card-header>
+    }
+    <ion-card-content>
+      <ion-list>
+        @if (showPercentage()) {
+          <app-dash-percentage
+            [stats]="stats"
+            [title]="'officetime.page.stats.percentage' | translate"
+          />
+        }
+        <ion-item>Arbeitstage: {{ stats.workdays }} </ion-item>
+        <ion-item>Verbleibend: {{ stats.remaining }} </ion-item>
+        <ion-item>Bürotage: {{ stats.officedays }} </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 }

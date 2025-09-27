@@ -89,12 +89,6 @@
             "buildTarget": "app:build"
           }
         },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "./jest.config.ts"
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {

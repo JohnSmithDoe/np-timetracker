@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { barcodeDataUrl } from '../../../state/office-time/office-time.selector';
+import { barcodeDataUrl } from '../../../state/office-time/office-time.selectors';
 import { Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
 import { BarcodeInputComponent } from '../barcode-input/barcode-input.component';

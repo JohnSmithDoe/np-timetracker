@@ -89,11 +89,10 @@ export type TDialogsState = IEditItemState<ITrackingItem>;
 export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
 
 export interface IOfficeTimeState {
-  holidays?: Record<string, Dayjs>;
-  officedays?: Array<Dayjs>;
-  freedays?: Array<Dayjs>;
+  holidays: Record<string, Dayjs>;
+  officedays: Array<Dayjs>;
+  freedays: Array<Dayjs>;
   barcode?: string;
-  workingHours: number;
   workingHoursDefault: number;
   dashboardSettings: DashboardSettings;
 }
@@ -122,17 +121,11 @@ export interface IonViewDidEnter {
   ionViewDidEnter(): void;
 }
 
-export type Stats = {
+export type DashboardStats = {
   workdays: number;
   officedays: number;
   remaining: number;
   percentage: number;
-};
-
-export type DashboardStats = {
-  isPartTime?: boolean;
-  fullTime?: Stats;
-  partTime?: Stats;
 };
 
 marker('officetime.page.settings.dashboard.showDateCard');
@@ -146,7 +139,6 @@ marker('officetime.page.settings.dashboard.showStatsWeek');
 marker('officetime.page.settings.dashboard.showStatsMonth');
 marker('officetime.page.settings.dashboard.showStatsQuarter');
 marker('officetime.page.settings.dashboard.showStatsYear');
-marker('officetime.page.settings.dashboard.showPartTime');
 
 export type DashboardSettings = {
   showDateCard: boolean;
@@ -160,7 +152,6 @@ export type DashboardSettings = {
   showStatsMonth: boolean;
   showStatsQuarter: boolean;
   showStatsYear: boolean;
-  showPartTime: boolean;
 };
 
 export type DashboardType = keyof DashboardSettings;

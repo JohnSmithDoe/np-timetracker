@@ -20,7 +20,7 @@ export class NpTrackingTimePipe implements PipeTransform {
   #getDuration = (value: IDataItem) => {
     const durationInSeconds = dayjs(value.startTime)
       .startOf('date')
-      .add(value ? value.trackedTimeInSeconds ?? 0 : 0, 'seconds');
+      .add(value ? (value.trackedTimeInSeconds ?? 0) : 0, 'seconds');
     const startingPoint = dayjs().startOf('date');
     const hours = durationInSeconds.diff(startingPoint, 'hours');
     const min = durationInSeconds.diff(

@@ -3,8 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   selectDashboardSettings,
   selectWorkingHoursDefault,
-  workingHours,
-} from '../../../state/office-time/office-time.selector';
+} from '../../../state/office-time/office-time.selectors';
 import { Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
 import {
@@ -34,7 +33,6 @@ import { NumberInputComponent } from '../../forms/number-input/number-input.comp
 })
 export class SettingsComponent {
   readonly #store = inject(Store);
-  readonly workingHours$ = this.#store.select(workingHours);
   readonly workingHoursDefault$ = this.#store.select(selectWorkingHoursDefault);
   readonly dashboardSettings$ = this.#store
     .select(selectDashboardSettings)
@@ -48,11 +46,6 @@ export class SettingsComponent {
           }[]
       )
     );
-
-  workHoursChange(workingHours?: number) {
-    if (!workingHours) return;
-    this.#store.dispatch(officeTimeActions.saveWorkingHours(workingHours));
-  }
 
   workHoursDefaultChange(workingHours?: number) {
     if (!workingHours) return;
