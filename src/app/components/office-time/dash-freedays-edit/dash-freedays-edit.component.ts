@@ -11,7 +11,11 @@ import dayjs, { Dayjs } from 'dayjs';
 import { DatetimeCustomEvent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
-import { dayjsToString } from '../../../state/office-time/office-time.utils';
+import {
+  dayjsToString,
+  daysToHighlightsInputTransform,
+} from '../../../state/office-time/office-time.utils';
+import { DateTimeHighlight } from '../../../@types/types';
 
 @Component({
   selector: 'app-dash-freedays-edit',
@@ -39,23 +43,10 @@ export class DashFreedaysEditComponent {
     }
   );
 
-  readonly holidays = input<
-    {
-      date: string;
-      backgroundColor: string;
-      border: string;
-      textColor: string;
-    }[],
-    Dayjs[] | null | undefined
-  >([], {
-    transform: (holidays) =>
-      (holidays ?? []).map((holiday) => ({
-        date: holiday.format('YYYY-MM-DD'),
-        textColor: '#800080',
-        backgroundColor: '#ffc0cb',
-        border: '1px solid #e91e63',
-      })),
-  });
+  readonly holidays = input<DateTimeHighlight[], Dayjs[] | null | undefined>(
+    [],
+    { transform: daysToHighlightsInputTransform }
+  );
 
   updateFreeDatesFromCalender(ev: DatetimeCustomEvent) {
     const dates = Array.isArray(ev.detail.value)

@@ -4,17 +4,16 @@ import { IOfficeTimeState } from '../../@types/types';
 export const selectOfficeTimeState =
   createFeatureSelector<IOfficeTimeState>('officeTime');
 
-export const selectWorkingHoursDefault = createSelector(
-  selectOfficeTimeState,
-  (state) => {
-    return state.workingHoursDefault;
-  }
-);
-
 export const selectDashboardSettings = createSelector(
   selectOfficeTimeState,
   (state) => {
     return state.dashboardSettings;
+  }
+);
+export const selectTargetPercentage = createSelector(
+  selectOfficeTimeState,
+  (state) => {
+    return state.targetPercentage;
   }
 );
 

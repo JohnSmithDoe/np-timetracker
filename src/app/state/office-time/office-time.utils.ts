@@ -1,5 +1,9 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { DashboardStats, IOfficeTimeState } from '../../@types/types';
+import {
+  DashboardStats,
+  DateTimeHighlight,
+  IOfficeTimeState,
+} from '../../@types/types';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 
 dayjs.extend(quarterOfYear);
@@ -110,8 +114,7 @@ export const isOfficeDay = (current: Dayjs, officeDays?: Array<Dayjs>) => {
 };
 
 export const getPercentage = (officeDays: number, workDays: number) => {
-  // we consider 50% as the goal for the office days
-  return Math.trunc((officeDays / workDays) * 100) * 2;
+  return Math.trunc((officeDays / workDays) * 100);
 };
 
 export const calculateStats = (
@@ -124,10 +127,11 @@ export const calculateStats = (
   const workdays = getWorkdays(period, holidays, freedays);
   const remaining = getRemainingWorkdays(period, holidays, freedays);
   return {
-    percentage: getPercentage(officedays.length, state.workingHoursDefault),
+    percentage: getPercentage(officedays.length, workdays.length),
     officedays: officedays.length,
     workdays: workdays.length,
     remaining: remaining.length,
+    freedays: freedays.length,
   };
 };
 
@@ -211,3 +215,13 @@ export const validateFreedays = (
     )
     .map(dayjsFromString);
 };
+
+export const daysToHighlightsInputTransform = (
+  days?: Dayjs[] | null
+): DateTimeHighlight[] =>
+  (days ?? []).map((day) => ({
+    date: day.format('YYYY-MM-DD'),
+    textColor: '#800080',
+    backgroundColor: '#ffc0cb',
+    border: '1px solid #e91e63',
+  }));

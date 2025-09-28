@@ -89,11 +89,11 @@ export type TDialogsState = IEditItemState<ITrackingItem>;
 export type IEditTrackingItemState = IEditItemState<ITrackingItem>;
 
 export interface IOfficeTimeState {
+  targetPercentage: number;
   holidays: Record<string, Dayjs>;
   officedays: Array<Dayjs>;
   freedays: Array<Dayjs>;
   barcode?: string;
-  workingHoursDefault: number;
   dashboardSettings: DashboardSettings;
 }
 
@@ -124,6 +124,7 @@ export interface IonViewDidEnter {
 export type DashboardStats = {
   workdays: number;
   officedays: number;
+  freedays: number;
   remaining: number;
   percentage: number;
 };
@@ -155,3 +156,10 @@ export type DashboardSettings = {
 };
 
 export type DashboardType = keyof DashboardSettings;
+
+export type DateTimeHighlight = {
+  date: string;
+  backgroundColor: string;
+  border: string;
+  textColor: string;
+};

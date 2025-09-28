@@ -65,7 +65,7 @@ export class OfficeTimeEffects {
         officeTimeActions.deleteBarcode,
         officeTimeActions.rotateBarcodeSuccess,
         officeTimeActions.addOfficeTime,
-        officeTimeActions.saveWorkingHoursDefault,
+        officeTimeActions.resetData,
         officeTimeActions.saveDashboardSettings,
         officeTimeActions.addOfficeday,
         officeTimeActions.setOfficedays,

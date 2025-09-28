@@ -1,17 +1,47 @@
-@let workingHoursDefault = (workingHoursDefault$ | async);
-@let dashboardSettings = (dashboardSettings$ | async);
-<ion-list>
-  <app-number-input [label]="'officetime.page.settings.workhours.default' | translate"
-                    [value]="workingHoursDefault"
-                    (updateValue)="workHoursDefaultChange($event)"/>
-
-  @for (setting of dashboardSettings; track setting.key) {
+@let dashboardSettings = dashboardSettings$ | async;
+@let targetPercentage = targetPercentage$ | async;
+@if (targetPercentage && dashboardSettings) {
+  <ion-list>
     <ion-item>
-      <ion-toggle [value]="setting.key" [checked]="setting.value"
-                  (ionChange)="changeDashboardSettings( $event)">
-        <ion-label>{{ 'officetime.page.settings.dashboard.' + setting.key | translate }}</ion-label>
-      </ion-toggle>
+      <ion-range
+        labelPlacement="start"
+        [label]="
+          'officetime.page.settings.targetPercentage'
+            | translate: { value: targetPercentage }
+        "
+        [min]="0"
+        [max]="100"
+        [pin]="true"
+        [snaps]="true"
+        [step]="1"
+        [value]="targetPercentage"
+        (ionChange)="changeTargetPercentage($any($event))"
+      />
     </ion-item>
-  }
-</ion-list>
-
+    @for (setting of dashboardSettings; track setting.key) {
+      <ion-item>
+        <ion-toggle
+          [value]="setting.key"
+          [checked]="setting.value"
+          (ionChange)="changeDashboardSettings($event)"
+        >
+          <ion-label>{{
+            'officetime.page.settings.dashboard.' + setting.key | translate
+          }}</ion-label>
+        </ion-toggle>
+      </ion-item>
+    }
+    <ion-item>
+      <ion-button id="present-alert" [color]="'danger'">
+        Daten zurücksetzen
+      </ion-button>
+    </ion-item>
+  </ion-list>
+}
+<ion-alert
+  trigger="present-alert"
+  [header]="'officetime.page.settings.reset.header' | translate"
+  [subHeader]="'officetime.page.settings.reset.subheader' | translate"
+  [message]="'officetime.page.settings.reset.message' | translate"
+  [buttons]="alertButtons"
+/>

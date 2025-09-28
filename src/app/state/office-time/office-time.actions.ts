@@ -13,6 +13,7 @@ export const officeTimeActions = createActionGroup({
     }),
     'Save Office Time': emptyProps(),
     'Save Office Time Success': emptyProps(),
+    'Save Target Percentage': (percentage: number) => ({ percentage }),
     'Add Office Time': emptyProps(),
     'Add Officeday': (officeday: Dayjs) => ({ officeday }),
     'Set Officedays': (officedays: Dayjs[]) => ({ officedays }),
@@ -24,10 +25,10 @@ export const officeTimeActions = createActionGroup({
     'Rotate Barcode Success': (barcode: string) => ({
       barcode,
     }),
-    'Save Working Hours Default': (hours: number) => ({ hours }),
     'Save Dashboard Settings': (key: DashboardType, active: boolean) => ({
       key,
       active,
     }),
+    'Reset Data': emptyProps(),
   },
 });

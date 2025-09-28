@@ -14,9 +14,10 @@
             [title]="'officetime.page.stats.percentage' | translate"
           />
         }
-        <ion-item>Arbeitstage: {{ stats.workdays }} </ion-item>
+        <ion-item>Arbeitstage: {{ stats.workdays }} / {{ stats.workdays }} </ion-item>
         <ion-item>Verbleibend: {{ stats.remaining }} </ion-item>
-        <ion-item>Bürotage: {{ stats.officedays }} </ion-item>
+        <ion-item>Bürotage: {{ stats.officedays }} / {{ stats.officedays }} </ion-item>
+        <ion-item>Freie Tage: {{ stats.freedays }} </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>

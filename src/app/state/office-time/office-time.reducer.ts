@@ -1,16 +1,11 @@
-import { createReducer, on } from '@ngrx/store';
-import { IOfficeTimeState } from '../../@types/types';
-import { applicationActions } from '../application.actions';
-import { officeTimeActions } from './office-time.actions';
-import {
-  dayjsFromString,
-  deserializeIsoStringMap,
-  deserializeIsoStrings,
-  validateFreedays,
-} from './office-time.utils';
+import {createReducer, on} from '@ngrx/store';
+import {IOfficeTimeState} from '../../@types/types';
+import {applicationActions} from '../application.actions';
+import {officeTimeActions} from './office-time.actions';
+import {dayjsFromString, deserializeIsoStringMap, deserializeIsoStrings, validateFreedays,} from './office-time.utils';
 
 export const initialOfficeTime: IOfficeTimeState = {
-  workingHoursDefault: 40,
+  targetPercentage: 50,
   freedays: [],
   holidays: {},
   officedays: [],
@@ -73,6 +68,17 @@ export const officeTimeReducer = createReducer(
       };
     }
   ),
+  on(officeTimeActions.saveTargetPercentage, (_state, { percentage }) => {
+    return { ..._state, targetPercentage: percentage };
+  }),
+
+  on(officeTimeActions.resetData, (_state) => {
+    return {
+      ...initialOfficeTime,
+      holidays: _state.holidays,
+      barcode: _state.barcode,
+    };
+  }),
   on(officeTimeActions.addFreeday, (_state, { freeday }): IOfficeTimeState => {
     if (_state.freedays?.find((day) => day.isSame(freeday, 'day')))
       return _state;
@@ -108,13 +114,6 @@ export const officeTimeReducer = createReducer(
   on(
     officeTimeActions.deleteBarcode,
     (_state): IOfficeTimeState => ({ ..._state, barcode: undefined })
-  ),
-  on(
-    officeTimeActions.saveWorkingHoursDefault,
-    (_state, { hours }): IOfficeTimeState => ({
-      ..._state,
-      workingHoursDefault: hours,
-    })
   ),
   on(
     officeTimeActions.saveDashboardSettings,

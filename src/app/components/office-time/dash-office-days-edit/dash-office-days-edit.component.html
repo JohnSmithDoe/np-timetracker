@@ -5,8 +5,14 @@
     </ion-card-header>
   }
   <ion-card-content>
-      <ion-datetime presentation="date" [multiple]="true" [value]="officedates()"
-                    [locale]="'de-DE'"
-      (ionChange)="updateOfficeDates($event)"/>
+    <ion-datetime
+      presentation="date"
+      [multiple]="true"
+      [value]="officedates()"
+      [locale]="'de-DE'"
+      [firstDayOfWeek]="1"
+      [highlightedDates]="holidaysAndFreedays()"
+      (ionChange)="updateOfficeDates($event)"
+    />
   </ion-card-content>
 </ion-card>
