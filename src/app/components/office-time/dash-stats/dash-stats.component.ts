@@ -4,8 +4,6 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonItem,
-  IonList,
 } from '@ionic/angular/standalone';
 import { DashboardStats } from '../../../@types/types';
 import { DashPercentageComponent } from '../dash-percentage/dash-percentage.component';
@@ -20,8 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    IonList,
-    IonItem,
     DashPercentageComponent,
     TranslateModule,
   ],
