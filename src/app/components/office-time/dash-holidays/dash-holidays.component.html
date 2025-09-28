@@ -8,8 +8,8 @@
     <ion-list class="dash-holidays-list">
       @for (holiday of holidays(); track $index) {
         <ion-item>
+          {{ holiday.date.format('DD.MMMM YYYY, dddd') }}
           {{ holiday.name }}
-          {{ holiday.date.format('ddd DD.MM.YYYY') }}
         </ion-item>
       }
     </ion-list>
