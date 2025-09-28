@@ -1,6 +1,6 @@
 # NP-time-tracker
 
-### [Github-page](https://johnsmithdoe.github.io/np-time-tracker/)
+### [Github-page](https://johnsmithdoe.github.io/np-timetracker/)
 
 ## Todo
 
