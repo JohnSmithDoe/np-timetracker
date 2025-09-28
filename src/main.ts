@@ -1,7 +1,7 @@
 import {HttpClient, provideHttpClient, withInterceptorsFromDi,} from '@angular/common/http';
 import {enableProdMode, importProvidersFrom, inject, LOCALE_ID, provideAppInitializer,} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
-import {provideRouter, RouteReuseStrategy} from '@angular/router';
+import {provideRouter, RouteReuseStrategy, withHashLocation} from '@angular/router';
 import {IonicRouteStrategy, provideIonicAngular,} from '@ionic/angular/standalone';
 import {IonicStorageModule} from '@ionic/storage-angular';
 import {provideEffects} from '@ngrx/effects';
@@ -45,7 +45,7 @@ void bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideHttpClient(withInterceptorsFromDi()),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideIonicAngular({ animated: true, mode: 'md' }),
     importProvidersFrom(IonicStorageModule.forRoot(storageConfig)),
     importProvidersFrom(

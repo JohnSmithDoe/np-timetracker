@@ -25,7 +25,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'tracking',
+    redirectTo: 'office-time',
     pathMatch: 'full',
   },
 ];
