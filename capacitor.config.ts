@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'np.afterwork.timetracker',
   appName: 'time-tracker',
-  webDir: 'www',
+  webDir: 'www/browser',
   server: {
     androidScheme: 'https',
   },
