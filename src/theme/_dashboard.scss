@@ -1,20 +1,17 @@
 $item-height-min-height: 264px;
 $item-height-max-height: 320px;
-$sm-item-width: 132px;
+$sm-item-width: 250px;
 $md-item-width: $sm-item-width * 2;
 $lg-item-width: $sm-item-width * 4;
 
 @mixin dashboard-item {
   display: block;
   min-height: $item-height-min-height;
-  min-width: $sm-item-width;
-  width: 100%;
    --ion-background-color: #3a3a3a;
 }
 @mixin dashboard-item-card {
   /* Ensure the card is a flex column so content can take the remaining height */
   ion-card {
-    //    --ion-background-color: #732222;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -49,4 +46,7 @@ $lg-item-width: $sm-item-width * 4;
 }
 @mixin dashboard-item-card-with-calendar {
   @include dashboard-item-card();
+  ion-datetime {
+    max-width: unset;
+  }
 }

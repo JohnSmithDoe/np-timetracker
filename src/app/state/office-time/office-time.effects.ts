@@ -61,16 +61,17 @@ export class OfficeTimeEffects {
   saveOn$ = createEffect(() => {
     return this.#actions$.pipe(
       ofType(
-        officeTimeActions.saveBarcode,
-        officeTimeActions.deleteBarcode,
-        officeTimeActions.rotateBarcodeSuccess,
-        officeTimeActions.addOfficeTime,
-        officeTimeActions.resetData,
-        officeTimeActions.saveDashboardSettings,
-        officeTimeActions.addOfficeday,
-        officeTimeActions.setOfficedays,
         officeTimeActions.addFreeday,
-        officeTimeActions.setFreedays
+        officeTimeActions.addOfficeTime,
+        officeTimeActions.addOfficeday,
+        officeTimeActions.deleteBarcode,
+        officeTimeActions.resetData,
+        officeTimeActions.rotateBarcodeSuccess,
+        officeTimeActions.saveBarcode,
+        officeTimeActions.saveDashboardSettings,
+        officeTimeActions.saveTargetPercentage,
+        officeTimeActions.setFreedays,
+        officeTimeActions.setOfficedays
       ),
       map(() => officeTimeActions.saveOfficeTime())
     );

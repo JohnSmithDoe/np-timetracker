@@ -15,26 +15,10 @@ $padding: 16px;
   gap: 1rem;
   align-items: stretch;
   grid-auto-flow: dense;
-  > * {
-    grid-column: span 2;
-  }
-  app-dash-percentage {
-    grid-column: span 1;
-  }
 
-  @media (min-width: #{dashboard.$sm-item-width * 3 + $padding * 4}) {
-    app-dash-holidays, app-dash-freedays, app-dash-days-list {
-      grid-column: span 3;
-    }
-  }
-
-  @media (min-width: #{dashboard.$sm-item-width * 4 + $padding * 5}) {
-    app-dash-holidays {
-      grid-column: span 4;
+  @media (min-width: #{dashboard.$sm-item-width * 2 + $padding * 3}) {
+    app-dash-officedays-edit, app-dash-freedays-edit, app-dash-holidays {
+      grid-column: span 2;
     }
   }
 }
-
-
-
-

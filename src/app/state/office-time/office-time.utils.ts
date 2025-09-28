@@ -27,7 +27,7 @@ export const getWorkdays = (
 export const getOfficedays = (type: TimePeriod, officedays: Dayjs[]) => {
   const start = dayjs().startOf(type);
   const end = start.endOf(type);
-  return daysBetween(start, end, isOfficeDay, officedays ?? []);
+  return daysBetween(start, end, (current) => isOfficeDay(current, officedays));
 };
 export const getFreedays = (type: TimePeriod, freedays: Dayjs[]) => {
   const start = dayjs().startOf(type);
@@ -44,6 +44,21 @@ export const getHolidays = (
   const end = start.endOf(type);
   return daysBetween(start, end, (current) => isHoliday(current, holidayDays));
 };
+
+export const getHolidaysNotOnWeekend = (
+  type: TimePeriod,
+  holidays: Record<string, Dayjs>
+) => {
+  const holidayDays = Object.values(holidays);
+  const start = dayjs().startOf(type);
+  const end = start.endOf(type);
+  return daysBetween(
+    start,
+    end,
+    (current) => !isWeekend(current) && isHoliday(current, holidayDays)
+  );
+};
+
 export const getRemainingWorkdays = (
   unit: TimePeriod,
   holidays: Dayjs[],
@@ -56,6 +71,9 @@ export const getRemainingWorkdays = (
     end,
     (current) => !isHolidayOrFreeday(current, holidays, freedays)
   );
+};
+const getTargetdays = (workdays: number, targetPercentage: number) => {
+  return Math.trunc(workdays * (targetPercentage / 100));
 };
 
 const allDaysBetween = (start: Dayjs, end: Dayjs) => {
@@ -71,10 +89,9 @@ const allDaysBetween = (start: Dayjs, end: Dayjs) => {
 const daysBetween = (
   start: Dayjs,
   end: Dayjs,
-  condition: (current: Dayjs) => boolean,
-  options?: Dayjs[]
+  condition: (current: Dayjs) => boolean
 ) => {
-  const days = options ?? allDaysBetween(start, end);
+  const days = allDaysBetween(start, end);
   return days.filter(
     (current) =>
       (current.isAfter(start, 'day') || current.isSame(start, 'day')) &&
@@ -113,8 +130,13 @@ export const isOfficeDay = (current: Dayjs, officeDays?: Array<Dayjs>) => {
   return !!officeDays?.find((officeday) => officeday.isSame(current, 'day'));
 };
 
-export const getPercentage = (officeDays: number, workDays: number) => {
-  return Math.trunc((officeDays / workDays) * 100);
+export const getTargetPercentage = (
+  workDays: number,
+  officeDays: number,
+  targetPercentage: number
+) => {
+  if (workDays <= 0) return 100;
+  return Math.trunc((((officeDays / workDays) * 100) / targetPercentage) * 100);
 };
 
 export const calculateStats = (
@@ -124,14 +146,25 @@ export const calculateStats = (
   const officedays = getOfficedays(period, state.officedays);
   const freedays = getFreedays(period, state.freedays);
   const holidays = getHolidays(period, state.holidays);
+  const holidaysNotOnWeekend = getHolidaysNotOnWeekend(period, state.holidays);
+  const workdaysTotal = getWorkdays(period, [], []);
   const workdays = getWorkdays(period, holidays, freedays);
   const remaining = getRemainingWorkdays(period, holidays, freedays);
+  const targetdays = getTargetdays(workdays.length, state.targetPercentage);
   return {
-    percentage: getPercentage(officedays.length, workdays.length),
+    percentage: getTargetPercentage(
+      workdays.length,
+      officedays.length,
+      state.targetPercentage
+    ),
     officedays: officedays.length,
+    targetdays,
     workdays: workdays.length,
+    workdaysTotal: workdaysTotal.length,
     remaining: remaining.length,
     freedays: freedays.length,
+    holidays: holidays.length,
+    holidaysNotOnWeekend: holidaysNotOnWeekend.length,
   };
 };
 

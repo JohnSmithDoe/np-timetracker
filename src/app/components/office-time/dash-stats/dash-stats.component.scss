@@ -3,3 +3,22 @@
   @include dashboard.dashboard-item();
 }
 @include dashboard.dashboard-item-card();
+.dash-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0 1rem;
+  padding: 1rem;
+
+  & > *:nth-child(odd) {
+    justify-self: start;
+  }
+
+  & > *:nth-child(even) {
+    justify-self: end;
+  }
+}
+
+app-dash-percentage {
+  width: 120px;
+  margin: 0 auto 1rem;
+}

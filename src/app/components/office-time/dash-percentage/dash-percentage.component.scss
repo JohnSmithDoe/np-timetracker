@@ -1,9 +1,3 @@
 @use '../../../../theme/dashboard';
 @use '../../../../theme/charts';
-:host {
-  @include dashboard.dashboard-item();
-  max-width: 200px;
-}
-@include dashboard.dashboard-item-card();
-
 @include charts.circular-meter();

@@ -123,8 +123,12 @@ export interface IonViewDidEnter {
 
 export type DashboardStats = {
   workdays: number;
+  workdaysTotal: number;
   officedays: number;
+  targetdays: number;
   freedays: number;
+  holidays: number;
+  holidaysNotOnWeekend: number;
   remaining: number;
   percentage: number;
 };
