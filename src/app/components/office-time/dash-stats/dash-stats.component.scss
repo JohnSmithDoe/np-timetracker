@@ -4,10 +4,11 @@
 }
 @include dashboard.dashboard-item-card();
 .dash-stats-grid {
+  font-size: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0 1rem;
-  padding: 1rem;
+  padding: 0;
 
   & > *:nth-child(odd) {
     justify-self: start;
@@ -15,6 +16,7 @@
 
   & > *:nth-child(even) {
     justify-self: end;
+    text-align: end;
   }
 }
 

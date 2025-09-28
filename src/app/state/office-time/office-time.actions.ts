@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps } from '@ngrx/store';
 import { Dayjs } from 'dayjs';
-import { DashboardType } from '../../@types/types';
+import { DashboardSettingsType } from '../../@types/types';
 
 export const officeTimeActions = createActionGroup({
   source: 'Office Time',
@@ -25,7 +25,10 @@ export const officeTimeActions = createActionGroup({
     'Rotate Barcode Success': (barcode: string) => ({
       barcode,
     }),
-    'Save Dashboard Settings': (key: DashboardType, active: boolean) => ({
+    'Save Dashboard Settings': (
+      key: DashboardSettingsType,
+      active: boolean
+    ) => ({
       key,
       active,
     }),

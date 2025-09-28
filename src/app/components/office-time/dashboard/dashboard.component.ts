@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  selectDashboardItems,
   selectDashboardSettings,
   selectFreedays,
   selectHolidayDays,
@@ -24,6 +25,7 @@ import {
   selectDashboardStatsWeek,
   selectDashboardStatsYear,
 } from '../../../state/office-time/office-time.stats.selectors';
+import { combineLatestWith, filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -55,6 +57,42 @@ export class DashboardComponent {
   readonly statsYear$ = this.#store.select(selectDashboardStatsYear);
 
   readonly dashboardSettings$ = this.#store.select(selectDashboardSettings);
+  readonly dashboardItems$ = this.#store.select(selectDashboardItems);
+
+  readonly visibleDashboardItems$ = this.dashboardItems$.pipe(
+    combineLatestWith(this.dashboardSettings$),
+    filter(([items, settings]) => !!items && !!settings),
+    map(([items, settings]) => {
+      return items.filter((item) => {
+        switch (item) {
+          case 'date':
+            return settings.showDateCard;
+          case 'button':
+            return true;
+          case 'officedays-list':
+            return settings.showOfficedaysCardList;
+          case 'officedays-edit':
+            return settings.showOfficedaysCardEdit;
+          case 'freedays-list':
+            return settings.showFreedaysCardList;
+          case 'freedays-edit':
+            return settings.showFreedaysCardEdit;
+          case 'stats-year':
+            return settings.showStatsYear;
+          case 'stats-quarter':
+            return settings.showStatsQuarter;
+          case 'stats-month':
+            return settings.showStatsMonth;
+          case 'stats-week':
+            return settings.showStatsWeek;
+          case 'holidays':
+            return settings.showHolidaysCard;
+          default:
+            return false;
+        }
+      });
+    })
+  );
 
   constructor() {
     addIcons({ add, remove });

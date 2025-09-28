@@ -249,12 +249,21 @@ export const validateFreedays = (
     .map(dayjsFromString);
 };
 
-export const daysToHighlightsInputTransform = (
+export const daysToHolidaysHighlightsInputTransform = (
   days?: Dayjs[] | null
 ): DateTimeHighlight[] =>
   (days ?? []).map((day) => ({
     date: day.format('YYYY-MM-DD'),
-    textColor: '#800080',
-    backgroundColor: '#ffc0cb',
-    border: '1px solid #e91e63',
+    textColor: '#fff',
+    backgroundColor: 'rgba(147,150,162,0.33)',
+    border: '2px solid #8f6d11',
+  }));
+export const daysToFreedaysHighlightsInputTransform = (
+  days?: Dayjs[] | null
+): DateTimeHighlight[] =>
+  (days ?? []).map((day) => ({
+    date: day.format('YYYY-MM-DD'),
+    textColor: '#fff',
+    backgroundColor: 'rgba(147,150,162,0.33)',
+    border: '1px solid #4d5061',
   }));

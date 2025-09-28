@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { officeTimeActions } from '../../../state/office-time/office-time.actions';
 import {
   dayjsToString,
-  daysToHighlightsInputTransform,
+  daysToHolidaysHighlightsInputTransform,
 } from '../../../state/office-time/office-time.utils';
 import { DateTimeHighlight } from '../../../@types/types';
 
@@ -45,7 +45,7 @@ export class DashFreedaysEditComponent {
 
   readonly holidays = input<DateTimeHighlight[], Dayjs[] | null | undefined>(
     [],
-    { transform: daysToHighlightsInputTransform }
+    { transform: daysToHolidaysHighlightsInputTransform }
   );
 
   updateFreeDatesFromCalender(ev: DatetimeCustomEvent) {

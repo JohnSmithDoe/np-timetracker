@@ -7,81 +7,95 @@
 @let statsQuarter = statsQuarter$ | async;
 @let statsYear = statsYear$ | async;
 @let dashSettings = dashboardSettings$ | async;
-
+@let dashItems = visibleDashboardItems$ | async;
 <div class="dash-grid">
-  @if (dashSettings?.showDateCard) {
-    <app-dash-date/>
-  }
-
-  <app-dash-button/>
-
-
-  @if (dashSettings?.showOfficedaysCardEdit) {
-    <app-dash-office-days-edit
-      [title]="'officetime.page.stats.office-days.edit' | translate"
-      [officedays]="officedays"
-      [holidays]="holidates"
-      [freedays]="freedays"
-    />
-  }
-
-  @if (dashSettings?.showOfficedaysCardList) {
-    <app-dash-days-list
-      [title]="'officetime.page.stats.office-days' | translate"
-      [days]="officedays"
-    />
-  }
-
-  @if (dashSettings?.showFreedaysCardEdit) {
-    <app-dash-freedays-edit
-      [title]="'officetime.page.stats.freedays.edit' | translate"
-      [freedays]="freedays"
-      [holidays]="holidates"
-    />
-  }
-  @if (dashSettings?.showFreedaysCardList) {
-    <app-dash-days-list
-      [title]="'officetime.page.stats.freedays.list' | translate"
-      [days]="freedays"
-    />
-  }
-
-
-  @if (dashSettings?.showStatsYear) {
-    <app-dash-stats
-      [title]="'officetime.page.stats.year' | translate"
-      [data]="statsYear"
-      [showPercentage]="dashSettings?.showPercentageCard"
-    />
-  }
-  @if (dashSettings?.showStatsQuarter) {
-    <app-dash-stats
-      [title]="'officetime.page.stats.quarter' | translate"
-      [data]="statsQuarter"
-      [showPercentage]="dashSettings?.showPercentageCard"
-    />
-  }
-
-  @if (dashSettings?.showStatsMonth) {
-    <app-dash-stats
-      [title]="'officetime.page.stats.month' | translate"
-      [data]="statsMonth"
-      [showPercentage]="dashSettings?.showPercentageCard"
-    />
-  }
-
- @if (dashSettings?.showStatsWeek) {
-    <app-dash-stats
-      [title]="'officetime.page.stats.week' | translate"
-      [data]="statsWeek"
-      [showPercentage]="dashSettings?.showPercentageCard"
-    />
-  }
-
-  @if (dashSettings?.showHolidaysCard) {
-    <app-dash-holidays
-      [title]="'officetime.page.stats.holidays' | translate"
-      [holidays]="holidays"
-    />
+  @for (item of dashItems; track item) {
+    @switch (item) {
+      @case ('date') {
+          <app-dash-date />
+      }
+      @case ('button') {
+        <app-dash-button />
+      }
+      @case ('officedays-list') {
+        @if (dashSettings?.showOfficedaysCardList) {
+          <app-dash-days-list
+            [title]="'officetime.page.stats.office-days' | translate"
+            [days]="officedays"
+          />
+        }
+      }
+      @case ('officedays-edit') {
+        @if (dashSettings?.showOfficedaysCardEdit) {
+          <app-dash-office-days-edit
+            [title]="'officetime.page.stats.office-days.edit' | translate"
+            [officedays]="officedays"
+            [holidays]="holidates"
+            [freedays]="freedays"
+          />
+        }
+      }
+      @case ('freedays-list') {
+        @if (dashSettings?.showFreedaysCardList) {
+          <app-dash-days-list
+            [title]="'officetime.page.stats.freedays.list' | translate"
+            [days]="freedays"
+          />
+        }
+      }
+      @case ('freedays-edit') {
+        @if (dashSettings?.showFreedaysCardEdit) {
+          <app-dash-freedays-edit
+            [title]="'officetime.page.stats.freedays.edit' | translate"
+            [freedays]="freedays"
+            [holidays]="holidates"
+          />
+        }
+      }
+      @case ('stats-year') {
+        @if (dashSettings?.showStatsYear) {
+          <app-dash-stats
+            [title]="'officetime.page.stats.year' | translate"
+            [data]="statsYear"
+            [showPercentage]="dashSettings?.showPercentageCard"
+          />
+        }
+      }
+      @case ('stats-quarter') {
+        @if (dashSettings?.showStatsQuarter) {
+          <app-dash-stats
+            [title]="'officetime.page.stats.quarter' | translate"
+            [data]="statsQuarter"
+            [showPercentage]="dashSettings?.showPercentageCard"
+          />
+        }
+      }
+      @case ('stats-month') {
+        @if (dashSettings?.showStatsMonth) {
+          <app-dash-stats
+            [title]="'officetime.page.stats.month' | translate"
+            [data]="statsMonth"
+            [showPercentage]="dashSettings?.showPercentageCard"
+          />
+        }
+      }
+      @case ('stats-week') {
+        @if (dashSettings?.showStatsWeek) {
+          <app-dash-stats
+            [title]="'officetime.page.stats.week' | translate"
+            [data]="statsWeek"
+            [showPercentage]="dashSettings?.showPercentageCard"
+          />
+        }
+      }
+      @case ('holidays') {
+        @if (dashSettings?.showHolidaysCard) {
+          <app-dash-holidays
+            [title]="'officetime.page.holidays' | translate"
+            [holidays]="holidays"
+          />
+        }
+      }
+    }
   }
 </div>

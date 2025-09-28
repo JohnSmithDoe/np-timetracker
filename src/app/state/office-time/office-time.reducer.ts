@@ -1,8 +1,13 @@
-import {createReducer, on} from '@ngrx/store';
-import {IOfficeTimeState} from '../../@types/types';
-import {applicationActions} from '../application.actions';
-import {officeTimeActions} from './office-time.actions';
-import {dayjsFromString, deserializeIsoStringMap, deserializeIsoStrings, validateFreedays,} from './office-time.utils';
+import { createReducer, on } from '@ngrx/store';
+import { IOfficeTimeState } from '../../@types/types';
+import { applicationActions } from '../application.actions';
+import { officeTimeActions } from './office-time.actions';
+import {
+  dayjsFromString,
+  deserializeIsoStringMap,
+  deserializeIsoStrings,
+  validateFreedays,
+} from './office-time.utils';
 
 export const initialOfficeTime: IOfficeTimeState = {
   targetPercentage: 50,
@@ -22,6 +27,19 @@ export const initialOfficeTime: IOfficeTimeState = {
     showStatsQuarter: true,
     showStatsYear: true,
   },
+  dashboardItems: [
+    'date',
+    'button',
+    'officedays-edit',
+    'officedays-list',
+    'freedays-edit',
+    'freedays-list',
+    'stats-year',
+    'stats-quarter',
+    'stats-month',
+    'stats-week',
+    'holidays',
+  ],
 };
 
 export const officeTimeReducer = createReducer(

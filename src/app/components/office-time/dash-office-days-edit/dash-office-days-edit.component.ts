@@ -14,7 +14,8 @@ import { officeTimeActions } from '../../../state/office-time/office-time.action
 import {
   dayjsFromString,
   dayjsToString,
-  daysToHighlightsInputTransform,
+  daysToFreedaysHighlightsInputTransform,
+  daysToHolidaysHighlightsInputTransform,
 } from '../../../state/office-time/office-time.utils';
 import { DateTimeHighlight } from '../../../@types/types';
 
@@ -37,11 +38,11 @@ export class DashOfficeDaysEditComponent {
   readonly officedays = input<Array<Dayjs> | undefined | null>();
   readonly holidays = input<DateTimeHighlight[], Dayjs[] | null | undefined>(
     [],
-    { transform: daysToHighlightsInputTransform }
+    { transform: daysToHolidaysHighlightsInputTransform }
   );
   readonly freedays = input<DateTimeHighlight[], Dayjs[] | null | undefined>(
     [],
-    { transform: daysToHighlightsInputTransform }
+    { transform: daysToFreedaysHighlightsInputTransform }
   );
   readonly holidaysAndFreedays = computed(() => {
     return [...this.holidays(), ...this.freedays()];

@@ -10,6 +10,13 @@ export const selectDashboardSettings = createSelector(
     return state.dashboardSettings;
   }
 );
+
+export const selectDashboardItems = createSelector(
+  selectOfficeTimeState,
+  (state) => {
+    return state.dashboardItems;
+  }
+);
 export const selectTargetPercentage = createSelector(
   selectOfficeTimeState,
   (state) => {

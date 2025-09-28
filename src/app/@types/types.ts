@@ -95,6 +95,7 @@ export interface IOfficeTimeState {
   freedays: Array<Dayjs>;
   barcode?: string;
   dashboardSettings: DashboardSettings;
+  dashboardItems: DashboardItemType[];
 }
 
 export type IOfficeTimeStateStorage = Omit<
@@ -159,7 +160,21 @@ export type DashboardSettings = {
   showStatsYear: boolean;
 };
 
-export type DashboardType = keyof DashboardSettings;
+export type DashboardSettingsType = keyof DashboardSettings;
+const DASHBOARD_ITEMS = [
+  'date',
+  'button',
+  'officedays-list',
+  'officedays-edit',
+  'freedays-list',
+  'freedays-edit',
+  'stats-year',
+  'stats-quarter',
+  'stats-month',
+  'stats-week',
+  'holidays',
+] as const;
+export type DashboardItemType = (typeof DASHBOARD_ITEMS)[number];
 
 export type DateTimeHighlight = {
   date: string;

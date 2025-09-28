@@ -7,11 +7,13 @@
   <ion-card-content>
     <ion-datetime
       presentation="date"
+      color="freeday"
       [multiple]="true"
       [value]="freedays()"
       [locale]="'de-DE'"
       [highlightedDates]="holidays()"
       [firstDayOfWeek]="1"
+      [preferWheel]="false"
       (ionChange)="updateFreeDatesFromCalender($event)"
     />
   </ion-card-content>

@@ -7,11 +7,13 @@
   <ion-card-content>
     <ion-datetime
       presentation="date"
+      color="data"
       [multiple]="true"
       [value]="officedates()"
       [locale]="'de-DE'"
       [firstDayOfWeek]="1"
       [highlightedDates]="holidaysAndFreedays()"
+      [preferWheel]="false"
       (ionChange)="updateOfficeDates($event)"
     />
   </ion-card-content>
